@@ -1,0 +1,26 @@
+package br.com.qualiti.swing.exemplos;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class ExJOptionPaneShowInput {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+	    JFrame frame = new JFrame("Frame simples");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setSize(400,300);
+	    frame.setLocation(300,200);
+	    frame.setVisible(true);
+
+	    int retorno = JOptionPane.showConfirmDialog(frame,"O cavalo de Napoleão era branco?","Pergunta básica", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+	    if(retorno == JOptionPane.YES_OPTION) {           JOptionPane.showMessageDialog(frame, “Boa memória!",           "Resultados", JOptionPane.ERROR_MESSAGE);
+	    }
+
+	}
+
+}

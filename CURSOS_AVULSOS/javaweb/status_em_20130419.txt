@@ -1,0 +1,40 @@
+Vimos:
+
+HTML, 
+JavaScript , trabalhamos uns exercicos interessantes com 
+validações e 
+geração de HTML com JavaScript, 
+CSS foi só uma visão geral.
+Servlets com foco em MVC, 
+servlets como controladores de requisição , 
+fazendo validações, 
+redirecionamentos etc, 
+tentando dar uma visão de como ocorre nos FrameWorks MVC.
+
+Começamos JSP ainda com esse foco Para nas proximas aulas pegar realmente mais forte depois de ter dado uma visão basica da coisa entrar no Struts que é o próximo assunto do curso, mas onde els verão tudo que para eles estava sendo feito manualmente, agora gerenciado por uma ferramenta.
+
+De JSP faltou ver a parte dos objetos implicitos pra frente, principalmente porque tinha alunos que não estavam fazendo os exercicios propostos na sala (Pega sempre esse feedback, acho que pequei nisso).
+
+Não dei a parte de XML porque pretendia fazer o seguinte:
+Dar uma visão mais geral e mostrar a aplicação com uso de AXIS pra gerar WebServices e criar um Cliente na aplicação pra consumir esse WS e mostrar transformado para os usuários do sistema. (Porém vai depender de você seguir esse caminho ou não).
+A abordagem da apostila é muito grande e carregada e acho que enche com detalhes demais que acabam servindo mais como um guia de consulta que guia de aprendizado.
+
+Quanto a turma :
+
+É bastante heterogênea, tem pessoas que nunca viram ou conhecem muito pouco até pessoas que ja trabalharam com Web em outras linguagens. 
+Alguns já fizeram curso na Qualiti de java basico e avançado.
+
+Alguns alunos me falaram que queriam ver o hibernate , mas não faz parte desse curso e pela carga horária não cabe.
+
+Minha estratégia de ensino foi a mesma que uso em outros cursos, mostrar o assunto e fazer exercicios simples pra consolidar esses conceitos.
+
+Como não estava com os exercicios tive dificuldades em fazer com que a turma ficasse ocupada durante a semana, 
+por isso iniciei um projeto que coloquei lá como proposta pra eles.(Mas acho que nos exercicios tem um projeto).
+
+O que deixo como resalva, que você mantenha o foco no assunto porque alguns alunos estavam constantemente 
+desviando do curso para fazerem perguntas sobre assuntos que estavam fora do escopo, 
+isso atrapalhava a aula e também soava ofensivo como aquelas brincadeiras onde os alunos ficam 
+tentando medir conhecimento com o instrutor. 
+Além de desagradável pode gerar muito stress. :P
+
+Fora essa resalva a turma é bem interessada, acho que os exercicios ajudarão bastante tanto na aula como nas atividades durante a semana.

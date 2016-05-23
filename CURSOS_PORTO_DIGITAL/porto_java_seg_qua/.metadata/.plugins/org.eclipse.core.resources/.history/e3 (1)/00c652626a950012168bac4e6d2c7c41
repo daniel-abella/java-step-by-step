@@ -1,0 +1,18 @@
+
+public class Q02 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		14. private Tree tree = new Tree();
+		15. public static void main(String [] args) {
+		16. Forest f = new Forest();
+		17. try {
+		18. FileOutputStream fs = new FileOutputStream("Forest.ser");
+		19. ObjectOutputStream os = new ObjectOutputStream(fs);
+		20. os.writeObject(f); os.close();
+		21. } catch (Exception ex) { ex.printStackTrace(); }
+		22. } }
+		23.
+		24. class Tree { }

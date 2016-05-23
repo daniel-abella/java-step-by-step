@@ -1,0 +1,21 @@
+package metodo;
+
+public class Externa {
+
+	private String um = "1";
+
+	public void fazAlgo(){
+
+		String queAlgo = "seiLa";
+
+		class AjudaFazerAlgo{
+
+			public AjudaFazerAlgo() {
+				System.out.println(um);
+				System.out.println(queAlgo);
+			}
+		}
+
+		AjudaFazerAlgo a = new AjudaFazerAlgo();
+	}
+}

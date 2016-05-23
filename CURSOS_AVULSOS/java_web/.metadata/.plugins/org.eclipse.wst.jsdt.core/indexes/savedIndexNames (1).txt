@@ -1,0 +1,4 @@
+INDEX VERSION 1.122+D:\miguel_angelo\Google Drive\desenvolvimento\workspaces\java_web\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1980980458.index
+1657998154.index
+2149142546.index

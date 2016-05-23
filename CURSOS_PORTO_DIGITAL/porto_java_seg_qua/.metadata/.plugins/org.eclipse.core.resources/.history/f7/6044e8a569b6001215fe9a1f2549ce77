@@ -1,0 +1,19 @@
+import java.awt.CardLayout;
+
+
+public class ClasseGenerica<T extends ClasseGenerica<Integer>> {
+
+	public T getValor(){
+
+		return null;
+	}
+
+	public static void main(String[] args) {
+
+		ClasseGenerica<String> cs = new ClasseGenerica<String>();
+		System.out.println(cs.getValor());
+
+		ClasseGenerica<Integer> ci = new ClasseGenerica<Integer>();
+		System.out.println(ci.getValor());
+	}
+}

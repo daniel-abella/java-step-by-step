@@ -1,0 +1,24 @@
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class ExtendsSuper {
+
+	public static void main(String[] args) {
+
+		somaExtends(new ArrayList<Integer>());
+		somaExtends(new ArrayList<Long>());
+		somaExtends(new ArrayList<Short>());
+	}
+
+	private static void somaExtends(List<? extends Number> valor){
+
+		valor.add(1.0);
+	}
+
+	private static void somaSuper(List<? extends Date> valor){
+
+	}
+
+}

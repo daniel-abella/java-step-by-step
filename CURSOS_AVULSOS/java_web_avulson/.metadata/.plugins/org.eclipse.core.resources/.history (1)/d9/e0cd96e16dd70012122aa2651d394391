@@ -1,0 +1,3 @@
+package sun.scjp; 
+2. public enum Color { RED, GREEN, BLUE } 
+1. 

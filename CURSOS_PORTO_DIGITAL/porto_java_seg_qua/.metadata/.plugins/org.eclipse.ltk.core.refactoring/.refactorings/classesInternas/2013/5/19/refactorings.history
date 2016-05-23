@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Externa.java&apos; to &apos;metodo.Externa.java&apos;&#x0D;&#x0A;- Original project: &apos;classesInternas&apos;&#x0D;&#x0A;- Destination element: &apos;metodo.Externa.java&apos;&#x0D;&#x0A;- Original element: &apos;metodo.Externa.java&apos;" description="Copy compilation unit" destination="/src&lt;metodo{Externa.java" element1="/src&lt;metodo{Externa.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1368050395048" units="1" version="1.0"/>
+</session>

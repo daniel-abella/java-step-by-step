@@ -1,0 +1,25 @@
+package serializacao.comum;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class SerializaObjetos {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		serializar(new Cachorro(7.5f, 30.5f, "Rex"));
+
+	}
+
+	private static void serializar(Object objeto) {
+
+		FileOutputStream fileOutputStream =
+				new FileOutputStream(objeto.getClass().getSimpleName()+".ser");
+
+
+	}
+
+}

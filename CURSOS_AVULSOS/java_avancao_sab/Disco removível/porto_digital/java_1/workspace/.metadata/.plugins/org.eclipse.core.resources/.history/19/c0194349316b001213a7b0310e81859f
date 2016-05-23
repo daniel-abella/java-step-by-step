@@ -1,0 +1,8 @@
+package br.com.qualiti.java1;
+
+public class UsaClasseDefault {
+
+	public void imprimirNome(){
+		
+	}	
+}

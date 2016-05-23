@@ -1,0 +1,30 @@
+package br.com.qualiti.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Utils {
+
+	public static String formatarData(Date data, String formato){
+
+		SimpleDateFormat format = new SimpleDateFormat(formato);
+
+		return format.format(data);
+	}
+
+	public static String imprimirData(Date data, String formato){
+
+		SimpleDateFormat format = new SimpleDateFormat(formato);
+
+		return format.format(data);
+	}
+
+	public String imprimirData2(Date data, String formato){
+
+		SimpleDateFormat format = new SimpleDateFormat(formato);
+
+		return format.format(data);
+	}
+
+
+}

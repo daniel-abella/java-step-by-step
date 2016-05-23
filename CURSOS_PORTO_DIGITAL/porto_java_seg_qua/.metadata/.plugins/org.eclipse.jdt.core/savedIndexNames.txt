@@ -1,0 +1,7 @@
+INDEX VERSION 1.126+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\porto_java_seg_qua\.metadata\.plugins\org.eclipse.jdt.core
+3297730832.index
+314097477.index
+1972738215.index
+319781473.index
+1336376291.index
+982877391.index

@@ -1,0 +1,14 @@
+package serializacao.comum;
+
+public class SerializaObjetos {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		serializar(new Cachorro(7.5f, 30.5f, "Rex"));
+
+	}
+
+}

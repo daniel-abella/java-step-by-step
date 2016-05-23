@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="treestyles.css" type="text/css"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--This file has been created with toxhtml.xsl--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Controle de Fluxo, Exceções e Assertivas</title><link rel="stylesheet" href="Controle de Fluxo, Exceções e Assertivas.html_files/treestyles.css" type="text/css"/><script type="text/javascript" src="Controle de Fluxo, Exceções e Assertivas.html_files/marktree.js"> 
+	</script></head><body><div class="basetop"><a href="#" onclick="expandAll(document.getElementById('base'))">Expand</a> -
+<a href="#" onclick="collapseAll(document.getElementById('base'))">Collapse</a></div><div id="base" class="basetext"><ul>
+	<li class="col" id="FMID_468085269FM"><img src="Controle de Fluxo, Exceções e Assertivas.html_files/icons/full-5.png" alt="full-5"/> <div class="nodecontent" style="font-size:100%;font-weight:bold;"><a href="OCJP_16.mm">Controle de Fluxo, Exceções e Assertivas</a> <a href="OCJP_16.mm"><img src="Controle de Fluxo, Exceções e Assertivas.html_files/ilink.png" alt="User Link" style="border-width:0"/></a></div>
+		<ul class="subexp">
+	<li class="col"><img src="Controle de Fluxo, Exceções e Assertivas.html_files/icons/button_ok.png" alt="button_ok"/> <div class="nodecontent">Tratamento de exceções (Obj. 2.4 e 2.5)</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Capturando uma exceção usando try-catch</div></li>
+	<li class="basic"><div class="nodecontent">Usando finally</div></li>
+	<li class="basic"><div class="nodecontent">Propagando exceções não capturadas</div></li>
+	<li class="basic"><div class="nodecontent">Definindo exceções</div></li>
+	<li class="col"><div class="nodecontent">Hierarquia de exceções</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent"><img src="../../../downloads/exceptions.jpg"/></div></li>
+	<li class="basic"><div class="nodecontent"><img src="ExceptionHierarchy.gif"/></div></li></ul></li>
+	<li class="basic"><div class="nodecontent">Manipulando uma hierarquia inteira de classes de execeções</div></li>
+	<li class="basic"><div class="nodecontent" style="font-size:100%;">Correspondência/Combinação de exceções</div></li>
+	<li class="basic"><div class="nodecontent">Declaração de exceções e interfaces públicas</div></li>
+	<li class="basic"><div class="nodecontent">Relançando a mesma exceção</div></li></ul></li>
+	<li class="col"><img src="Controle de Fluxo, Exceções e Assertivas.html_files/icons/button_ok.png" alt="button_ok"/> <div class="nodecontent">Erros e exceções comuns (Obj. 2.6)</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">De onde vem as exceções</div></li>
+	<li class="basic"><div class="nodecontent">Exceções lançadas pela JVM</div></li>
+	<li class="basic"><div class="nodecontent">Exceções lançadas programaticamente</div></li>
+	<li class="basic"><div class="nodecontent">Um resumo das exceções e erros para o exame</div></li></ul></li>
+	<li class="col"><img src="Controle de Fluxo, Exceções e Assertivas.html_files/icons/button_ok.png" alt="button_ok"/> <div class="nodecontent">Resumo de exceções</div>
+		<ul class="subexp">
+	<li class="col"><div class="nodecontent">podem ser</div>
+		<ul class="subexp">
+	<li class="col"><div class="nodecontent">Definidas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Criando uma subclasse de Exception</div></li></ul></li>
+	<li class="col"><div class="nodecontent">Declaradas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Colocando-se na assinatura do método a palavra throws seguida das exceções que ele pode lançar</div></li></ul></li>
+	<li class="col"><div class="nodecontent">Lançadas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Ou não se capturando a exceção ou usando  "throw e" ou "throw new MinhaExcecao()"</div></li></ul></li>
+	<li class="col"><div class="nodecontent">Tratadas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Usando-se blocos try-catch</div></li></ul></li></ul></li>
+	<li class="col"><div class="nodecontent">Quanto ao tipo são</div>
+		<ul class="subexp">
+	<li class="col"><div class="nodecontent">Checadas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Estendem de Exception</div></li>
+	<li class="basic"><div class="nodecontent">Devem ser declaradas</div></li>
+	<li class="basic"><div class="nodecontent">São lançadas programaticamente</div></li>
+	<li class="basic"><div class="nodecontent">Indicam quando uma condição necessárioa para o funcionamento da operação não é satisfeita</div></li>
+	<li class="col"><div class="nodecontent">Alguns exemplos são</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Exceções criadas que estendem de Exception</div></li>
+	<li class="basic"><div class="nodecontent">IllegalArgumentException</div></li>
+	<li class="basic"><div class="nodecontent">IllegalStateException</div></li>
+	<li class="basic"><div class="nodecontent">NumberFormatException</div></li></ul></li></ul></li>
+	<li class="col"><div class="nodecontent">Não checadas</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Extendem de RuntimeException</div></li>
+	<li class="basic"><div class="nodecontent">A sua declaração é opcional (normalmente não se declara)</div></li>
+	<li class="basic"><div class="nodecontent">São lançadas pela JVM</div></li>
+	<li class="basic"><div class="nodecontent" style="color:#990000;">Representam defeitos no programa, bugs</div></li>
+	<li class="col"><div class="nodecontent">Alguns exemplos são</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">ArrayIndexOutOffBoundsException</div></li>
+	<li class="basic"><div class="nodecontent">ClassCastException</div></li>
+	<li class="basic"><div class="nodecontent">NullPointerException</div></li></ul></li></ul></li>
+	<li class="col"><div class="nodecontent" style="color:#338800;">Erros</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Estendem de Error</div></li>
+	<li class="basic"><div class="nodecontent">A sua declaração é opcional (normalmente não se declara)</div></li>
+	<li class="basic"><div class="nodecontent">São lançadas pela JVM</div></li>
+	<li class="basic"><div class="nodecontent">Representam erros ocorrido internamente na JVM (alguns impossibilitam a continuação do programa)</div></li>
+	<li class="col"><div class="nodecontent">Alguns exemplos são</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">ExceptionInInitializerError</div></li>
+	<li class="basic"><div class="nodecontent">StackOverFlowError</div></li>
+	<li class="basic"><div class="nodecontent" style="font-size:100%;font-weight:bold;">NoClassDefFoundError</div></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></div></body></html>

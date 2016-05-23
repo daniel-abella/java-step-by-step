@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>RespostaServlet</display-name>
+  <welcome-file-list>
+    <welcome-file>menuAdm.html</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <display-name>ServletCriarConta</display-name>
+    <servlet-name>ServletCriarConta</servlet-name>
+    <servlet-class>qualiti.banco.web.ServletCriarConta</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>ServletListarContas</display-name>
+    <servlet-name>ServletListarContas</servlet-name>
+    <servlet-class>qualiti.banco.web.ServletListarContas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletListarContas</servlet-name>
+    <url-pattern>/ServletListarContas</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletCriarConta</servlet-name>
+    <url-pattern>/ServletCriarConta</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>

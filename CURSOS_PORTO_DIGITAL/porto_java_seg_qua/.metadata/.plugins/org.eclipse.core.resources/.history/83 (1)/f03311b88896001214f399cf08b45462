@@ -1,0 +1,24 @@
+package arquivos;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ManipulaArquivos {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static boolean criarArquivo(String path) throws IOException{
+
+		File file = new File(path);
+
+		return file.createNewFile();
+	}
+
+
+}

@@ -1,0 +1,25 @@
+package br.com.qualiti.java1;
+
+public class ClasseVarArgs {
+
+	public void fazerAlgo(String... strings ){
+		
+	}
+	
+	public void fazerAlgo2(String... strings, 
+			               String outro ){
+		
+	}
+	
+	public void fazerAlgo3(String outro,
+			               String... strings 
+             ){
+
+	}
+	
+	public void fazerAlgo4(String outro,
+            String[] strings){
+
+}		
+	
+}

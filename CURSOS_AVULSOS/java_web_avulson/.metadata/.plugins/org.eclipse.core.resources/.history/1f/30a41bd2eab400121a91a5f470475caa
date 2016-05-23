@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Consultar Arquivos</title>
+</head>
+<body>
+<h1>Consulta de Arquivos</h1>
+
+<form action="/exercicios02/listaArquivos">
+
+Diretório: <input type="text" name="diretorio"/><br>
+Extensão: <input type="text" name="extensao"/>
+
+<input type="submit" value="Pesquisar Arquivos"/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+import java.util.*;
+2. public class Old {
+3. public static Object get0(List list) {
+4. return list.get(0);
+5. }
+6. }

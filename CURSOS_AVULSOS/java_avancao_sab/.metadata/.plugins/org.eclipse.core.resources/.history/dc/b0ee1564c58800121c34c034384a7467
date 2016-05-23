@@ -1,0 +1,21 @@
+package br.com.qualiti.swing.exemplos;
+import javax.swing.*;
+import java.awt.*;
+
+public class FrameComponentes {
+  public static void main(String[] args) {
+
+    JFrame frame = new JFrame("Frame com componentes");
+    JLabel lblTexto = new JLabel("Banco Datasus", JLabel.CENTER);
+    JButton btnSair = new JButton("Sair");
+    	//...
+    frame.getContentPane().add(lblTexto, BorderLayout.CENTER);
+    frame.getContentPane().add(btnSair, BorderLayout.SOUTH);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    frame.setSize(400,300);
+    frame.setLocation(300,200);
+    frame.setVisible(true);
+		//...
+	}
+}

@@ -1,0 +1,42 @@
+package anonimo.argumento;
+
+public class Externa {
+
+	abstract class Usuario{
+
+		private String login;
+
+		public String getLogin() {
+			return login;
+		}
+
+		public void setLogin(String login) {
+			this.login = login;
+		}
+	}
+
+	public void fazAlgo(){
+
+		long codigo = realizaAuditoria(
+
+			new Auditavel() {
+				public long getCodigoAuditoria() {
+					return System.currentTimeMillis();
+				}
+			},
+
+			new Usuario() {
+				public String getLogin() {
+					return getLogin()+"=";
+				}
+			}
+
+		);
+	}
+
+	private long realizaAuditoria(Auditavel auditavel,
+			                      Usuario usuario){
+
+		return auditavel.getCodigoAuditoria();
+	}
+}

@@ -1,0 +1,11 @@
+public class Test {
+
+	public static void main(String[] args) {
+
+		Byte b1 = 12;
+		Byte b2 = 12;
+
+		System.out.println(b1 == b2);
+	}
+
+}

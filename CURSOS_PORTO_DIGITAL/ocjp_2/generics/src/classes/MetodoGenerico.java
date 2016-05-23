@@ -1,0 +1,40 @@
+package classes;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class MetodoGenerico {
+
+
+	public static void main(String[] args) {
+		MetodoGenerico generico =
+				new MetodoGenerico();
+
+		Integer rI = generico.somar(1, 1);
+		Number rN = generico.somar(1L, 1);
+		Object rO = generico.somar(1L, "1");
+
+		Object rO1 = generico.somarDois(1L, new Date());
+
+		generico.somarDois(1, new Date());
+	}
+
+	public <T extends Number> T somar(T arg1, T arg2){
+
+		return null;
+	}
+
+	public <T extends Number,
+	        D extends Date,
+	        E> E somarDois(T arg1,
+			               D arg2){
+
+		return null;
+	}
+
+	public String somar(String arg1, String arg2){
+
+		return null;
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;file&apos; from expression &apos;new File(path)&apos;&#x0D;&#x0A;- Original project: &apos;requestDispatcherExemplo&apos;&#x0D;&#x0A;- Variable name: &apos;file&apos;&#x0D;&#x0A;- Destination method: &apos;br.com.qualiti.javaweb.filter.LogaParametrosRequest.doFilter()&apos;&#x0D;&#x0A;- Variable expression: &apos;new File(path)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;file&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;br.com.qualiti.javaweb.filter{LogaParametrosRequest.java" name="file" replace="true" selection="1571 14" stamp="1368575003651" version="1.0"/>
+</session>

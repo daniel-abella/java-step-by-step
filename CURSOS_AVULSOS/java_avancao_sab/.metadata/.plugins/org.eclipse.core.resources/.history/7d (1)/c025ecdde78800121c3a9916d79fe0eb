@@ -1,0 +1,118 @@
+package br.com.qualiti.banco.swing;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import repositorios.RepositorioCliente;
+import br.com.qualiti.banco.TbCliente;
+
+public class JanelaPrincipal {
+
+	private JFrame frame;
+	private JTable table;
+	private JButton btnA;
+	private JButton btnNewButton;
+	RepositorioCliente repositorio = new RepositorioCliente();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+
+					JanelaPrincipal window = new JanelaPrincipal();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public JanelaPrincipal() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		table = new JTable();
+		table.setModel(getDefaultTableModel());
+		frame.getContentPane().add(table, BorderLayout.CENTER);
+
+		btnA = new JButton("A");
+		btnA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetarTabela();
+			}
+
+		});
+		frame.getContentPane().add(btnA, BorderLayout.WEST);
+
+		btnNewButton = new JButton("B");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				carregarClientes();
+			}
+
+
+		});
+		frame.getContentPane().add(btnNewButton, BorderLayout.SOUTH);
+	}
+
+	private void resetarTabela() {
+		table.setModel(getDefaultTableModel());
+
+	}
+
+	private void carregarClientes() {
+
+		List<TbCliente> clientes = repositorio.list();
+		List<String[]> dadosClientes = new ArrayList<String[]>();
+
+		for (TbCliente cliente : clientes) {
+			String clienteArray = new String(){cliente.getCpf(),cliente.getNome()};
+			dadosClientes.add();
+		}
+
+
+
+	}
+
+
+
+	private DefaultTableModel getDefaultTableModel() {
+
+		Object[][] dados = new Object[][] {{null, null }, };
+		String[] colunas = new String[] { "CPF", "Nome" };
+
+		return new DefaultTableModel(dados,	colunas) {
+			Class[] columnTypes = new Class[] { String.class, String.class };
+
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		};
+	}
+
+}

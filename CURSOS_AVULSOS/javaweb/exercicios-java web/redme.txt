@@ -1,0 +1,1 @@
+todos as respostas estão configuradas para que as libs de struts, jstl, jsf e etc estejam dentro da pasta lib do tomcat.

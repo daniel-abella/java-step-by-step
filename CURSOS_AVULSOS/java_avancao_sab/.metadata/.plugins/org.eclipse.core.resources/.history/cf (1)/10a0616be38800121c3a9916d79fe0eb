@@ -1,0 +1,15 @@
+package br.com.qualiti.banco.swing;
+
+import javax.swing.table.DefaultTableModel;
+
+public class ClienteTableModel extends DefaultTableModel {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;excecoes/plano_aula.t&apos; to &apos;plano_aula.txt&apos;" description="Rename resource &apos;plano_aula.t&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="plano_aula.t" name="plano_aula.txt" stamp="1382805024987" updateReferences="true"/>
+</session>

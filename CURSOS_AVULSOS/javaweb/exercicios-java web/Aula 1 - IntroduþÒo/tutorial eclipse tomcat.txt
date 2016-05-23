@@ -1,0 +1,10 @@
+http://www.windofkeltia.com/j2ee/wtp-tutorial.html
+
+1.Faça o Download e instale eclipse JEE: http://www.eclipse.org/downloads/
+2.Faça o Download e instale JDK: http://java.sun.com/javase/downloads/index.jsp
+3.Faça o Download e instale tomcat: http://tomcat.apache.org/
+4.Configure JDK no eclipse 
+5.Configure tomcat no eclipse 
+6.Crie um projeto "dynamic web project"
+7.Configure o projeto para executar em um servidor tomcat
+8.Execute o projeto

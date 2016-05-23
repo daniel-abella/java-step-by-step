@@ -1,0 +1,40 @@
+package map;
+
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class HashTableTeste {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
+		hashMap.put("a","a");
+		hashMap.put("m","m");
+		hashMap.put("t","t");
+		hashMap.put("i","i");
+		hashMap.put("p","p");
+		hashMap.put("q","q");
+		hashMap.put("q","789");
+		hashMap.put("q",null);
+		hashMap.put(null,"3333333");
+
+		System.out.println(hashMap.get(null));
+
+		Set<String> chaves = hashMap.keySet();
+		Collection<Object> valores = hashMap.values();
+
+		Set<Entry<String, Object>> chavesValores
+		= hashMap.entrySet();
+
+		for (Entry<String, Object> entry : chavesValores) {
+			System.out.println(entry.getKey() +" - "+entry.getValue());
+		}
+	}
+
+}

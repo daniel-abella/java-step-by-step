@@ -1,0 +1,45 @@
+package snippet;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Snippet {
+	public static void append(List list) {
+		list.add("0042");
+	}
+
+	public static void main(String[] args) {
+
+		List<Integer> intList = new ArrayList<Integer>();
+		append(intList);
+		Object integer = intList.get(0);
+		System.out.println(integer);
+
+		somar(new Long(1));
+
+	}
+
+
+	public static <T extends Number,
+	               D extends Comparable<String>> T somar2(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+
+		return inteiro;
+	}
+
+	public static <T extends Number> T somar(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+
+		return inteiro;
+	}
+}

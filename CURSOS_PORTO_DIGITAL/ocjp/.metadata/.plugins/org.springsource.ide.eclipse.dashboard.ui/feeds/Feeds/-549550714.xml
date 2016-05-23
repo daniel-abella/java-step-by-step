@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Spring</title>
+  <link rel="alternate" href="https://spring.io/blog" />
+  <link rel="self" href="https://spring.io/blog.atom" />
+  <id>http://springsource.org/blog.atom</id>
+  <icon>https://spring.io/favicon.ico</icon>
+  <updated>2013-10-25T16:30:16Z</updated>
+  <entry>
+    <title>Spring Data Release Train Babbage - SR1 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/25/spring-data-release-train-babbage-sr1-released" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Oliver Gierke</name>
+    </author>
+    <id>tag:spring.io,2013-10-25:1213</id>
+    <updated>2013-10-25T16:30:16Z</updated>
+    <content type="html">&lt;p&gt;The Spring Data team has just released the first service release for the Babbage release train. It includes the following modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Spring Data Commons 1.6.2 - &lt;a href="http://docs.spring.io/spring-data/commons/docs/1.6.2.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/commons/docs/1.6.2.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-commons%7C1.6.2.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data JPA 1.4.2 - &lt;a href="http://docs.spring.io/spring-data/jpa/docs/1.4.2.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/jpa/docs/1.4.2.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-jpa%7C1.4.2.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data MongoDB 1.3.2 - &lt;a href="http://docs.spring.io/spring-data/mongodb/docs/1.3.2.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/mongodb/docs/1.3.2.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-mongodb%7C1.3.2.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data Neo4j 2.3.2 - &lt;a href="http://docs.spring.io/spring-data/neo4j/docs/2.3.2.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/neo4j/docs/2.3.2.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-neo4j%7C2.3.2.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;The release bundles a bunch of important enhancements and bug fixes and is a recommended upgrade. You can find all issues fixed in this release in our &lt;a href="https://jira.springsource.org/issues/?filter=14390"&gt;JIRA&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;The next step will be a first milestone of the Codd release train with a few great new features, especially for the MongoDB module. More details about that &lt;a href="https://github.com/spring-projects/spring-data-commons/wiki/Release-Train-Codd"&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>The spring.io site</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/23/the-spring-io-site" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Chris Beams</name>
+    </author>
+    <id>tag:spring.io,2013-10-23:1209</id>
+    <updated>2013-10-23T17:55:15Z</updated>
+    <content type="html">&lt;pre&gt;
+$ curl -I springsource.org
+HTTP/1.1 301 Moved Permanently
+Content-length: 0
+Date: Mon, 9 Sep 2013 19:30:00 PST
+Location: http://spring.io
+&lt;/pre&gt;
+
+&lt;p&gt;Chances are good that if you're reading this post you're well aware that springsource.org has been redesigned and relaunched as &lt;a href="http://spring.io"&gt;spring.io&lt;/a&gt;. We're happy to report that since &lt;a href="https://www.youtube.com/watch?v=jplkJIHPGos&amp;amp;feature=player_detailpage#t=3533"&gt;the launch at SpringOne&lt;/a&gt; last month, reception for the new site has been positive and constructive. Thanks to all that have been providing feedback via &lt;a href="http://twitter.com/springcentral"&gt;@springcentral&lt;/a&gt; ? please keep it coming!&lt;/p&gt;
+
+&lt;p&gt;If you are looking around for the first time, the all-new &lt;a href="/guides"&gt;collection of guides&lt;/a&gt; is a good place to start. Keep in mind that &lt;a href="https://github.com/spring-guides"&gt;each guide is backed by a GitHub repository&lt;/a&gt;, meaning you can clone everything locally and provide feedback via issues and pull requests. Plenty of folks have been doing that already and we really appreciate it.&lt;/p&gt;
+
+&lt;p&gt;Also, don't forget about &lt;a href="http://spring.io/search?q=Spring+Boot"&gt;search&lt;/a&gt;. Try searching for something in the Spring world that you're already familiar with ? perhaps a topic like &lt;a href="http://spring.io/search?q=transaction+management"&gt;transaction management&lt;/a&gt; or a class like &lt;a&gt;RestTemplate&lt;/a&gt; or &lt;a&gt;JdbcTemplate&lt;/a&gt;. Notice that you can use the facet control on the right to filter and drill down to precisely what's relevant to you. For example, narrowing your way to matches for &lt;a href="http://spring.io/search?q=RestTemplate&amp;amp;filters=Projects%2FReference&amp;amp;filters=Projects%2FSpring+Framework%2F3.2.4.RELEASE"&gt;"RestTemplate" in Spring Framework 3.2.4's reference documentation&lt;/a&gt;. Have fun exploring, and let us know what you think.&lt;/p&gt;
+
+&lt;h2&gt;
+&lt;a name="whats-next" class="anchor" href="#whats-next"&gt;&lt;span class="octicon octicon-link"&gt;&lt;/span&gt;&lt;/a&gt;What's next&lt;/h2&gt;
+
+&lt;p&gt;We built spring.io with two major goals in mind. The first is that it become a day-to-day resource that's as useful as possible for developers solving problems and building applications with Spring. This is and will continue to be a work in progress based on actual experience and what we hear from you.&lt;/p&gt;
+
+&lt;p&gt;The second goal is to use spring.io as a flagship reference application. As you may know, the site is built from top to bottom using the latest Spring technology, including &lt;a href="http://spring.io/spring-boot"&gt;Spring Boot&lt;/a&gt;, Spring Framework 4 and more?and it's all deployed on the public &lt;a href="http://www.cloudfoundry.com"&gt;Cloud Foundry&lt;/a&gt; instance at &lt;a href="http://run.pivotal.io"&gt;run.pivotal.io&lt;/a&gt;. It's the ultimate dogfooding exercise for us, but what we're really excited about is showing it off to you. The team is hard at work getting spring.io ready to be open-sourced later this year ? this will include of course the code for the app and services that power the site, but also documentation to guide you as you explore. &lt;a href="http://spring.io/blog.atom"&gt;Stay tuned to the blog&lt;/a&gt; and &lt;a href="http://twitter.com/springcentral"&gt;@springcentral&lt;/a&gt; for that announcement and for regular posts afterward detailing different aspects of the implementation.&lt;/p&gt;
+
+&lt;h2&gt;
+&lt;a name="special-thanks" class="anchor" href="#special-thanks"&gt;&lt;span class="octicon octicon-link"&gt;&lt;/span&gt;&lt;/a&gt;Special thanks&lt;/h2&gt;
+
+&lt;p&gt;As mentioned during the SpringOne keynote, spring.io was built with our colleagues at &lt;a href="http://pivotallabs.com/team"&gt;Pivotal Labs&lt;/a&gt;, and we couldn't have done it without them?not nearly as quickly anyway. The Spring team learned a lot about agile development done "the Pivotal way" ? a process which, as the lead of the project, I found to be minimal, practical, and most importantly, super-productive. The Labs team also learned a lot about Spring and provided us with a fresh perspective and plenty of feedback along the way. Notably, Spring Boot was heavily influenced by the practical realities of building spring.io with it; the Labs team worked day-to-day with co-lead &lt;a href="http://spring.io/team/dsyer"&gt;Dave Syer&lt;/a&gt; and happily, Boot is?even in its pre-1.0 milestones?all the more mature and useful for it.&lt;/p&gt;
+
+&lt;p&gt;Last but not least: we are extremely happy that spring.io is
+the new home of Spring, and we'd like to acknowledge the team at
+&lt;a href="http://nic.io"&gt;nic.io&lt;/a&gt; for their help in securing the domain name. They were simply
+great working with us. As you may have noticed, the .io TLD is a
+pretty popular piece of real estate these days, and many technology
+projects now prefer .io over .com or .org. We weren't the only ones
+interested in a short dictionary domain name like 'spring' and would
+like to thank nic.io for working with all parties towards a fair
+outcome. Thanks!&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Webinar Replay: Building WebSocket Browser Applications with Spring</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/23/webinar-replay-building-websocket-browser-applications-with-spring" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Chloe Jackson</name>
+    </author>
+    <id>tag:spring.io,2013-10-23:1211</id>
+    <updated>2013-10-23T15:18:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Rossen Stoyanchev&lt;/p&gt;
+
+&lt;p&gt;Slides: &lt;a href="https://github.com/rstoyanchev/webinar-websocket-spring"&gt;https://github.com/rstoyanchev/webinar-websocket-spring&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Code: &lt;a href="https://github.com/rstoyanchev/spring-websocket-portfolio"&gt;https://github.com/rstoyanchev/spring-websocket-portfolio&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So, you've written a "Hello world!" WebSocket application or perhaps even a chat sample. You're able to exchange messages even in pre-Servlet 3.1 containers and pre-IE 10 browsers (that don't yet support WebSocket) thanks to the SockJS protocol and Spring's support for it. However a message is a blank page that can have any content. Whatever message format you choose, proprietary or standard, both client and server need to understand it as well as distinguish different kinds of messages. You need support for the publish-subscribe pattern central to messaging applications so you can broadcast messages to one or more subscribers. You need to incorporate security, validation, and so on. In short you need to build a real-world application. If you're used to web applications (and Spring MVC annotated controllers) you are familiar with the foundation that HTTP provides including URLs (nouns), HTTP methods (verbs), headers, parameters, and others. Imagine building an application without HTTP, just a socket. WebSocket gives you this brand new, exciting capability -- full duplex, two-way communication -- yet you no longer have an application-level protocol. Can an entire application be built around a single Endpoint class processing all messages, assuming a single WebSocket connection between browser and server? Join Rossen Stoyanchev as he demonstrates that, thankfully, the WebSocket protocol has a built-in sub-protocol mechanism.&lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/mmIza3L64Ic" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>SpringOne2GX 2013 Day 2 Keynote</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/23/springone2gx-2013-day-2-keynote" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Chloe Jackson</name>
+    </author>
+    <id>tag:spring.io,2013-10-23:1210</id>
+    <updated>2013-10-23T15:07:00Z</updated>
+    <content type="html">&lt;p&gt;Recorded at SpringOne 2GX 2013 live in Santa Clara, CA.&lt;/p&gt;
+
+&lt;p&gt; Speakers: Adrian Colyer, Graeme Rocher, Michael Minella, Mark Fisher, Mark Pollack&lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/QRHJCYSflUw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>This Week in Spring - October 22nd, 2013</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/22/this-week-in-spring-october-22nd-2013" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2013-10-23:1208</id>
+    <updated>2013-10-22T10:20:00Z</updated>
+    <content type="html">&lt;p&gt;Welcome to another installment of This Week in Spring! This week, I'm in Singapore to talk to developers about the latest and greatest coming out of the Spring group at Pivotal as part of my participation in the &lt;a href="http://blog.gopivotal.com/news-2/pivotal-opening-up-big-data-opportunities-for-asia"&gt;Pivotal APJ Summit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Spring lead Juergen Hoeller will be doing a webinar called &lt;a href="https://spring.io/blog/2013/10/16/oct-24th-webinar-modern-component-design-with-spring"&gt;&lt;em&gt;Modern Component Design with Spring&lt;/em&gt; on October 24th&lt;/a&gt; (2 days from now!) Be sure to be there, it's going to be awesome! &lt;/li&gt;
+&lt;li&gt;On November 19th, I'll join C24 CEO John Davies for a talk, &lt;em&gt;Dynamic Routing at 1 Million Per Second with Spring Integration&lt;/em&gt; where we'll discuss how to scale processing with &lt;a href="https://spring.io/blog/2013/10/16/nov-19th-webinar-dynamic-routing-at-1-million-per-second-with-spring-integration"&gt;C24's excellent integration technology and Spring Integration&lt;/a&gt;&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;Join me on November 21st for a webinar introducing the &lt;a href="https://spring.io/blog/2013/10/16/nov-21st-webinar-have-you-seen-spring-lately"&gt;latest and greatest coming out of the Spring family as part of Pivotal&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Our friend &lt;a href="http://twitter.com/xavips"&gt;Xavier Padro&lt;/a&gt; is back at it again! This time, he's got a blog on &lt;a href="http://xpadro.blogspot.com.es/2013/10/spring-integration-using-rmi-channel.html"&gt;using Spring Integration's RMI Channel Adapters&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data ninja &lt;a href="http://twitter.com/olivergierke"&gt;Oliver Gierke&lt;/a&gt; has put up the slides to his talk on developing for Spring as part of Pivotal, looking at the &lt;a href="https://speakerdeck.com/olivergierke/spring-dot-io-professional-open-source-software-development-at-pivotal"&gt;tools and methodologies employed&lt;/a&gt;. This is a great read if you've ever wanted a look inside the chocolate factory.. &lt;/li&gt;
+&lt;li&gt;Spring Data ninja &lt;a href="http://twitter.com/olivergierke"&gt;Oliver Gierke&lt;/a&gt; has put together a nice response to the question, "&lt;a href="http://bit.ly/15ZVJ3A"&gt;what is the difference between Spring HATEOAS and SpringData REST&lt;/a&gt;?" Nice question and great answer!&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href="http://twitter.com/petrikainulaine"&gt;Our pal Petri Kainulainen&lt;/a&gt; is at again, this time with a &lt;a href="http://bit.ly/H6KSLr"&gt;nice   tutorial on Sping Data Solr&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;JavaBeat&lt;/em&gt; blog has a nice introduction to how to use the &lt;code&gt;@RequestHeader&lt;/code&gt; &lt;a href="http://www.javabeat.net/2013/10/requestheader-spring-mvc/"&gt;annotation in Spring MVC&lt;/a&gt;. Check it out!&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;Java Papers&lt;/em&gt; blog has a nice post on &lt;a href="http://javapapers.com/spring/spring-mvc-handler-interceptor"&gt;how to use a Spring MVC Handler Interceptor&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;InterTech&lt;/em&gt; bkig has a nice post introducing Spring MVC's &lt;a href="http://www.intertech.com/Blog/understanding-spring-mvc-model-and-session-attributes"&gt;&lt;code&gt;@SesssionAttribute&lt;/code&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</content>
+  </entry>
+  <entry>
+    <title>Nov 21st Webinar: Have You Seen Spring Lately?</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/16/nov-21st-webinar-have-you-seen-spring-lately" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-17:1206</id>
+    <updated>2013-10-16T17:12:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Josh Long&lt;/p&gt;
+
+&lt;p&gt;It's been an amazing year for Spring! 2013 saw the Spring family join Pivotal where - along with Cloud Foundry and our data driven technologies (the Pivotal HD Hadoop distribution, the GemFire data grid, and the RabbitMQ message broker) - Spring supports today's application workloads and profiles. Today's Spring embraces Java 8, Scala, Groovy, provides a best-in-class REST stack, supports the open web, mobile applications, big-data applications and batch workloads. Today's Spring is easy to get started with, easy to learn, and embraces conventions over configuration. Today's Spring is part of the Spring.IO platform. Today's Spring is...Pivotal.  Join Spring developer advocate Josh Long as he re-introduces you to today's Spring, a Spring you may not have seen yet. &lt;/p&gt;
+
+&lt;p&gt; Tuesday, November 21&lt;/p&gt;
+
+&lt;p&gt; EMEA: &lt;/p&gt;
+
+&lt;p&gt;3:00pm GMT (London, GMT)&lt;/p&gt;
+
+&lt;p&gt; &lt;a href="http://play.gopivotal.com/OSS_Webinar_HaveyouseenSpringlately7AM_Register.html"&gt;Register&lt;/a&gt; now!&lt;/p&gt;
+
+&lt;p&gt; NORAM:  &lt;/p&gt;
+
+&lt;p&gt;10:00am PST (San Francisco, GMT-08:00) &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://play.gopivotal.com/OSS_Webinar_HaveyouseenSpringlately10AM_Register.html"&gt;Register&lt;/a&gt; now!&lt;/p&gt;
+
+&lt;p&gt;?&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Nov 19th Webinar: Dynamic routing at 1 million per second with Spring Integration</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/16/nov-19th-webinar-dynamic-routing-at-1-million-per-second-with-spring-integration" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-17:1205</id>
+    <updated>2013-10-16T17:09:00Z</updated>
+    <content type="html">&lt;p&gt;Speakers: John Davies and Josh Long &lt;/p&gt;
+
+&lt;p&gt;While some of today's systems can hit ?Sec performance it usually take a lot of good design and optimisation. The solution is often hard-baked and inflexible and the end user still wants the flexibility promised by ESBs with dynamic routing based on runtime rules with transformations from one format to another.  Josh and John will walk you through the latest in high performance message handling with Spring Integration covering non-XML (binary and CSV) data, code generation, on-the-fly compilation, dynamic routing and in-memory queries - an hour well spent.&lt;/p&gt;
+
+&lt;p&gt; Tuesday, November 19&lt;/p&gt;
+
+&lt;p&gt; EMEA: &lt;/p&gt;
+
+&lt;p&gt;3:00pm GMT (London, GMT)&lt;/p&gt;
+
+&lt;p&gt; &lt;a href="http://play.gopivotal.com/OSS_Webinar_DynamicRoutingwithSpringIntegration7AM_Register1.html"&gt;Register&lt;/a&gt; now!&lt;/p&gt;
+
+&lt;p&gt; NORAM:  &lt;/p&gt;
+
+&lt;p&gt;10:00am PST (San Francisco, GMT-08:00) &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://play.gopivotal.com/OSS_Webinar_DynamicRoutingwithSpringIntegration10AM_Register.html"&gt;Register&lt;/a&gt; now!&lt;/p&gt;
+
+&lt;p&gt;?&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Oct 24th webinar: Modern Component Design with Spring</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/16/oct-24th-webinar-modern-component-design-with-spring" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-17:1204</id>
+    <updated>2013-10-16T17:07:00Z</updated>
+    <content type="html">&lt;p&gt; Speaker: Juergen Hoeller &lt;/p&gt;
+
+&lt;p&gt;In recent years, the Spring Framework focuses on flexible and powerful Java-based configuration. This talk presents Spring as an annotation-oriented application framework, illustrating the rich set of features that Spring has to offer for modern component design.  General component model trends will be discussed along with selected Spring feature highlights, such as standardized annotations for dependency injection, stereotypes, and declarative services such as validation and scheduling. &lt;/p&gt;
+
+&lt;p&gt;Thursday, October 24 &lt;/p&gt;
+
+&lt;p&gt;EMEA:&lt;/p&gt;
+
+&lt;p&gt; 3:00pm Summer (London, GMT+01:00) &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://play.gopivotal.com/OSS_Webinar_ModernComponentDesignwithSpring_Register.html"&gt;Register&lt;/a&gt; now! &lt;/p&gt;
+
+&lt;p&gt; NORAM: &lt;/p&gt;
+
+&lt;p&gt;10:00am PDT (San Francisco, GMT-07:00) &lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://play.gopivotal.com/OSS_Webinar_ModernComponentDesignwithSpring10AM_Register.html"&gt;Register&lt;/a&gt; now! &lt;/p&gt;
+
+&lt;p&gt;?&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>This Week in Spring - October 15th, 2013</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/15/this-week-in-spring-october-15th-2013" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2013-10-16:1203</id>
+    <updated>2013-10-15T20:53:00Z</updated>
+    <content type="html">&lt;p&gt;Welcome to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;! Also, Happy &lt;a href="http://en.wikipedia.org/wiki/Ada_Lovelace"&gt;Ada Lovelace&lt;/a&gt; day! &lt;/p&gt;
+
+&lt;p&gt;This week I'm off to the &lt;em&gt;Lion City&lt;/em&gt;, Singapore, to talk to business leaders about Spring at the &lt;a href="http://www.pivotalsummit.shobiziems.com/abouttheevent.html"&gt;Asia Pacific Pivotal Summit&lt;/a&gt;! If you're in Singapore and want to chat enterprise Java, Spring, Cloud Foundry and big-data, &lt;a href="http://twitter.com/starbuxman"&gt;then ping me&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;If you're in the San Francisco / Bay Area, then join me at the end of this month, Tuesday October 29 and 30th, at the &lt;a href="http://maps.google.com/maps?q=875+Howard+Street+5th+Floor%2C+San+Francisco%2C+CA"&gt;Pivotal  HQ&lt;/a&gt; for &lt;a href="http://www.meetup.com/Pivotal-Open-Source-Hub/events/144944252/"&gt;two talks on Spring&lt;/a&gt;: one introducing REST development with Spring, and the other as a general look at the latest and greatest from Spring, as part of Pivotal.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Spring Integration lead Gary Russell has announced that &lt;a href="https://spring.io/blog/2013/10/14/spring-integration-2-2-6-is-now-available"&gt;Spring Integration 2.2.6 is now available&lt;/a&gt;! latest maintenance release in the current release (2.2.x) branch and includes a number of important bug fixes for (S)FTP, Scripting, TCP, Events, and Mongodb support. Check it out!&lt;/li&gt;
+&lt;li&gt;Hungry for Hadoop basics? Head over to gopivotal.com to see the &lt;a href="http://bitcast-a.v1.o1.sjc1.bitgravity.com/greenplum/pivotalvideo/Building-Big-Data-Applications-with-Hadoop-Spring-WEB.m4v"&gt;replay&lt;/a&gt; from the recent Hadoop Webinar series: Building Big Data Applications with Hadoop &amp;amp; Spring. &lt;/li&gt;
+&lt;li&gt;Join Juergen Hoeller for an annotation-based view of Spring on Thursday Oct 24th: &lt;strong&gt;Modern Component Design with Spring&lt;/strong&gt;, register now for &lt;a href="http://play.gopivotal.com/OSS_Webinar_ModernComponentDesignwithSpring_Register.html"&gt;Europe&lt;/a&gt; or &lt;a href="http://play.gopivotal.com/OSS_Webinar_ModernComponentDesignwithSpring10AM_OSS_Webinar_ModernComponentDesignwithSpring_Register.html"&gt;North America&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;On Nov 19th, join me  and John Davies to learn about &lt;strong&gt;Dynamic routing at 1 million per second with Spring Integration&lt;/strong&gt;. register now for &lt;a href="http://play.gopivotal.com/OSS_Webinar_DynamicRoutingwithSpringIntegration7AM_Register1.html"&gt;Europe&lt;/a&gt; or &lt;a href="http://play.gopivotal.com/OSS_Webinar_DynamicRoutingwithSpringIntegration10AM_Register.html"&gt;North America&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;On Nov 21st, join me for a webinar,  &lt;strong&gt;Have you seen Spring Lately?&lt;/strong&gt; where I talk through everything that has happened with Spring this year, particularly with what was announced at SpringOne this year. Register now for &lt;a href="http://play.gopivotal.com/OSS_Webinar_HaveyouseenSpringlately7AM_Register.html"&gt;Europe&lt;/a&gt; or &lt;a href="http://play.gopivotal.com/OSS_Webinar_HaveyouseenSpringlately10AM_Register.html"&gt;North America&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Meanwhile, over on the Mkyong.com blog, there's another great post, this one on &lt;a href="http://www.mkyong.com/spring-mvc/spring-mvc-find-location-using-ip-address-jquery-google-map/"&gt;using Spring MVC and Google Maps for geo location&lt;/a&gt;.&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;The JavaBeat blog has a nice post on how to use &lt;a href="http://www.javabeat.net/2013/10/spring-mvc-test-framework/"&gt;the Spring MVC Test Framework&lt;/a&gt; to test Spring MVC applications.&lt;/li&gt;
+&lt;li&gt;The &lt;em&gt;ISOS Technology&lt;/em&gt; blog has a nice post &lt;a href="http://www.isostech.com/web/rob/blog/-/blogs/unit-testing-spring-mvc-portlets"&gt;on unit testing Spring MVC Portlets&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;The third installment of a series of posts I did introducing &lt;a href="http://blog.safaribooksonline.com/2013/10/11/building-smarter-clients-with-springs-resttemplate/"&gt;Spring's rich REST stack&lt;/a&gt; is now available on the Safari blog. The code, as always, is &lt;a href="http://github.com/Joshlong/the-spring-rest-stack"&gt;available on my GitHub account&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;You can easily install Spring Boot through &lt;a href="http://brew.sh/"&gt;Homebrew&lt;/a&gt;: &lt;code&gt;brew tap pivotal/tap &amp;amp;&amp;amp; brew install springboot&lt;/code&gt;. This is of course in addition to some of the other amazing Pivotal technologies that you can get through Homebrew, including the Spring REST Shell (&lt;code&gt;brew install rest-shell&lt;/code&gt;), and RabbitMQ (&lt;code&gt;brew install rabbitmq&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Do you want to use RabbitMQ via JMS? Spring ninja Greg Turnquist has done a nice job demonstrating how to use the &lt;a href="http://t.co/hXDewd1xOz"&gt;RabbitMQ JMS connector from Spring&lt;/a&gt;). Check out this post for more details!&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;Microsoft's done a lot of work to make Redis available on Windows! Check out this &lt;a href="http://t.co/lQoCz7BX7Q"&gt;MSDN Channel 9 video on running Redis on Windows&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;the &lt;em&gt;&lt;code&gt;libfugu.so&lt;/code&gt;&lt;/em&gt; blog &lt;a href="http://libfugu.so/blog/2013/09/24/rabbitmq-a-quick-and-dirty-introduction/"&gt;provides a &lt;em&gt;quick and dirty&lt;/em&gt; look at RabbitMQ&lt;/a&gt;. Nice!  (and, extra points for finding a domain that looks like a Linux linked library!)&lt;/li&gt;
+&lt;li&gt;Check out this video demonstrating how to setup &lt;em&gt;New Relic&lt;/em&gt; monitoring support for a &lt;a href="http://www.youtube.com/watch?v=OmsC2S9n7h0&amp;amp;feature=em-uploademail&amp;amp;utm_content=buffer16d4b&amp;amp;utm_source=buffer&amp;amp;utm_medium=twitter&amp;amp;utm_campaign=Buffer"&gt;Spring application running on Cloud Foundry&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</content>
+  </entry>
+  <entry>
+    <title>Spring Integration 2.2.6 is Now Available</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/14/spring-integration-2-2-6-is-now-available" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Gary Russell</name>
+    </author>
+    <id>tag:spring.io,2013-10-14:1201</id>
+    <updated>2013-10-14T12:27:00Z</updated>
+    <content type="html">&lt;p&gt;Spring Integration 2.2.6.RELEASE is now available.&lt;/p&gt;
+
+&lt;p&gt;This is the latest maintenance release in the current release (2.2.x) branch and includes a number of important bug fixes for (S)FTP, Scripting, TCP, Events, and Mongodb support.&lt;/p&gt;
+
+&lt;p&gt;Please see the &lt;a href="https://jira.springsource.org/secure/ReleaseNote.jspa?projectId=10121&amp;amp;version=14236"&gt;release notes&lt;/a&gt; and &lt;a href="http://projects.spring.io/spring-integration/"&gt;the project page&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;p&gt;The artifacts are in the &lt;a href="http://repo.springsource.org/release"&gt;Spring Maven Repository&lt;/a&gt; and Maven Central.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Spring Boot 0.5.0.M5 Released</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/09/spring-boot-0-5-0-m5-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Dave Syer</name>
+    </author>
+    <id>tag:spring.io,2013-10-09:1200</id>
+    <updated>2013-10-09T13:50:00Z</updated>
+    <content type="html">&lt;p&gt;Spring Boot 0.5.0.M5 is available in the &lt;a href="http://repo.spring.io/milestone/org/springframework/boot/org/springframework/boot/"&gt;Spring repo&lt;/a&gt;. Instructions for installing and using are on the &lt;a href="http://projects.spring.io/spring-boot/docs/README.html"&gt;project website&lt;/a&gt; or in &lt;a href="https://github.com/spring-projects/spring-boot"&gt;github&lt;/a&gt;. Loads of new features including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Autoconfigure support for JMS, AMQP, AOP, Mobile, MongoDB&lt;/li&gt;
+&lt;li&gt;Simplified &lt;code&gt;@Grab&lt;/code&gt; usage (see example below)&lt;/li&gt;
+&lt;li&gt;A test command for Groovy scripts (supporting JUnit and Spock, more detail coming on that in a blog from &lt;a href="http://spring.io/team/gturnquist"&gt;Greg&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;A new &lt;code&gt;SpringApplicationBuilder&lt;/code&gt; with support for, amongst other things, application context hierarchies&lt;/li&gt;
+&lt;li&gt;A new &lt;code&gt;PropertiesLauncher&lt;/code&gt; that can launch a Java application from properties discovered at runtime (e.g. to set up a classpath from a lib directory)&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;As a taster, here is an example usage of &lt;code&gt;SpringApplicationBuilder&lt;/code&gt; in Java to build an application with a parent context (useful if you want to run more than one app from the same code):&lt;/p&gt;
+
+&lt;div class="highlight highlight-java"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@Configuration&lt;/span&gt;
+&lt;span class="nd"&gt;@EnableAutoConfiguration&lt;/span&gt;
+&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Server&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;static&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;SpringApplicationBuilder&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;child&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Server&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;profiles&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"server"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+                    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;run&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// ... @Bean definitions follow&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;Parent.class&lt;/code&gt; above is a shared parent context that can be reused for other apps in the same module.&lt;/p&gt;
+
+&lt;p&gt;And here's an example of the abbreviated &lt;code&gt;@Grab&lt;/code&gt; in a Groovy app (the group and version information are added automatically):&lt;/p&gt;
+
+&lt;div class="highlight highlight-groovy"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@Grab&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"spring-boot-starter-actuator"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nd"&gt;@RestController&lt;/span&gt;
+&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Example&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="nd"&gt;@RequestMapping&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nl"&gt;message:&lt;/span&gt; &lt;span class="s1"&gt;'Hello World'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This app runs on its own, e.g. in the current directory if you use the &lt;code&gt;spring&lt;/code&gt; shell script to launch it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ spring run app.groovy
+... (app starts up)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Visit http://localhost:8080/ in a browser and then try http://localhost:8080/metrics.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Spring Tool Suite and Groovy/Grails Tool Suite 3.4.0 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/08/spring-tool-suite-and-groovy-grails-tool-suite-3-4-0-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Martin Lippert</name>
+    </author>
+    <id>tag:spring.io,2013-10-08:1197</id>
+    <updated>2013-10-08T16:40:16Z</updated>
+    <content type="html">&lt;p&gt;Dear Spring Community,&lt;/p&gt;
+
+&lt;p&gt;we are happy to announce the next major release of our Eclipse-based tooling today: The Spring Tool Suite (STS) 3.4.0 and the Groovy/Grails Tool Suite (GGTS) 3.4.0.&lt;/p&gt;
+
+&lt;p&gt;Highlights from this release include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;import new Getting Started guides directly into the IDE&lt;/li&gt;
+&lt;li&gt;new wizard to start with Spring Boot directly from within the IDE&lt;/li&gt;
+&lt;li&gt;automatic detection for JavaConfig classes&lt;/li&gt;
+&lt;li&gt;basic support for Groovy in Spring IDE&lt;/li&gt;
+&lt;li&gt;updated to Eclipse Kepler SR1&lt;/li&gt;
+&lt;li&gt;updated to Grails 2.2.4&lt;/li&gt;
+&lt;li&gt;updated to tc Server 2.9.3&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Both tool suites ship on top of the latest Eclipse Kepler SR1 release.&lt;/p&gt;
+
+&lt;p&gt;To download the distributions, please go visit:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Spring Tool Suite: &lt;a href="https://spring.io/tools/sts/all"&gt;https://spring.io/tools/sts/all&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Groovy/Grails Tool Suite: &lt;a href="https://spring.io/tools/ggts/all"&gt;https://spring.io/tools/ggts/all&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Detailed new and noteworthy notes can be found here: &lt;a href="http://docs.spring.io/sts/nan/v340/NewAndNoteworthy.html"&gt;STS/GGTS 3.4.0 New &amp;amp; Noteworthy&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The next version 3.5.0 is scheduled to arrive in March 2014, shortly after the Eclipse Kepler SR2 (4.3.2) release.
+The first milestone build is scheduled to arrive in late November 2013.&lt;/p&gt;
+
+&lt;p&gt;Enjoy!&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Spring Mobile 1.1.0 Released</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/08/spring-mobile-1-1-0-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Roy Clarkson</name>
+    </author>
+    <id>tag:spring.io,2013-10-08:1198</id>
+    <updated>2013-10-08T13:32:00Z</updated>
+    <content type="html">&lt;p&gt;Dear Spring Community,&lt;/p&gt;
+
+&lt;p&gt;We are happy to announce the GA release of Spring Mobile 1.1.0! This release includes all the changes from the previous milestones, including the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Improved device detection in LiteDeviceResolver&lt;/li&gt;
+&lt;li&gt;Tablet support in SitePreference and SiteSwitcher&lt;/li&gt;
+&lt;li&gt;Java-based configuration to complement the traditional XML configuration&lt;/li&gt;
+&lt;li&gt;LiteDeviceDelegatingViewResolver for managing mobile and tablet views&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;See the &lt;a href="http://docs.spring.io/spring-mobile/docs/1.1.0.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt;, &lt;a href="http://docs.spring.io/spring-mobile/docs/1.1.0.RELEASE/api/"&gt;JavaDoc&lt;/a&gt;, and &lt;a href="http://docs.spring.io/spring-mobile/docs/1.1.0.RELEASE/reference/html/"&gt;Reference Documentation&lt;/a&gt; for more details. Information about obtaining the artifacts can be found on the &lt;a href="http://projects.spring.io/spring-mobile/"&gt;Spring Mobile&lt;/a&gt; project page.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>This Week in Spring - October 8th, 2013</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/08/this-week-in-spring-october-8th-2013" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2013-10-09:1199</id>
+    <updated>2013-10-08T00:00:00Z</updated>
+    <content type="html">&lt;p&gt;Welcome to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I spent the weekend at the amazing &lt;a href="http://www.siliconvalley-codecamp.com/"&gt;Silicon Valley Code Camp&lt;/a&gt; event. It was an amazing event. People who visited the &lt;a href="http://gopivotal.com"&gt;Pivotal&lt;/a&gt; booth got a chance to play with Spring Boot. People versed in Java, iOS, Python, .NET, Objective-C, and more all used Spring Boot  to setup a RESTful service in a matter of minutes. To be honest, I found the results ("Wow! I didn't know you could do that!") both amusing and very satisfying! People are really getting into Spring Boot.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Speaking of Boot, did you miss Phil Webb's Spring Boot webinar? If so, don't worry! &lt;a href="http://spring.io/blog/2013/10/02/webinar-replay-spring-boot-simplifying-spring-for-everyone"&gt;You can watch it online&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;Roy Clarkson's announced the &lt;a href="http://spring.io/blog/2013/10/08/spring-mobile-1-1-0-released"&gt;availability of Spring Mobile 1.1.0&lt;/a&gt;! The new release - as many of you know from having followed this roundup - features improved device detection in &lt;code&gt;LiteDeviceResolver&lt;/code&gt;, tablet support in &lt;code&gt;SitePreference&lt;/code&gt; and &lt;code&gt;SiteSwitcher&lt;/code&gt;, a Java-based configuration API, and &lt;code&gt;LiteDeviceDelegatingViewResolver&lt;/code&gt;. Nice!&lt;/li&gt;
+&lt;li&gt;Martin Lippert's just announced the latest and greatest cuts of the Spring Tool Suite and Groovy/Grails Tool Suite (3.4.0) which feature - among many other things - support for following the &lt;em&gt;Getting Started Guides&lt;/em&gt; &lt;a href="http://spring.io"&gt;on the home of Spring - Spring.io&lt;/a&gt;. These releases also see updated support for Grails 2.2.4, and tc Server 2.9.3. &lt;/li&gt;
+&lt;li&gt;For more, check out the &lt;a href="http://docs.spring.io/sts/nan/v340/NewAndNoteworthy.html"&gt;new &amp;amp; noteworthy&lt;/a&gt;. Both tool suites ship on top of the latest Eclipse Kepler SR1 release. The next version (3.5.0) is scheduled to arrive in March 2014, shortly after the Eclipse Kepler SR2 (4.3.2) release. &lt;/li&gt;
+&lt;li&gt;Did you miss the amazing &lt;a href="http://platformcf.com"&gt;Platform CF conference&lt;/a&gt;? Don't fret, the videos of the show are trickling up online. Ashwin Kumar, a principal Software Engineer at Pivotal, did a great job &lt;a href="http://www.youtube.com/watch?v=jTyoPHxMpU0"&gt;introducing Pivotal HD as a Cloud Foundry Service&lt;/a&gt;. Pivotal HD is the world's fastest Hadoop distribution, leveraging the mature SQL query engine known as HAWQ.&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;Not strictly Spring related, but there's a nice post on the GoPivotal blog on analyzing &lt;a href="http://blog.gopivotal.com/case-studies-2/case-study-analyzing-retaile-commerce-318x-faster-on-hawq-madlib"&gt;retail data using HAWQ and Madlib&lt;/a&gt;, the analytics (and machine learning!) engine originally part of Greenplum and now available to HAWK users. Nice post! This whole stack integrates nicely through Spring XD, of course, but even if it didn't, that's a really cool use case! &lt;/li&gt;
+&lt;li&gt;Did you miss SpringOne2GX 2013? Check out the &lt;a href="http://spring.io/blog/2013/10/02/springone2gx-2013-opening-night-keynote"&gt;first night's keynote featuring Pivotal CEO Paul Maritz, Adrian Colyer, David Syer, Juergen Hoeller, Chris Beams and Edward Hieatt&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;Check out the replay of Param Rengaiah's webinar, &lt;a href="http://spring.io/blog/2013/10/02/webinar-replay-taming-coupling-cohesive-beasts-with-modularity-patterns-and-spring"&gt;&lt;em&gt;Taming Coupling and Cohesive Beasts with Modularity Patterns and Spring&lt;/em&gt;&lt;/a&gt;!&lt;/li&gt;
+&lt;li&gt;Are you looking for the downloadable &lt;code&gt;.zip&lt;/code&gt; distributions for Spring? We'll make them easier to find on &lt;a href="http://spring.io"&gt;our new site soon&lt;/a&gt;, but in the meantime, simply &lt;a href="http://repo.spring.io/webapp/home.html"&gt;visit the Artifactory repository&lt;/a&gt; and type in &lt;code&gt;spring-framework&lt;/code&gt; in the search field. Dig a bit and you'll find it. &lt;a href="http://repo.spring.io/webapp/browserepo.html?pathId=libs-release-local:org/springframework/spring"&gt;This a more &lt;em&gt;direct&lt;/em&gt; link&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</content>
+  </entry>
+  <entry>
+    <title>Webinar replay: Spring Boot - Simplifying Spring for Everyone</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/02/webinar-replay-spring-boot-simplifying-spring-for-everyone" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-02:1196</id>
+    <updated>2013-10-02T12:35:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Phil Webb&lt;/p&gt;
+
+&lt;p&gt; Modern systems are no longer the monolithic deployments that they once were. The promise of true 'service oriented architecture' is finally here, and systems are now being composed from small, discrete, self contained units. But with more applications to write, and more deployments to manage, are you looking for something to help ease the pain? Are you fed up with searching stackoverflow for copy-paste configuration, do you want to write apps that can 'just run'? Perhaps you are just starting out with Spring and want a quick way to learn the basics without manually downloading and installing half the Internet?&lt;/p&gt;
+
+&lt;p&gt; In this webinar Phil Webb will demonstrate how Spring Boot can take you from zero to Spring with minimal fuss. We will look at how you can rapidly prototype Spring applications using Groovy, and how Spring Configuration in Java applications can be radically simpler. We will show how you can embed tomcat into your applications and turn a few lines of Java into a production ready, executable jar that is less the 8 Mb.&lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/D6nJSyWB-xA" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>SpringOne2GX 2013 Opening Night Keynote</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/02/springone2gx-2013-opening-night-keynote" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-02:1195</id>
+    <updated>2013-10-02T12:34:00Z</updated>
+    <content type="html">&lt;p&gt;Recorded at SpringOne 2GX 2013 live in Santa Clara, CA.
+&lt;/p&gt;&lt;p&gt;
+Speakers: Paul Maritz, Adrian Colyer, Dave Syer, Juergen Hoeller, Chris Beams, Edward Hieatt (Pivotal Labs).
+&lt;/p&gt;&lt;p&gt;&lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/jplkJIHPGos" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>Webinar replay: Taming Coupling &amp; Cohesive Beasts with Modularity Patterns and Spring</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/02/webinar-replay-taming-coupling-cohesive-beasts-with-modularity-patterns-and-spring" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-10-02:1194</id>
+    <updated>2013-10-02T11:34:00Z</updated>
+    <content type="html">&lt;p&gt;Speaker: Param Rengaiah, Aspire Systems &lt;/p&gt;
+
+&lt;p&gt;By now you should have heard about coupling and cohesiveness.  These concepts, and their third cousin, polymorphism, is what we as developers chase day-in and day-out. They tease us with reusability and the promise of comprehensiveness of our code. They entice us with promises of code quality and testability. They came in the form of "Object Oriented' design, followed by GoF and SOLID Design Patterns, DDD, BDD.. but none of them delivered what they promised. Now, the new kids on the block are Functional Programming and Modularity Patterns.  &lt;/p&gt;
+
+&lt;p&gt;What happens when you choose to go through large refactoring exercise on the back of Modularity Patterns, in a large, complex enterprise project?  The journey was long, arduous and gruesome. On the way, I made many enemies and found some new friends. This talk will highlight the issues, both technical and otherwise, and how it was overcome; where did Spring help and where did it hurt. In the end, was it worth it? Come to this session and you will find out.
+  &lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/yqQEpXPmJuo" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+  <entry>
+    <title>This Week in Spring - October 1st, 2013</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/02/this-week-in-spring-october-1st-2013" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2013-10-02:1189</id>
+    <updated>2013-10-02T05:53:00Z</updated>
+    <content type="html">&lt;p&gt;Welcome back to another installment of &lt;em&gt;This Week in Spring&lt;/em&gt;! There is, of course, lots to talk about so let's get to it.  &lt;/p&gt;
+
+&lt;p&gt;If you're in the bay area, I'd like to invite you to the &lt;a href="http://www.siliconvalley-codecamp.com/"&gt;Silicon Valley Code Camp&lt;/a&gt; this weekend. I'll be giving two talks - one on building RESTful Services with Spring and the other on Improving Spring Java configuration muscle-memory with the amazing Phill Webb. Pivotal will also have a booth there, and we'd love to see you!&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href="https://spring.io/blog/2013/10/01/spring-data-arora-sr3-released"&gt; Spring Data Arora SR3 has been released!&lt;/a&gt; The new release folds in Spring Data Commons 1.5.3, Spring Data JPA 1.3.5, Spring Data MongoDB 1.2.4 and Spring Data Neo4j 2.2.3. Nicely done, as usual, Oliver!&lt;/li&gt;
+&lt;li&gt; Check out our upcoming webinar on &lt;a href="https://spring.io/blog/2013/09/24/webinar-building-big-data-applications-with-hadoop-spring"&gt;building big data applications with Hadoop and Spring on October 3&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Be sure to register for a webinar introducing how to &lt;a href="https://spring.io/blog/2013/09/24/webinar-building-websocket-browser-applications-with-spring"&gt;build websocket applications with Spring the week after, on October 8&lt;/a&gt;. In it, Rossen Stoyanchev will introduce Spring 4's websocket support. &lt;/li&gt;
+&lt;li&gt;Last week at JavaOne 2013 we made quite a splash with &lt;a href="http://spring.io"&gt;our new website&lt;/a&gt;! I am going to attempt to introduce some of the amazing reference content every week in this very space. You, of course, don't need to wait every week to start reading all the cool content! Just &lt;a href="https://spring.io/guides"&gt;start here, at the site Guides&lt;/a&gt; page. This week, I hope you'll take a look at how to &lt;a href="https://spring.io/guides/gs/rest-service/"&gt;get started developing RESTful services with Spring&lt;/a&gt;. It introduces, in the space of ~ 15 minutes, how to get started with Spring REST development. &lt;/li&gt;
+&lt;li&gt;Spring XD ninja Glenn Renfro put together a nice post on how &lt;a href="http://glenn-renfro-dev.blogspot.com/2013/09/adding-new-modules-to-spring-xd-part-1.html"&gt;to add custom modules to Spring XD&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The next version of &lt;a href="http://next.rabbitmq.com/consumer-priority.html"&gt;RabbitMQ will have consumer priorities&lt;/a&gt;! From the article, "Consumer priorities allow you to ensure that high priority consumers receive messages while they are active, with messages only going to lower priority consumers when the high priority consumers block." Very cool stuff!&lt;/li&gt;
+&lt;li&gt;Petri Kainulainen has put together a very nice example of how to use &lt;a href="http://www.petrikainulainen.net/programming/spring-framework/adding-social-sign-in-to-a-spring-mvc-web-application-configuration/"&gt;Spring Social's sign-in capabilities in a Spring MVC web application&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Our pal Xavier Padr?'s is back! This time, he's got a nice post on using Spring Web Services to &lt;a href="http://t.co/AvX9QSifM5"&gt;create contract-first webservices with Spring WS&lt;/a&gt;.&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;Our friend Jan Machacek is back! This time with a post on &lt;a href="http://architects.dzone.com/articles/websockets-angularjs-rabbitmq"&gt;websockets, Angular.js, RabbitMQ and C++ in Spring 4&lt;/a&gt;. I.. uh? it has computer vision, too. Did I mention that? I mean? I got nothing. This is &lt;em&gt;way too cool&lt;/em&gt;. Go check it out!&lt;/li&gt;
+&lt;li&gt;Matt Stine has reworked the code demonstrated in Adrian Colyer's SpringOne &lt;strong&gt;2012&lt;/strong&gt;  keynote &lt;a href="https://github.com/cloudfoundry-samples/cf-autoscaler"&gt;to build an &lt;em&gt;auto-scaler&lt;/em&gt; for Cloud Foundry&lt;/a&gt;! &lt;/li&gt;
+&lt;li&gt;Ben Hale, a longtime Spring ninja and the man behind the reworked Cloud Foundry Java buildpack that drew so much attention at the Platform CF event, has just written a simple utility &lt;a href="https://github.com/gopivotal/auto-merge-upstream"&gt;that automatically merges upstream repositories&lt;/a&gt;. Alright, I grant you, the utility isn't for everyone. BUT, check out the code! It's written using Groovy and Spring Boot. The &lt;a href="https://github.com/gopivotal/auto-merge-upstream/blob/master/app.groovy"&gt;code&lt;/a&gt; is itself 40% the size of it's (Apache 2) license!&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;I just wanted to congratulate the Pivotal Data Science team for a strong showing at &lt;a href="http://blog.gopivotal.com/p-o-v/pivotals-experience-at-the-kaiser-code-a-thon"&gt;the 24 Hour Data Science Code-a-Thon hosted by Kaiser Permanente&lt;/a&gt;! Check out that post for their entry, approach, and competition results!&lt;/li&gt;
+&lt;/ol&gt;</content>
+  </entry>
+  <entry>
+    <title>Spring Data Arora SR3 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/10/01/spring-data-arora-sr3-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Oliver Gierke</name>
+    </author>
+    <id>tag:spring.io,2013-10-01:1188</id>
+    <updated>2013-10-01T10:39:05Z</updated>
+    <content type="html">&lt;p&gt;The Spring Data team has just released the final service release for the Arora release train. SR3 includes the following modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Spring Data Commons 1.5.3 - &lt;a href="http://docs.spring.io/spring-data/commons/docs/1.5.3.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/commons/docs/1.5.3.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-commons%7C1.5.3.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data JPA 1.3.5 - &lt;a href="http://docs.spring.io/spring-data/jpa/docs/1.3.5.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/jpa/docs/1.3.5.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-jpa%7C1.3.5.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data MongoDB 1.2.4 - &lt;a href="http://docs.spring.io/spring-data/mongodb/docs/1.2.4.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/mongodb/docs/1.2.4.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-mongodb%7C1.2.4.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Spring Data Neo4j 2.2.3 - &lt;a href="http://docs.spring.io/spring-data/neo4j/docs/2.2.3.RELEASE/changelog.txt"&gt;Changelog&lt;/a&gt; - &lt;a href="http://docs.spring.io/spring-data/neo4j/docs/2.2.3.RELEASE/api/"&gt;JavaDoc&lt;/a&gt; - &lt;a href="http://search.maven.org/#artifactdetails%7Corg.springframework.data%7Cspring-data-neo4j%7C2.2.3.RELEASE%7Cjar"&gt;Artifacts&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;In it's core the release includes all bug fixes made between Babbage RC1 and GA that were candidates for back porting. It's a recommended update for all users on Arora that cannot upgrade to Babbage for whatever reason.&lt;/p&gt;
+
+&lt;p&gt;The third service release is the last release for Arora. The Spring Data team is now focussing on the development of the first milestone for the upcoming release train called &lt;a href="https://github.com/spring-projects/spring-data-commons/wiki/Release-Train-Codd"&gt;Codd&lt;/a&gt; as well as service releases for Babbage. You can find an overview of the further &lt;a href="https://github.com/spring-projects/spring-data-commons/wiki/Release-planning"&gt;release planning&lt;/a&gt; in the Spring Data Commons wiki.&lt;/p&gt;</content>
+  </entry>
+  <entry>
+    <title>Webinar Replay: Getting Agile with Pivotal Tracker</title>
+    <link rel="alternate" href="https://spring.io/blog/2013/09/30/webinar-replay-getting-agile-with-pivotal-tracker" />
+    <category term="news" label="News and Events" />
+    <author>
+      <name>Pieter Humphrey</name>
+    </author>
+    <id>tag:spring.io,2013-09-28:1185</id>
+    <updated>2013-09-30T10:02:00Z</updated>
+    <content type="html">&lt;p&gt;Presenter: Davis W. Frank, Pivotal Labs &lt;/p&gt;
+
+&lt;p&gt;Slides: &lt;a href="https://github.com/infews/2013.09.05.GettingAgileWithPivotalTracker"&gt;https://github.com/infews/2013.09.05.GettingAgileWithPivotalTracker&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;"Agile Software Development" is an ambiguous term. It's an umbrella term. It's a controversial term. But what does it really mean? The first principle of agile development is to keep feedback loops small to allow a team to make frequent, small corrections on the way to delivery.  Pivotal Labs practices this every day. We coach our clients on how to re-view their problems and approach from first principles. We wrote Pivotal Tracker - the Agile project management app - to work the way we think.  Come learn about tight feedback loops, how to use them in software, and how Pivotal Tracker can keep your backlog sane.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;iframe width="420" height="315" src="//www.youtube.com/embed/kFQORVSDeF0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</content>
+  </entry>
+</feed>
+

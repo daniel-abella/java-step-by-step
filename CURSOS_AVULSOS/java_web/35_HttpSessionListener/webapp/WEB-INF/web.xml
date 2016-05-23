@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<servlet>
+		<servlet-name>hsl</servlet-name>
+		<servlet-class>HttpSessionListenerServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>hsl</servlet-name>
+		<url-pattern>/hsl</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>hsld</servlet-name>
+		<servlet-class>DestroySessionServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>hsld</servlet-name>
+		<url-pattern>/ds</url-pattern>
+	</servlet-mapping>
+	
+	<listener>
+		<listener-class>MyHttpSessionListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>MyServletRequestListener</listener-class>
+	</listener>
+</web-app>

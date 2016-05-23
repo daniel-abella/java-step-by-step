@@ -1,0 +1,7 @@
+
+public class Duvida<E extends Comparable<E>> {
+
+	public <E> void fazer(E e){
+
+	}
+}

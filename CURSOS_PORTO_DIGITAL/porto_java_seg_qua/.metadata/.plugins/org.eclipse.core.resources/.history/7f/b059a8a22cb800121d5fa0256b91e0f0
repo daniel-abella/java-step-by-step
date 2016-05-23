@@ -1,0 +1,21 @@
+package anonimo.subclasse;
+
+public class Externa {
+
+	public Pessoa fazAlgo(){
+
+		Pessoa pessoaAnonima = new Pessoa(){
+			@Override
+			public void setNome(String nome){
+				super.setNome(nome.toUpperCase());
+			}
+
+			public String getNomeCompleto(){
+				return getNome()+" "+getSobrenome();
+			}
+		};
+
+		return pessoaAnonima;
+
+	}
+}

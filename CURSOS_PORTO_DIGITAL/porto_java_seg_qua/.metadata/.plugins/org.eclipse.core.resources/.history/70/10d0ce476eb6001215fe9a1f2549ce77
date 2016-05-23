@@ -1,0 +1,11 @@
+import java.util.*;
+
+public class Old {
+	public static Object get0(List list) {
+		return list.get(0);
+	}
+
+	public static void main(String[] args) {
+
+	}
+}

@@ -1,0 +1,89 @@
+**************************************************************************************************************
+EXERCÍCIOS
+**************************************************************************************************************
+
+01 - Fazer uma requisição via GET
+02 - Fazer uma requisição via POST
+03 - Exibir parâmetros de uma requisição em uma página de reposta(GET OU POST)
+04 - Requisição cidade/estado via POST
+05 - Exibe elementos de header do request
+06 - Redirecionar para páginas diferentes coforme seleção do usuário
+07 - Download: Retornando arquivo binário
+08 - Exibir numa página de resposta os parâmetros de configuração de um Servlet
+09 - Redirecionar uma requisição de um servlet para outro passa um atributo do primeiro para o segundo e exibindo este atributo numa página de resposta
+10 - Contador de requisições
+11 - Obter a versão de Servlets )
+12 - Obter todos os parêmetros de inicialização e mime types de um servlet
+13 - HttpServletResponse.forward()
+14 - RequestDispatcher.include()
+15 - Fazer uma aplicação onde as requisições terminadas em .msi e .exe sejam processada por um servlet que retorna uma página de erro e as outras requisições passem para uma página de sucesso
+16 - ServletContext (obtendo versão de Servlets )
+17 - ServletContext (obtendo parêmetros e mime types)
+18 - Contador de requisições usando listener
+19 - Exibir a pilha de uma requisição
+20 - Fazer Upload de um arquivo para um diretório configurado nos parâmetros de inicialização do servlet
+
+**************************************************************************************************************
+SERVLETS
+**************************************************************************************************************
+
+01 - Simples GET
+02 - Simples POST
+03 - Exibe parâmetros de requisição
+04 - Requisição cidade/estado via POST
+05 - Exibe elementos de header
+06 - Redireciona coforme seleção do usuário
+07 - Retornando arquivo binário
+08 - Parâmetros de configuração de um Servlet
+09 - Redirecionando requisições entre servlets
+10 - Contando requisições
+11 - HttpServletResponse.sendRedirect()
+12 - RequestDispatcher.include()
+13 - Mapeamento de URLs para Servlets 1
+14 - Mapeamento de URLs para Servlets 2
+15 - Mapeamento de URLs para Servlets 3
+16 - ServletContext (obtendo versão de Servlets )
+17 - ServletContext (obtendo parêmetros e mime types)
+18 - Conta requisições usando listener
+25 - Ciclo de vida de um Servlet
+26 - Codificação (utf-8, iso-8859-1)
+27 - Quem implementa HttpServlet{Request,Response}?
+28 - Exibe pilha de uma requisição
+29 - Consulta usando POST ou GET
+30 - Upload servlet
+
+**************************************************************************************************************
+LISTENERS
+**************************************************************************************************************
+
+31 - ServletContextListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa31/)
+32 - ServletContextAttributeListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa32/)
+33 - ServletRequestListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa33/)
+34 - ServletRequestAttributeListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa34/)
+35 - HttpSessionListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa35/)
+36 - HttpSessionAttributeListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa36/)
+37 - HttpSessionBindingListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa37/)
+38 - HttpSessionActivationListener (http://exemplos.googlecode.com/svn/trunk/scwcd/pa38/)
+
+
+
+Fazer uma requisição via GET
+Fazer uma requisição via POST
+Exibir parâmetros de uma requisição em uma página de reposta(GET OU POST)
+Requisição cidade/estado via POST
+Exibe elementos de header do request
+Redirecionar para páginas diferentes coforme seleção do usuário
+Download: Retornando arquivo binário
+Exibir numa página de resposta os parâmetros de configuração de um Servlet
+Redirecionar uma requisição de um servlet para outro passa um atributo do primeiro para o segundo e exibindo este atributo numa página de resposta
+Contador de requisições
+Obter a versão de Servlets )
+Obter todos os parêmetros de inicialização e mime types de um servlet
+HttpServletResponse.forward()
+RequestDispatcher.include()
+Fazer uma aplicação onde as requisições terminadas em .msi e .exe sejam processada por um servlet que retorna uma página de erro e as outras requisições passem para uma página de sucesso
+ServletContext (obtendo versão de Servlets )
+ServletContext (obtendo parêmetros e mime types)
+Contador de requisições usando listener
+Exibir a pilha de uma requisição
+Fazer Upload de um arquivo para um diretório configurado nos parâmetros de inicialização do servlet

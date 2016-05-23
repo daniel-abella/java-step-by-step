@@ -1,0 +1,118 @@
+Subclasses e Comportamento
+
+Objetos da subclasse devem se comportar como os objetos da superclasse
+Redefinições de métodos devem preservar o comportamento (semântica) do método original
+Grande impacto sobre manutenção e evolução de software
+
+Subclasses e Evolução de Software
+
+ContaImposto extender de Conta (Não recomendado! Não preserva o comportamento da superclasse.)
+ContaAbstrata -> ContaImposto (SIM! ContaAbstrata não implementa o método debitar. Portanto, não podemos dizer que ContaImposto fere a semântica do supertipo.)
+ContaAbstrata -> Conta -> ContaBonificada (ContaBonificada define um método para render bônus. O bônus só é incorporado ao saldo após a execução dele. O método creditar, portanto, respeita a definição do supertipo.)
+
+Classes Abstratas
+
+Devem ser declaradas com a palavra-chave abstract
+Podem declarar métodos abstratos
+    Um método é definido abstrato  também usando o modificado abstract
+    Métodos sem implementação
+    Implementação fornecida na subclasse
+Podem declarar métodos concretos
+    Métodos com implementação
+
+
+Classes abstratas: propriedades 
+
+Uma classe abstrata não pode ser instanciada
+Mesmo sem poder ser instanciada, pode definir construtores para permitir reuso
+Qualquer classe com um ou mais métodos abstratos é automaticamente uma classe abstrata
+Se uma classe herdar de uma classe abstrata, deve redefinir todos os métodos abstratos. Caso contrário, deve ser declarada como abstrata.
+Métodos private, static e final não podem ser abstratos. 
+    Métodos declarados com estes modificadores não podem ser redefinidos
+Uma classe final não pode conter métodos abstratos
+    Métodos definidos em classes declaradas com este modificador não podem ser redefinidos
+Uma classe pode ser declarada como abstract, mesmo se não tiver métodos abstratos
+    Permite somente o reuso, mas não permite instanciações dessa classe
+
+Classes abstratas: utilização
+
+Ajudam a estruturar sistemas definindo hierarquias consistentes de classes.
+Simplificam o reuso de código
+Definem "contratos" a serem realizados por subclasses
+Tornam o polimorfismo mais claro
+
+Interfaces
+Caso especial de classes abstratas
+Usada quando classes que não tem relação de herança precisam "compartilhar" uma característica comum
+   Serializable
+   Auditavel
+   Logavel
+Definem tipo de forma abstrata, apenas indicando a assinatura dos métodos suportados pelos objetos do tipo
+    Os métodos declarados em uma interface não têm implementação
+Os métodos são implementados pelos subtipos (classes que implementan interfaces) 
+Não têm construtores. Não se pode criar objetos já que métodos não estão implementados
+Uma interface define um “contrato” a ser seguido
+
+Tipos e subtipos
+
+Classes e Interfaces são tipos
+
+Os termos subtipo e supertipo também são usados
+    supertipo : interface
+    subtipo: classe que implementa a interface ou interface que estende outra interface
+Interfaces utilizam o conceito de herança múltipla
+    Herança múltipla de assinatura
+    Interfaces podem estender várias interfaces
+    Classes podem implementar várias interfaces
+
+Múltiplos supertipos
+
+Classe que implementa uma interface deve definir os métodos da interface
+    classes concretas têm que implementar todos os métodos da interface
+    caso algum método da interface não seja implementado, a classe deve ser declarada abstract
+Apesar de não suportar herança múltipla de classes, uma classe pode implementar mais de uma interface (pode ter vários supertipos)
+
+Interfaces e métodos
+
+Todos os métodos de uma interface são implicitamente abstratos e públicos
+métodos de interfaces não podem ser :
+    static
+    final
+    private
+    protected
+
+Interfaces e atributos
+
+Interfaces não podem conter atributos 
+A única exceção são os atributos static final (constantes).
+Antes do suporte dado a tipos enumeráveis a Interfaces eram usadas como repositórios para constantes. Hoje essa prática é desaconselhada.
+
+Interfaces e Reusabilidade
+
+Evita duplicação de código através da definição de um tipo genérico, tendo como subtipos várias classes não relacionadas
+Uma interface agrupa objetos de várias classes definidas independentemente, sem compartilhar código via herança, tendo implementações totalmente diferentes
+
+Classes abstratas X Interfaces
+
+Agrupa objetos com implementações compartilhadas 
+Define novas classes através de herança (simples) de código
+Só uma classe pode ser supertipo de outra classe
+
+
+Agrupa objetos com implementações diferentes 
+Define novas interfaces através de herança (múltipla) de assinaturas
+Várias interfaces podem ser supertipo do mesmo tipo
+
+
+Interfaces no padrão de camadas
+
+Publicam os serviços de uma camada específica
+Quebram dependência entre as camadas
+    Flexibilidade na implementação das camadas
+Fachada –regras do negócio
+Coleções de Negócio (Cadastros) – restrições específicas de um negócio
+Coleções de dados – restrições de estruturas de dados
+    Diversos tipos de estruturas de dados podem ser implementados nesta camada.
+O objetivo principal é quebrar a dependência de implementação entre Coleções de Negócio e Coleções de Dados
+
+

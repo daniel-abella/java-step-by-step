@@ -1,0 +1,27 @@
+package normal;
+
+public class Externa {
+
+	private String privado;
+
+	public static void main(String[] args) {
+
+		Externa externa = new Externa();
+		Externa.Interna interna = externa.new Interna();
+
+		Externa.Interna interna2 = new Externa().new Interna();
+	}
+
+	public void instancia(){
+		Interna interna = new Interna();
+	}
+
+
+	private class Interna{
+
+		Interna(){
+			privado = "aaaaaaaaaaaaaaa";
+			Externa.this.privado = "aaaaaaaaaaaaaaaa";
+		}
+	}
+}

@@ -1,0 +1,37 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class RegexTeste {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Pattern pattern = null;
+		Matcher matcher = null;
+
+		//. PONTO
+
+		//* ASTERISCO
+
+		//+ MAIS
+
+		//? INTERROGAÇÃO
+
+		//\d NÚMERO
+
+		//\s ESPAÇOS EM BRANCO, QUEBRA DE LINHA
+
+		//\w LETRAS E NÚMEROS
+
+		//[] LISTA
+
+		//() GRUPO
+
+		//ESCAPANDO STRINGS
+
+	}
+
+}

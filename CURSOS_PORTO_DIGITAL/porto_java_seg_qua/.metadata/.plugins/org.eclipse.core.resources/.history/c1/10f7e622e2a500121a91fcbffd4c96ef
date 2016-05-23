@@ -1,0 +1,31 @@
+
+public class RegexTeste {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		//. PONTO
+
+		//* ASTERISCO
+
+		//+ MAIS
+
+		//? INTERROGAÇÃO
+
+		//\d NÚMERO
+
+		//\s ESPAÇOS EM BRANCO, QUEBRA DE LINHA
+
+		//\w LETRAS E NÚMEROS
+
+		//[] LISTA
+
+		//() GRUPO
+
+		//ESCAPANDO STRINGS
+
+	}
+
+}

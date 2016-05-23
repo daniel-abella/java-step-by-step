@@ -1,0 +1,12 @@
+package anonimo.interfaces;
+
+public class Externa {
+
+	public void fazAlgo(){
+
+		RetornaDadosJSON retornaDadosJSON = new RetornaDadosJSON() {
+
+
+		};
+	}
+}

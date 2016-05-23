@@ -1,0 +1,5 @@
+package serializacao.naoserializaveis.composicao;
+
+public class Raca {
+
+}

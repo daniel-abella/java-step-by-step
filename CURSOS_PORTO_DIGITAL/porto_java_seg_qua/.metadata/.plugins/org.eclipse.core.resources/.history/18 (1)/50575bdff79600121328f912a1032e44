@@ -1,0 +1,42 @@
+package arquivos;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ManipuladorArquivos {
+
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+
+		//criandoArquivo();
+
+		File diretorio = new File("C:\\Users\\gallindo\\Google Drive\\desenvolvimento\\workspaces\\porto_java_seg_qua\\java-io-aula");
+
+	}
+
+	private static void criandoArquivo() throws IOException {
+		File arquivo = new File("arquivos-teste.txt");
+
+		//CRIAR UM ARQUIVO
+
+		boolean arquivoCriado = arquivo.createNewFile();
+
+		System.out.println(arquivoCriado);
+
+		//VERIFICAR SE É ARQUIVO OU DIRETÓRIO
+		System.out.println(arquivo.isDirectory());
+		System.out.println(arquivo.isFile());
+
+		//RENOMEAR
+		File arquivoRenomeado = new File("arquivos-teste2.txt");
+		boolean renomeado = arquivo.renameTo(arquivoRenomeado);
+        System.out.println(renomeado);
+
+        //DELETAR
+        arquivoRenomeado.delete();
+	}
+
+}

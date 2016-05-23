@@ -1,0 +1,10 @@
+1. import java.util.*;
+2. public class PQ {
+3. public static void main(String[] args) {
+4. PriorityQueue<String> pq = new PriorityQueue<String>();
+5. pq.add("carrot");
+6. pq.add("apple");
+7. pq.add("banana");
+8. System.out.println(pq.poll() + ":" + pq.peek());
+9. }
+10. }

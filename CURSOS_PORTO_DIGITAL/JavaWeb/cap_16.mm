@@ -1,0 +1,18 @@
+<map version="0.9.0">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node CREATED="1375803000205" ID="ID_523607767" MODIFIED="1375803079915" TEXT="Chapter 16: Stardard Actions &amp; Java Beans">
+<node CREATED="1375803092293" ID="ID_1937892847" MODIFIED="1375803105651" POSITION="right" TEXT="The Basics Of Actions">
+<node CREATED="1375803108226" ID="ID_1754231437" MODIFIED="1375803116000" TEXT="Benefits of Actions"/>
+<node CREATED="1375803116979" ID="ID_847897957" MODIFIED="1375803125965" TEXT="Action Syntax"/>
+</node>
+<node CREATED="1375803133768" ID="ID_595418651" MODIFIED="1375803155105" POSITION="right" TEXT="JavaBeans: Ground Coffee?">
+<node CREATED="1375803155107" ID="ID_814408038" MODIFIED="1375803160506" TEXT="Constructors"/>
+<node CREATED="1375803161910" ID="ID_139847207" MODIFIED="1375803183610" TEXT="Properties and the default introspector"/>
+<node CREATED="1375803187554" ID="ID_1427619063" MODIFIED="1375803196680" TEXT="Other methods"/>
+</node>
+<node CREATED="1375803199508" ID="ID_505358646" MODIFIED="1375803213070" POSITION="right" TEXT="Standard Actions for the exam">
+<node CREATED="1375803213071" ID="ID_1483073866" MODIFIED="1375803226679" TEXT="Working with JavaBeans"/>
+<node CREATED="1375803227659" ID="ID_283198703" MODIFIED="1375803240602" TEXT="Working with other methods"/>
+</node>
+</node>
+</map>

@@ -1,0 +1,2860 @@
+SELECT Des, Ass, Sum(V1) as T1, Sum(V2) as T2, Sum(V3) as T3, Sum(V4) as T4, Sum(V5) as T5, Sum(V6) as T6, Sum(V7) as T7, Sum(V8) as T8, Sum(V9) as T9, Sum(V10) as T10, Sum(V11) as T11
+FROM (
+	-- Saldos Anteriores
+	SELECT SERD_NUMERO as Des, CODREL_ASSUNTO as Ass, RTA2_EMANDAMENTO as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM RELATORIO_TAXONOMIA_A2_2013 RTA, (SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L
+	WHERE
+		TO_CHAR(RTA.RTA2_MES_ANO, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO - 10, 'MM/YYYY')
+	
+	UNION
+	
+	-- GARANTIAS CONSTITUCIONAIS
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 24 as Ass, 0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+
+	
+	UNION
+	
+	-- RESPONSABILIDADE DA ADMINISTRAÇÃO
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 25 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 25 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9991 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ATOS ADMINISTRATIVOS, EXCETO IMPROBIDADE ADMINISTRATIVA
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 26 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 26 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9997 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO AND ass.COD_ASSUNTO NOT IN (10012,10013,10014,10011)) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- IMPROBIDADE ADMINISTRATIVA
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 27 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 27 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10011 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- SAÚDE
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 28 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 28 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10064 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ENSINO SUPERIOR E ENSINO FUNDAMENTAL E MEDIO
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 29 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 29 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10029, 10051) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- SISTEMA NACIONAL DO DESPORTO
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 30 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 30 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10072 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PATRIMÔNIO PÚBLICO
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 31 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 31 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO IN (10421, 10370, 10385, 10073, 10089, 10120) CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSOS MINERAIS
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 32 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 32 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10106 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- MEIO AMBIENTE
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 33 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 33 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10110 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- AGENTES POLÍTICOS
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 34 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 34 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10186 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- SERVIDOR PÚBLICO CIVIL
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 35 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 35 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10219 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- MILITAR
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 36 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 36 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 10324 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ORDEM URBANÍSTICA
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 37 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 37 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 900131 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- DIREITO DO CONSUMIDOR
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 38 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 38 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 1156 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- DIREITO PROCESSUAL CIVIL E DO TRABALHO
+	-- RECEBIDOS
+	SELECT dist.serd_numero as Des, 39 as Ass,  0 as V1, count(doce.doc_numero) as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- DEVOLVIDOS
+	SELECT dist.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, count(doce.doc_numero) as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM documento d, VW_DOC_ENTRADA_DISTRIBUICAO doce LEFT OUTER JOIN distribuicao dist ON doce.DIST_NUMERO = dist.dist_numero and doce.doc_numero = dist.doc_numero,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) c
+	WHERE
+		doce.doc_numero = d.doc_numero
+		and TO_CHAR(DOCE.DOCE_DATA_SAIDA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') and d.cod_classe = c.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by dist.serd_numero
+	
+	UNION
+	
+	-- MANIFESTAÇÃO
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, count(am.doc_numero) as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920198
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- PETIÇÃO INICIAL
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, count(am.doc_numero) as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920013
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- ALEGAÇÕES FINAIS
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, count(am.doc_numero) as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920201,920202)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RÉPLICA A CONTESTAÇÃO
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento = 920208
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA FAVORÁVEL
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920137,920143,920149)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA PARCIALMENTE FAVORÁVEL
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920139,920145,920151)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- CIÊNCIA DESFAVORÁVEL
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		am.cod_movimento IN (920138,920144,920150)
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+	
+	UNION
+	
+	-- RECURSO
+	SELECT am.serd_numero as Des, 39 as Ass, 0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, 0 as V7, 0 as V8, 0 as v9,0 as v10, count(am.doc_numero) as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 8826 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C,
+		(SELECT m.cod_movimento FROM movimentos m START WITH m.cod_movimento = 920211 CONNECT BY m.CODIGO_PAI = PRIOR m.cod_movimento) m
+	WHERE
+		am.cod_movimento = m.cod_movimento
+		and d.doc_numero = am.doc_numero
+		and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero
+)
+GROUP BY Des, Ass

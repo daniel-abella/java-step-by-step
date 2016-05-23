@@ -1,0 +1,16 @@
+package caracteres;
+
+import java.net.URL;
+
+public class OutrasFontes {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		URL url = new URL("http://www.google.com");
+
+	}
+
+}

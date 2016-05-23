@@ -1,0 +1,12 @@
+1. import java.util.*;
+2. public class WrappedString {
+3. private String s;
+4. public WrappedString(String s) { this.s = s; }
+5. public static void main(String[] args) {
+6. HashSet<Object> hs = new HashSet<Object>();
+7. WrappedString ws1 = new WrappedString("aardvark");
+8. WrappedString ws2 = new WrappedString("aardvark");
+9. String s1 = new String("aardvark");
+10. String s2 = new String("aardvark");
+11. hs.add(ws1); hs.add(ws2); hs.add(s1); hs.add(s2);
+12. System.out.println(hs.size()); } }

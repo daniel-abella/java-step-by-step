@@ -1,0 +1,14 @@
+package br.com.qualiti.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Utils {
+
+	public String formatarData(Date data, String formato){
+
+		SimpleDateFormat format = new SimpleDateFormat(formato);
+
+		return format.format(data);
+	}
+}

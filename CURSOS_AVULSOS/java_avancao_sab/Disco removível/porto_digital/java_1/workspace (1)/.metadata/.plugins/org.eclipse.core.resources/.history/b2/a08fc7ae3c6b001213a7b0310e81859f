@@ -1,0 +1,13 @@
+package br.com.qualiti.java1;
+
+public enum Carros {
+
+	FUSCA(2),
+	CHEVETE(4);
+	
+	private int quantidadePortas;
+	
+	Carros(int quantidadePortas){
+		this.quantidadePortas = quantidadePortas;
+	}
+}

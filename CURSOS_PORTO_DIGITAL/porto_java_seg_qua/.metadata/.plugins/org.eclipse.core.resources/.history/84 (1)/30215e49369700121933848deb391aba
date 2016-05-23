@@ -1,0 +1,16 @@
+package caracteres;
+
+public class FileWriterExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		//DESTINO DOS DADOS
+
+		//ESCRITOR DOS DADOS
+
+	}
+
+}

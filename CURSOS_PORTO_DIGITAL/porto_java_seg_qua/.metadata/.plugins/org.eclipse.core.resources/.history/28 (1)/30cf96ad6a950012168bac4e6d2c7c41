@@ -1,0 +1,23 @@
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Q02 implements Serializable{
+
+	private Tree tree = new Tree();
+
+	public static void main(String[] args) {
+		Q02 f = new Q02();
+		try {
+			FileOutputStream fs = new FileOutputStream("Forest.ser");
+			ObjectOutputStream os = new ObjectOutputStream(fs);
+			os.writeObject(f);
+			os.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}
+
+class Tree {
+}

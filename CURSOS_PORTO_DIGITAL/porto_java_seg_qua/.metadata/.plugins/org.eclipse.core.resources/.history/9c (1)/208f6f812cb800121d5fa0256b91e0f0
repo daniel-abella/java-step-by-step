@@ -1,0 +1,14 @@
+package anonimo.subclasse;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Externa externa = new Externa();
+
+	}
+
+}

@@ -1,0 +1,12 @@
+1364352995610	Copy compilation unit
+1364353016720	Copy compilation unit
+1364353039524	Copy compilation unit
+1364353063244	Copy compilation unit
+1364354341093	Extract local variable 'fileWriter'
+1364354451752	Extract local variable 'tamanhoBufferKB'
+1364354921559	Rename local variable 'data'
+1364354983575	Delete element
+1364356966195	Rename type 'BufferedFileReaderExemplo'
+1364356977484	Rename type 'BufferedFileWriterExemplo'
+1364398328130	Rename type 'SocketExemplo'
+1364398356835	Extract method 'lerUrl'

@@ -1,0 +1,121 @@
+package snippet;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Snippet {
+	public static void append(List list) {
+		list.add("0042");
+	}
+
+	public static void main(String[] args) {
+
+		List<Integer> intList = new ArrayList<Integer>();
+		append(intList);
+		Object integer = intList.get(0);
+		System.out.println(integer);
+
+		somar(new Long(1));
+		somar(new Integer(1));
+		somar(new Float(1));
+
+		somar2(new Long(1));
+		somar2(new Integer(1));
+		somar2(new Date());
+		somar2("aaaaaaaaaaaaaaaaaa");
+
+		somar3(new Long(1));
+		somar3(new Integer(1));
+
+	}
+
+	public static <T extends Number> T somar(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+
+		return inteiro;
+	}
+
+	public static <T extends Comparable> T somar2(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		T string = (T)new String("1.2");
+		T date = (T)new Date();
+
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+		System.out.println(string.getClass().getName());
+		System.out.println(date.getClass().getName());
+
+		return inteiro;
+	}
+
+	public static <T extends Comparable<? extends Number>> T somar3(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+
+		return inteiro;
+	}
+
+
+	private static <T extends Collection> void listar(T lista){
+
+	}
+
+	private static void sum(List<Integer> intList){
+		for (int i : intList) {
+
+		}
+	}
+
+	private static void imprimeNumeros(List<Number> numeros){
+
+		for (Number number : numeros) {
+			System.out.println(number);
+		}
+	}
+
+	private static void imprimeNumerosExtends(
+			List<? extends Number> numeros){
+
+		//numeros.add(1);
+
+		for (Number number : numeros) {
+			System.out.println(number);
+		}
+	}
+
+	private static void imprimeNumerosSuper(
+			List<? super Integer> numeros){
+
+		numeros.add(1);
+	}
+
+	private static void imprimeSerializaveis(
+			List<? extends Serializable> serializaveis){
+
+		for (Serializable serializable : serializaveis) {
+
+		}
+	}
+
+	private static void imprimeNumerosSemTipo(List numeros){
+
+		numeros.add("aaaaaaaaaaaaaaa");
+
+		System.out.println(numeros.get(1));
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;outro&apos; from expression &apos;(WrappedString)obj&apos;&#x0A;- Original project: &apos;colecoes&apos;&#x0A;- Variable name: &apos;outro&apos;&#x0A;- Destination method: &apos;exercicios.WrappedString.equals()&apos;&#x0A;- Variable expression: &apos;(WrappedString)obj&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;outro&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;exercicios{WrappedString.java" name="outro" replace="true" selection="214 18" stamp="1387046258999" version="1.0"/>
+</session>

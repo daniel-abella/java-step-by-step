@@ -1,0 +1,14 @@
+package serializacao.naoserializaveis.heranca.paiserializavel;
+
+import java.io.Serializable;
+
+public class Animal {
+
+	protected double altura;
+	protected double peso;
+
+	public Animal() {
+		super();
+	}
+
+}

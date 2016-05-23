@@ -1,0 +1,28 @@
+package serializacao.comum;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Deserializador {
+
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+
+		Cachorro cachorro = null;
+
+		FileInputStream fileInputStream =
+				new FileInputStream("comum.ser");
+
+		ObjectInputStream objectInputStream =
+				new ObjectInputStream(fileInputStream);
+
+		cachorro = (Cachorro) objectInputStream.readObject();
+
+	}
+
+}

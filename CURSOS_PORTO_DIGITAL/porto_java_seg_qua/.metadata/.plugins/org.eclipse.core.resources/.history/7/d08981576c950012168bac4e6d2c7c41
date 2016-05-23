@@ -1,0 +1,47 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+
+class Food2 {Food2() { System.out.print("1"); } }
+class Fruit extends Food2 implements Serializable {
+Fruit() { System.out.print("2"); } }
+class Banana2 extends Fruit { int size = 42;
+public static void main(String [] args) {
+Banana2 b = new Banana2();
+b.serializeBanana2(b); // assume correct serialization
+b = b.deserializeBanana2(b); // assume correct
+System.out.println(" restored " + b.size + " "); }
+// more Banana2 methods
+
+private Banana deserializeBanana2() {
+
+	Banana banana = null;
+
+	try {
+		FileInputStream fs = new FileInputStream("Banana.ser");
+		ObjectInputStream os = new ObjectInputStream(fs);
+		banana = (Banana) os.readObject();
+		os.close();
+	} catch (Exception ex) {
+		ex.printStackTrace();
+	}
+
+	return banana;
+}
+
+private void serializeBanana2(Banana b) {
+	try {
+		FileOutputStream fs = new FileOutputStream("Banana.ser");
+		ObjectOutputStream os = new ObjectOutputStream(fs);
+		os.writeObject(b);
+		os.close();
+	} catch (Exception ex) {
+		ex.printStackTrace();
+	}
+
+}
+}
+

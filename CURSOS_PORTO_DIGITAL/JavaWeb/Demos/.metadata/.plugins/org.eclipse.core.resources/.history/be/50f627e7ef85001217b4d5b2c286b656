@@ -1,0 +1,49 @@
+package qualiti.javaweb.demos;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet({ "/POP3Servlet", "/POP3", "/POP" })
+public class POP3Servlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public POP3Servlet() {
+		super();
+	}
+
+	@Override
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter writer = response.getWriter();
+		writer.println("<h1>Hello World</h1>");
+		writer.close();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.addHeader("Expires", "-1");
+		// resp.addHeader("Content-Disposition",
+		// "attachment; filename=\"pagina.html\"");
+		PrintWriter writer = resp.getWriter();
+		writer.println("<h1>Seu Browser: " + req.getHeader("User-Agent")
+				+ "</h1>");
+		writer.close();
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+	}
+
+}

@@ -1,0 +1,14 @@
+package caracteres;
+
+public class ConsoleExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+
+
+	}
+
+}

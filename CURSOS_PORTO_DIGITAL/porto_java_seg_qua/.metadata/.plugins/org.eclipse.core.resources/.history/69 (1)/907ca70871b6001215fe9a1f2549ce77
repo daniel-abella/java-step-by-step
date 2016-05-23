@@ -1,0 +1,13 @@
+1. import java.util.*;
+2.
+3. public class LetterASort{
+4. public static void main(String[] args) {
+5. ArrayList<String> strings = new ArrayList<String>();
+6. strings.add("aAaA");
+7. strings.add("AaA");
+8. strings.add("aAa");
+9. strings.add("AAaa");
+10. Collections.sort(strings);
+11. for (String s : strings) { System.out.print(s + " "); }
+12. }
+13. }

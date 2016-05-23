@@ -1,0 +1,57 @@
+package snippet;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Snippet {
+	public static void append(List list) {
+		list.add("0042");
+	}
+
+	public static void main(String[] args) {
+
+		List<Integer> intList = new ArrayList<Integer>();
+		append(intList);
+		Object integer = intList.get(0);
+		System.out.println(integer);
+
+		somar(new Long(1));
+		somar(new Integer(1));
+		somar(new Float(1));
+
+		somar2(new Long(1));
+		somar2(new Integer(1));
+		somar2(new Date());
+		somar2("aaaaaaaaaaaaaaaaaa");
+
+	}
+
+	public static <T extends Number> T somar(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+
+		return inteiro;
+	}
+
+	public static <T extends Comparable> T somar2(T arg){
+
+		System.out.println(arg.getClass().getName());
+		T inteiro = (T)new Integer(1);
+		T duplo = (T)new Double(1.2);
+		T string = (T)new String("1.2");
+		T date = (T)new Date();
+
+		System.out.println(inteiro.getClass().getName());
+		System.out.println(duplo.getClass().getName());
+		System.out.println(string.getClass().getName());
+		System.out.println(date.getClass().getName());
+
+		return inteiro;
+	}
+
+}

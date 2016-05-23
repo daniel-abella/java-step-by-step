@@ -1,0 +1,274 @@
+#MindMapExport FreeplaneVersion:freeplane 1.3.0
+
+1 OCJP 1.6
+1.1 Declaração e Controle de Acesso
+1.1.1 Identificadores e JavaBeans (Obj 1.3 e 1.4)
+1.1.1.1 Identificadores Legais
+1.1.1.1.1 Podem començar com letra, sublinha ou cifrão
+1.1.1.1.2 Depois do primeiro caracter, identificadores pode incluir números
+1.1.1.1.3 Identificadores podem ter qualquer tamanho
+1.1.1.1.4 Não pode ser uma palavra reservada
+1.1.1.2 Convenções de Código Java da Sun
+1.1.1.2.1 Classes e Interfaces
+1.1.1.2.1.1 Primeira letra maiúscula e CamelCase
+1.1.1.2.1.2 Normalmente os nomes são substantivos
+1.1.1.2.2 Métodos
+1.1.1.2.2.1 Primeira minúscula seguido de camelCase
+1.1.1.2.2.2 Normalmente os nomes são pares verboSubstantivo
+1.1.1.2.3 Variáveis
+1.1.1.2.3.1 Primeira minúscula seguido de camelCase
+1.1.1.2.3.2 Nomes curtos e significativos
+1.1.1.2.4 Constantes
+1.1.1.2.4.1 Letras MAIÚSCULAS
+1.1.1.2.4.2 Usam sublinha "_" como separadores
+1.1.1.3 Padrões JavaBeans
+1.1.1.3.1 Propriedades com privadas com métodos getters e setters para acesso e modificação
+1.1.1.4 Regras de Nomeção de Propriedades JavaBeans
+1.1.1.4.1 Método de acesso getXxx ou isXxx (se xxx for booleano)
+1.1.1.4.2 Método de modificação setXxx
+1.1.1.4.3 Gets devem ser publicos e o tipo de retorno deve combinar com argumento do método set
+1.1.1.4.4 Gets não devem ter argumentos
+1.1.1.5 Regras de Nomeação de Listeners JavaBeans
+1.1.1.5.1 addXxxListener(XxxListener l)
+1.1.1.5.2 removeXxxListener(XxxListener l)
+1.1.2 Declarar Classes (Obj 1.1)
+1.1.2.1 Regras de Declaração para Arquivos-Fonte
+1.1.2.1.1 Só pode haver uma classe public em cada arquivo
+1.1.2.1.2 Os comentários podem aparecer no início ou fim de qualquer linha.
+1.1.2.1.3 Caso exista uma classe pública, o arquivo deve ter o mesmo nome dessa classe
+1.1.2.1.4 Se a classe estiver num pacote, a declaração do pacote deve vir na primeira linha, antes dos imports
+1.1.2.1.5 Os imports devem ficar entre a declaração do pacote(se houver) e a da classe
+1.1.2.1.6 As delcarações package e import se aplicam a todas as classes dentro do arquivo
+1.1.2.1.7 Um arquivo pode ter várias classes não públicas
+1.1.2.1.8 Arquivos que não tenham classes públicas podem ter qualquer nome
+1.1.2.2 Declarações e Modificadores de Classes
+1.1.2.2.1 Acesso a Classes
+1.1.2.2.1.1 Classes só podem ter acesso public ou default
+1.1.2.2.1.2 Sendo default ela só pode ser vista por classes dentro do mesmo pacote
+1.1.2.2.1.3 Sendo public ela pode ser vista por todas as classes de todos os pacotes
+1.1.2.2.2 Outros Modificadores de Classes (Não referentes a Acesso)
+1.1.2.2.2.1 Classes podem ser modificadas por final, abstract ou (strictfp)
+1.1.2.2.2.2 Uma classe não pode ser final e abstract ao mesmo tempo
+1.1.2.2.2.3 Uma classe final não pode ser herdada
+1.1.2.2.2.4 Uma classe abstract não pode ser instanciada
+1.1.2.2.2.5 Uma classe abstrata pode ter método abstratos e não abstratos
+1.1.2.2.2.6 A primeira classe concreta que estende de uma abstrata deve implementar todos os métodos abstratos
+1.1.3 Declarar Interfaces (Obj 1.1 e 1.2)
+1.1.3.1 Declarando uma Interface
+1.1.3.1.1 Todos os métodos de uma interface são public e abstract implicitamente.
+1.1.3.2 Declarando Constantes de Interface
+1.1.4 Declarar Membros de Classes (Obj 1.3 e 1.4)
+1.1.4.1 Modificadores de Acesso
+1.1.4.1.1 Membros Public
+1.1.4.1.2 Membros Private
+1.1.4.1.3 Membros Protected e Default
+1.1.4.1.4 Detalhes de Default
+1.1.4.1.5 Variáveis Locais e Modificadores de Acesso
+1.1.4.2 Modificadores Não Referentes a Acesso
+1.1.4.2.1 Métodos Final
+1.1.4.2.2 Argumentos Final
+1.1.4.2.3 Métodos Abstratos
+1.1.4.2.4 Métodos Sincronizados
+1.1.4.2.5 Métodos Nativos
+1.1.4.2.6 Métodos Strictfp
+1.1.4.2.7 Métodos com Listas de Argumentos Variáveis (var-args)
+1.1.4.3 Declaração de Construtores
+1.1.4.4 Declaração de Variáveis
+1.1.4.4.1 Declarando Primitivos e Intervalos de Primitivos
+1.1.4.4.2 Declaração de Variáveis de Referência
+1.1.4.4.3 Variáveis Locais (Automática / de Pilha / Método)
+1.1.4.4.4 Variáveis Final
+1.1.4.4.5 Variáveis Transient
+1.1.4.4.6 Variáveis Volatile
+1.1.4.4.7 Variáveis e Métodos Estáticos
+1.1.4.4.7.1 Não estão ligados a qualquer instância específica de uma classe
+1.1.4.4.7.2 Não é preciso instanciar uma classe para usar membros static
+1.1.4.4.7.3 Existe apenas uma cópia de uma variável e/ou classe estática, que é compartilhada por todas as instâncias
+1.1.4.4.7.4 Métodos static não tem acesso direto a membros não static
+1.1.4.5 Declarando Enums
+1.1.4.5.1 Declaração de Construtores, Métodos e Variações em um enum
+1.1.4.5.1.1 Um enum especifica uma lista de valores constantes que pode ser atribuído a um determinado tipo
+1.1.4.5.1.2 Enums não são Strings nem ints. O tipo cas constantes do enum é o tipo do próprio enum.
+1.1.4.5.1.3 Um enum pode ser declarado fora ou dentro de uma classe, mas não num método
+1.1.4.5.1.4 Os enums podem conter contrutores, métodos, variáveis e corpos de classes constantes
+1.1.4.5.1.5 As constantes enum podem passar argumentos para o construtor do enum.
+1.1.4.5.1.6 Os construtores dos enum podem ter argumentos e podem ser sobrecarregados
+1.1.4.5.1.7 Os construtores dos enums nunca podem ser chamados diretamento no código. Eles são semnpre chamados automaticamente quando um enum é inicializado
+1.1.4.5.1.8 O ponto e vírgural ao final da declaração de um enum é opcional
+1.1.4.5.1.9 MyEnum.values() retorna um array dos valores de MyEnum
+1.2 Orientação a Objetos
+1.2.1 Benefícios do Encapsulamento (Obj 5.1 do exame)
+1.2.2 Herança, É-UM (IS-A), TEM-UM (HAS-A) (Obj 5.5)
+1.2.3 Relacionamentos É-UM e TEM-UM
+1.2.3.1 É-UM
+1.2.3.2 TEM-UM
+1.2.4 Polimorfismo (Obj 5.2)
+1.2.5 Sobrescrevendo / Sobrecarregando (Obj 1.5 e 5.4)
+1.2.5.1 Métodos Sobrescritos
+1.2.5.1.1 Chamando a Versão da Superclasse de um Método Sobrescrito
+1.2.5.1.2 Exemplos de Métodos Sobrescritos Válidos e Inválidos
+1.2.5.2 Métodos Sobrecarregados
+1.2.5.2.1 Sobrecargas Válidas
+1.2.5.2.2 Chamando Métodos Sobrecarregados
+1.2.5.2.3 Polimorfismo em Métodos Sobrecarregados e Sobrescritos
+1.2.6 Conversão (cast) de Variáveis de Referência (Obj 5.2)
+1.2.7 Implementando uma Interface (Obj 1.2)
+1.2.8 Tipos de Retorno Válidos (Obj 1.5)
+1.2.8.1 Declaração de Tipos de Retorno
+1.2.8.1.1 Tipos de Retorno de Métodos Sobrecarregados
+1.2.8.1.2 Sobrescrita e Tipos de Retorno, e Retornos Covariantes
+1.2.8.2 Retornando um Valor
+1.2.9 Construtores e Instanciação (Obj 1.6, 5.3 e 5.4)
+1.2.9.1 Aspectos Básicos do Construtor
+1.2.9.2 Cadeia de Construtores
+1.2.9.3 Regras dos Construtores
+1.2.9.4 Identificando se um Construtor Padrão Será Criado
+1.2.9.4.1 Como Você Pode Ter a Certeza de Que um Contrutor Padrão Será Criado ?
+1.2.9.4.2 O Que Acontecerá se o Construtor da Superclasse Tiver Argumentos ?
+1.2.9.5 Construtores Sobrecarregados
+1.2.10 Static (Obj 1.3)
+1.2.10.1 Variáveis e Métodos Estáticos
+1.2.10.2 Acessando Variáveis e Métodos Static
+1.2.11 Acoplamento e Coesão (Obj 5.1)
+1.2.11.1 Acoplamento
+1.2.11.2 Coesão
+1.3 Atribuições
+1.3.1 Pilha e Head - Uma Revisão
+1.3.1.1 Escopo da Variável
+1.3.2 Literais, Atribuições e Variáveis (Obj 1.3 e 7.6)
+1.3.2.1 Valores Literais de Todos os Tipos Primitivos
+1.3.2.1.1 Literais Inteiros
+1.3.2.1.1.1 range
+1.3.2.1.1.1.1 byte
+1.3.2.1.1.1.2 short
+1.3.2.1.1.1.3 int
+1.3.2.1.1.1.4 long
+1.3.2.1.1.2 base
+1.3.2.1.1.2.1 decimal
+1.3.2.1.1.2.2 octal
+1.3.2.1.1.2.3 hexadecimal
+1.3.2.1.2 Literais de Ponto Flutuante
+1.3.2.1.2.1 float
+1.3.2.1.2.2 double
+1.3.2.1.3 Literais Booleanos
+1.3.2.1.3.1 boolean
+1.3.2.1.3.1.1 true
+1.3.2.1.3.1.2 false
+1.3.2.1.4 Literais de Caracteres
+1.3.2.1.4.1 char
+1.3.2.1.5 Valores Literais Para Strings
+1.3.2.2 Operadores de Atribuição
+1.3.2.2.1 Atribuições Primitivas
+1.3.2.2.2 Conversão de Tipos Primitivos
+1.3.2.2.2.1 
+1.3.2.2.3 Convertendo Tipos Primitivos (Cast ou Tipagem)
+1.3.2.2.3.1 Atribuições de Variáveis de Referência
+1.3.2.2.3.2 Cast implícito e explicito
+1.3.2.2.3.2.1 
+1.3.2.2.4 USando uma Variável ou Elemento de Array Que Não Tenha Sido Inicializado e Atribuído
+1.3.2.2.4.1 Variáveis de Instância de Tipo Primitivo e de Objeto
+1.3.2.2.4.2 Variáveis de Instância Primitivas
+1.3.2.2.4.3 Variáveis de Instância de Referência a Objetos
+1.3.2.2.4.4 Variáveis de Instância de Array
+1.3.2.2.4.5 Tipos Primitivos e Objetos Locais (de Pilha, Automáticos)
+1.3.2.2.4.6 Tipos Primitivos Locais
+1.3.2.2.4.7 Referências de Objetos Locais
+1.3.2.2.4.8 Arrays Locais
+1.3.2.2.4.9 Atribuindo uma Variável de Referência a Outra
+1.3.3 Passando Variáveis para Métodos (Obj 7.3)
+1.3.3.1 Passando Variáveis de Referência a Objetos
+1.3.3.2 A Linguagem Java Usa a Semântica de Passagem de Valor ?
+1.3.3.3 Passando Variáveis Primitivas
+1.3.4 Declaração, Construção e Inicialização de Arrays (Obj 1.3)
+1.3.4.1 Declarando um Array
+1.3.4.1.1 Declarando um Array de Tipos Primitivos
+1.3.4.2 Contruindo um Array
+1.3.4.2.1 Construindo Arrays Unidimensionais
+1.3.4.2.2 Construindo Arrays Multidimensionais
+1.3.4.3 Inicializando um Array
+1.3.4.3.1 Inicializando Elementos em um Loop
+1.3.4.3.2 Declarando, Construindo e Inicializando em uma Linha
+1.3.4.3.3 Contruindo e Inicializando um Array Anônimo
+1.3.4.3.4 Atribuições Válidas Para os Elementos do Array
+1.3.4.3.5 Arrays de Tipos Primitivos
+1.3.4.3.6 Arrays de Referência a Objetos
+1.3.4.3.7 Atribuições de Variáveis de Referência de Arrays Unidimensionais
+1.3.4.3.8 Atribuições de Variáveis de Referência de Arrays Multidimensionais
+1.3.4.3.9 Blocos de Inicialização
+1.3.5 Usando Classes Wrapper e Boxing (Obj 3.1)
+1.3.5.1 Uma Visão Geral das Classes Wrapper
+1.3.5.2 Criando Objetos Wrapper
+1.3.5.2.1 Os Construtores Wrapper
+1.3.5.2.2 Os Métodos valueOf()
+1.3.5.3 Usando os Utilitários de Conversão das Classes Wrapper
+1.3.5.3.1 xxxValue()
+1.3.5.3.2 ParseXxx() e valueOf()
+1.3.5.3.3 toString()
+1.3.5.3.4 toXxxString() (BAse Binário, Hexadecimal e Octal)
+1.3.5.4 Autoboxing
+1.3.5.4.1 Boxing, == e equal()
+1.3.5.4.2 Onde Pode Ser Usado o Boxing
+1.3.6 Sobrecarregando (Obj 1.5 e 5.4)
+1.3.6.1 Sobrecarregando de Maneira Difícil - Correspondência de Métodos
+1.3.6.2 Sobrecarga com Boxing e Var-args
+1.3.6.3 Ampliando Variáveis de Referência
+1.3.6.4 Sobrecarga na Combinação de Ampliação com Boxing
+1.3.6.5 Sobrecarga em Combinação com Var-args
+1.3.7 Garbage Collection (Obj 7.4)
+1.3.7.1 Visão Total do Gerenciamento da Memória e da Coleta de Lixo
+1.3.7.2 Visão Geral do Coletor de Lixo em Java
+1.3.7.2.1 Quando o Coletor de Lixo é Executado ?
+1.3.7.2.2 Como o Coletor de Lixo Funciona ?
+1.3.7.3 Escrevendo um Código Que Torne os Objetos Explicitamente Elegíveis Para a Coleta
+1.3.7.3.1 Anulando uma Referência
+1.3.7.3.2 Reatribuindo uma Variável de Referência
+1.3.7.3.3 Isolando uma Referência
+1.3.7.3.4 Forçando a Coleta de Lixo
+1.3.7.3.5 Fazendo uma Limpeza Antes da Coleta de Lixo - O Método Finalize()
+1.3.7.3.6 Cuidados Relacionados com Finalize()
+1.4 Operadores
+1.5 Controle de Fluxo, Exceções e Assertivas
+1.6 Strings, E/S, formatação e Parsing
+1.7 Genéricos e Coleções
+1.8 Classes Internas
+1.8.1 Classes Internas
+1.8.1.1 Criada dentro das chaves da classe continente
+1.8.1.2 Pode ter qualquer modificador de acesso e os modificadores abstract e final
+1.8.1.3 Tem uma referência implícita à classe continente
+1.8.1.3.1 ClasseExterna.this
+1.8.1.4 Compartilha recursos com a classe externa
+1.8.1.4.1 imports
+1.8.1.4.2 todos os métodos, inclusive private
+1.8.1.4.3 todos os atributos, inclusive private
+1.8.1.5 Só pode ser acessada a partir de uma instância da classe continente
+1.8.1.5.1 Para ter uma instância da classe interna, necessariamente devo ter antes uma da externa
+1.8.1.6 Instanciando
+1.8.1.6.1 Dentro da classe continente
+1.8.1.6.1.1 ClasseInterna interna = new ClasseInterna();
+1.8.1.6.2 Fora da classe continente
+1.8.1.6.2.1 ClasseExterna.ClasseInterna interna = new ClasseExterna().new ClasseInterna();
+1.8.1.6.2.2 ClasseExterna externa = new ClasseExterna(); ClasseExterna.ClasseInterna interna = externa.new ClasseInterna();
+1.8.1.7 Terminam em }
+1.8.2 Classes Internas Locais de Método
+1.8.2.1 Criada dentro de um método
+1.8.2.2 Instanciando
+1.8.2.2.1 Deve ocorrer dentro do mesmo método
+1.8.2.2.2 Deve ocorrer APÓS a declaração da classe
+1.8.2.3 Não pode acessar as variáveis locais do método
+1.8.2.3.1 Somente se declaradas como final
+1.8.2.4 Só aceita os modificadores abstract e final
+1.8.2.5 Termina em }
+1.8.3 Classes Internas Anônimas
+1.8.3.1 Subclasse
+1.8.3.1.1 Termina em };
+1.8.3.1.2 Normalmente usada em atribuições
+1.8.3.1.3 Métodos da classe pai podem ser sobrescritos
+1.8.3.1.4 Métodos novos podem ser criados
+1.8.3.1.5 Mas somente os métodos visíveis na classe pai podem ser acessados
+1.8.3.1.6 Não pode estender uma outra classe nem implementar um interface
+1.8.3.2 Implementador de uma interface
+1.8.3.3 Definida no Argumento de um método
+1.8.4 Classes Estáticas Aninhadas
+1.8.4.1 Instanciando
+1.9 Threads
+1.10 Desenvolvimento

@@ -1,0 +1,128 @@
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+
+public class Generics {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		/*
+		Motivos mais simples:
+
+		1 - Parametrizar o tipo contido dentro de uma
+		    cole��o
+		2 - Eliminar o uso de cast
+		3 - Impedir que sejam adicionados elementos que
+		    n�o passam no instaceof do tipo parametrizado
+
+		Generics e c�digos antigos
+
+		1 - Pode ser usado com c�digo sem gen�rics
+		    sem problemas
+		2 - Permite algumas aberra��es no c�digo
+
+		Generics e polimorfismo
+
+		1 - Atribui��es
+		2 - Passagem de par�metros simples
+		3 - Especificando heran�a
+
+		Classes e m�todos
+
+		1 - � poss�vel declarar classes gen�ricas
+		    e m�todos tamb�m
+		*/
+
+		//Tipagem
+
+		List lista = new ArrayList();
+		lista.add("aaaa");
+		lista.add(1);
+		String elemento = null;//(String) lista.get(1);
+
+		List<String> listaTipada = new ArrayList<String>();
+		listaTipada.add("");
+		listaTipada.add(1);
+
+		elemento = listaTipada.get(0);
+
+		List<Number> numeros = new ArrayList<Number>();
+		numeros.add(1);
+		numeros.add("");
+
+		List<Integer> numerosInteiros =
+				new ArrayList<Integer>();
+
+		Number[] numerosArray = new Integer[23];
+
+		//List<Number> numeros2 = new ArrayList<Integer>();
+
+		fazAlgo(new Integer(1));
+		imprimeNumeros(numeros);
+		imprimeNumeros(numerosInteiros);
+		imprimeNumerosSemTipo(numeros);
+
+		List<? extends Number> numeros2 = numeros;
+
+//		Number[] numerosArray = new Integer[5];
+//
+//		List<Number> numeros2 = new ArrayList<Integer>();
+
+		imprimeNumerosExtends(numerosInteiros);
+
+		List<Integer> a = null;
+
+	}
+
+	private static void fazAlgo(Number number){
+
+	}
+
+	private static void sum(List<Integer> intList){
+		for (int i : intList) {
+
+		}
+	}
+
+	private static void imprimeNumeros(List<Number> numeros){
+
+		for (Number number : numeros) {
+			System.out.println(number);
+		}
+	}
+
+	private static void imprimeNumerosExtends(
+			List<? extends Number> numeros){
+
+		numeros.add(1);
+
+		for (Number number : numeros) {
+			System.out.println(number);
+		}
+	}
+
+	private static void imprimeNumerosSuper(
+			List<? super Integer> numeros){
+
+		numeros.add(1);
+	}
+
+	private static void imprimeSerializaveis(
+			List<? extends Serializable> serializaveis){
+
+	}
+
+	private static void imprimeNumerosSemTipo(List numeros){
+
+		numeros.add("aaaaaaaaaaaaaaa");
+
+		System.out.println(numeros.get(1));
+	}
+
+}

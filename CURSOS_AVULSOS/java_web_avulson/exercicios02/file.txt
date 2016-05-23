@@ -1,0 +1,25 @@
+Tow mandando o script da view do anexo 2 pra tu testar. (em anexo)
+
+O trecho que eu to com dificuldade é esse aqui (dentro de um WHERE):
+
+
+	am.cod_movimento ?????????
+	and d.doc_numero = am.doc_numero
+	and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY')
+
+	(am.cod_movimento)(\s*=\s*|\s*in\s*)\(?(\d+,?\s?)+\)?(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*'MM/YYYY'\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*'MM/YYYY'\))
+
+
+(am.cod_movimento)(\s*=\s*|\s*in\s*)(\(?\d+,?\s?\)?)+(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*'MM/YYYY'\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*'MM/YYYY'\))
+
+(am.cod_movimento)(\s*=\s*|\s*in\s*)([\d,\(\)]+)(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*'MM/YYYY'\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*'MM/YYYY'\))
+E eu quero que ele fique assim:
+
+	EXPRESSÃO REGULAR
+    (am.cod_movimento)(\s*=\s*|\s*in\s*)([\d,\(\)]+)(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*'MM/YYYY'\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*'MM/YYYY'\))
+
+	EXPRESSÃO DE SUBSTITUIÇÃO
+	(am.cod_movimento $2$3 and sd.serd_numero = am.serd_numero and d.doc_numero = am.doc_numero and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') ) or (mov.movimentos_codigo $2$3 and sd.serd_numero = mov.serd_numero_responsavel and d.doc_numero = mov.doc_numero and TO_CHAR(mov.mov_data, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') )
+
+
+Aonde o '?????????' pode ser '= 999999' ou 'IN (999999, 000000)' ou qualquer outro similar..

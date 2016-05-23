@@ -1,0 +1,18 @@
+package caracteres;
+
+import java.io.File;
+
+public class FileWriterExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		//DESTINO DOS DADOS
+		File file = new File("filewriter.txt");
+		//ESCRITOR DOS DADOS
+
+	}
+
+}

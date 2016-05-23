@@ -1,0 +1,11 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
+class Boxing3{
+
+  public static void main(String args[]) throws IOException{
+	  File file = new File("C:/fun.log");
+	  BufferedReader reader = new BufferedReader(file);
+	  System.out.println(reader.readLine());
+ }
+}

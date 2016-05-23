@@ -1,0 +1,6 @@
+1364400021486	Extract local variable 'arquivoRenomeado'
+1364400072285	Extract method 'criandoArquivo'
+1364401163545	Delete element
+1364402540331	Rename type 'BufferedReader'
+1364402587822	Rename type 'Exemplo'
+1364404394198	Extract local variable 'openStream'

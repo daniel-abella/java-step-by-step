@@ -1,0 +1,7 @@
+Exceções
+Asserts
+Wrappers
+Gargage
+StringBuilder e StringBuffer
+IO
+Serialização

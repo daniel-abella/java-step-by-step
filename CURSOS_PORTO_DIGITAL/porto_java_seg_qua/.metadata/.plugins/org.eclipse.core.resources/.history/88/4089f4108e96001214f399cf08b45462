@@ -1,0 +1,27 @@
+package caracteres;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class BufferedFileReaderExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int tamanhoBufferKB = 8 * 1024;
+		File arquivo = new File("bufferedfilereaderreader-text.txt");
+		try {
+			arquivo.createNewFile();
+			FileReader fileReader = new FileReader(arquivo);
+			BufferedReader reader = new BufferedReader(fileReader,tamanhoBufferKB);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

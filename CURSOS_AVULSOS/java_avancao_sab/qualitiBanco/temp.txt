@@ -1,0 +1,7 @@
+<mapping class=""/>
+
+<mapping class="br.com.qualiti.banco.hibernate.TbConta"/>
+<mapping class="br.com.qualiti.banco.hibernate.TbEndereco"/>
+<mapping class="br.com.qualiti.banco.hibernate.TbGerente"/>
+<mapping class="br.com.qualiti.banco.hibernate.TbGerentesCliente"/>
+<mapping class="br.com.qualiti.banco.hibernate.TbGerentesClienteId"/>

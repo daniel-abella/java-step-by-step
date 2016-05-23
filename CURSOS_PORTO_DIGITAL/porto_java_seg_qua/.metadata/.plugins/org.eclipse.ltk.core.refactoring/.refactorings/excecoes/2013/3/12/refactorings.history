@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from project &apos;excecoes&apos;&#x0D;&#x0A;- Original project: &apos;excecoes&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     DeuPauException.java&#x0D;&#x0A;     FazAlgo.java&#x0D;&#x0A;     FazAlgo2.java&#x0D;&#x0A;     TestandoAsserts.java" description="Delete elements" element1="/src&lt;{TestandoAsserts.java" element2="/src&lt;{FazAlgo2.java" element3="/src&lt;{DeuPauException.java" element4="/src&lt;{FazAlgo.java" elements="4" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1363815878231" subPackages="false" version="1.0"/>
+</session>

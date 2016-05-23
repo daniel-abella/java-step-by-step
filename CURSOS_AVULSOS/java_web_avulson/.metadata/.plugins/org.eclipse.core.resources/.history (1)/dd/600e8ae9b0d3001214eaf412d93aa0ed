@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class WrappedString {
+	private String s;
+
+	public WrappedString(String s) {
+		this.s = s;
+	}
+
+	public static void search(List<String> list) {
+		list.clear();
+		list.add("a");
+		list.add("b");
+		list.add("c");
+
+		System.out.println(Collections.binarySearch(list, "a"));
+		System.out.println(Collections.binarySearch(list, "b"));
+		System.out.println(Collections.binarySearch(list, "c"));
+	}
+
+	public static void main(String[] args) {
+
+		search(new ArrayList<String>());
+
+	}
+}

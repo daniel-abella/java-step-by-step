@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="1016" key="DIALOG_WIDTH"/>
+		<item value="174" key="DIALOG_Y_ORIGIN"/>
+		<item value="193" key="DIALOG_X_ORIGIN"/>
+		<item value="381" key="DIALOG_HEIGHT"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="wrap"/>
+		<item value="false" key="casesensitive"/>
+		<item value="true" key="isRegEx"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="(am.cod_movimento  IN (920137,920143,920149) and sd.serd_numero = am.serd_numero and d.doc_numero = am.doc_numero and TO_CHAR(am.ATUMI_DATA_REFERENCIA, &apos;MM/YYYY&apos;) = TO_CHAR(L.RTL_MES_ANO, &apos;MM/YYYY&apos;) ) or (mov.movimentos_codigo  IN (920137,920143,920149) and sd.serd_numero = mov.serd_numero_responsavel and d.doc_numero = mov.doc_numero and TO_CHAR(mov.mov_data, &apos;MM/YYYY&apos;) = TO_CHAR(L.RTL_MES_ANO, &apos;MM/YYYY&apos;) )" key="selection"/>
+		<list key="findhistory">
+			<item value="(am.cod_movimento)(\s*=\s*|\s*in\s*)([\d,\(\)]+)(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*&apos;MM/YYYY&apos;\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*&apos;MM/YYYY&apos;\))"/>
+			<item value="\(am\.cod_movimento  IN \(920137,920143,920149\) and sd\.serd_numero = am\.serd_numero and d\.doc_numero = am\.doc_numero and TO_CHAR\(am\.ATUMI_DATA_REFERENCIA, &apos;MM/YYYY&apos;\) = TO_CHAR\(L\.RTL_MES_ANO, &apos;MM/YYYY&apos;\) \) or \(mov\.movimentos_codigo  IN \(920137,920143,920149\) and sd\.serd_numero = mov\.serd_numero_responsavel and d\.doc_numero = mov\.doc_numero and TO_CHAR\(mov\.mov_data, &apos;MM/YYYY&apos;\) = TO_CHAR\(L\.RTL_MES_ANO, &apos;MM/YYYY&apos;\) \)"/>
+			<item value="(am.cod_movimento)(\s*=\s*|\s*in\s*)([\d,\(\)])+(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*&apos;MM/YYYY&apos;\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*&apos;MM/YYYY&apos;\))"/>
+			<item value="(am.cod_movimento)(\s*=\s*|\s*in\s*)(\(?\d+,?\s?\)?)+(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*&apos;MM/YYYY&apos;\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*&apos;MM/YYYY&apos;\))"/>
+			<item value="(am.cod_movimento)(\s*=\s*|\s*in\s*)\(?(\d+,?\s?)+\)?(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*&apos;MM/YYYY&apos;\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*&apos;MM/YYYY&apos;\))"/>
+			<item value="am.cod_movimento = 920198"/>
+			<item value="(am.cod_movimento)(\s*=\s*|\s*in\s*)(\d+)(\s*and\s*d.doc_numero\s*=\s*am.doc_numero\s*and\s*TO_CHAR\(am.ATUMI_DATA_REFERENCIA,\s*&apos;MM/YYYY&apos;\)\s*=\s*TO_CHAR\(L.RTL_MES_ANO,\s*&apos;MM/YYYY&apos;\))"/>
+			<item value="download"/>
+		</list>
+		<list key="replacehistory">
+			<item value="(am.cod_movimento $2$3 and sd.serd_numero = am.serd_numero and d.doc_numero = am.doc_numero and TO_CHAR(am.ATUMI_DATA_REFERENCIA, &apos;MM/YYYY&apos;) = TO_CHAR(L.RTL_MES_ANO, &apos;MM/YYYY&apos;) ) or (mov.movimentos_codigo $2$3 and sd.serd_numero = mov.serd_numero_responsavel and d.doc_numero = mov.doc_numero and TO_CHAR(mov.mov_data, &apos;MM/YYYY&apos;) = TO_CHAR(L.RTL_MES_ANO, &apos;MM/YYYY&apos;) )"/>
+			<item value="am.cod_movimento in (920198, 312312)"/>
+			<item value="&lt;br&gt;"/>
+			<item value=""/>
+		</list>
+	</section>
+</section>

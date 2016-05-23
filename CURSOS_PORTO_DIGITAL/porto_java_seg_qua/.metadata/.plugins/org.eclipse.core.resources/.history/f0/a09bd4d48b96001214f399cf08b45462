@@ -1,0 +1,30 @@
+package caracteres;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+
+public class FileReaderExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		File arquivo = new File("input-text.txt");
+		arquivo.createNewFile();
+
+		Reader reader = new FileReader(arquivo);
+
+		int data = reader.read();
+		while(data != -1) {
+		  //do something with data...
+		  doSomethingWithData(data);
+
+		  data = reader.read();
+		}
+		reader.close();
+
+	}
+
+}

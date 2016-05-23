@@ -1,0 +1,2793 @@
+ Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 5.  enum Towns1{NY, LA, SF} 
+ 6.
+ 7.  public class DeclareEnum {
+ 8.
+ 9.    enum Towns2{NY, LA, SF};
+10.
+11.    public static void main(String [] args) {
+12.      enum Towns3{NY, LA, SF};
+13.    }
+14.  }
+
+
+What is the result?
+
+
+A 	
+	The code compiles.
+B 	
+	Compilation fails due to an error on line 5.
+C 	
+	Compilation fails due to an error on line 9.
+D 	
+	Compilation fails due to an error on line 12.
+E 	
+	Compilation fails due to errors on lines 5 and 12.
+F 	
+	Compilation fails due to errors on lines 9 and 12.
+
+Reference
+	Close
+JLS 3.0, 8.9
+
+Option D is correct. An enum may NOT be declared in a method.
+
+
+
+
+
+---------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.1 > Question 2
+Your answer is correct.
+Given three different source files:
+
+
+1.  package com.sun2;
+2.  public enum Seasons {SUMMER, FALL, WINTER, SPRING }
+
+
+And:
+
+
+1.  import com.sun2.Seasons;
+2.  class Enum3a {
+3.    Seasons s = Seasons.FALL;
+4.  }
+
+
+And:
+
+
+1.  import com.sun2.*;
+2.  class Enum3b {
+3.    Seasons s = Seasons.FALL;
+4.  }
+
+
+Which is true?
+
+
+A 	
+	Both classes, Enum3a and Enum3b, will compile.
+B 	
+	Neither class, Enum3a nor Enum3b, will compile.
+C 	
+	Class Enum3a will compile, class Enum3b will NOT compile.
+D 	
+	Class Enum3b will compile, class Enum3a will NOT compile.
+
+Reference
+	Close
+JLS 3.0, 8.9
+
+Option A is correct. An enum can be imported.
+---------------------------------------------
+
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.2 > Question 3
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+1. abstract class Color {
+2.   protected abstract String getRGB(); 
+3. }
+4. 
+5. public class Blue extends Color {
+6.   // insert code here
+7. } 
+
+
+And four declarations:
+
+
+     public String getRGB() { return "blue"; }
+     String getRGB() { return "blue"; } 
+     private String getRGB() { return "blue"; }
+     protected String getRGB() { return "blue"; }
+
+
+How many, inserted independently at line 6, will compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+JLS 3.0, 8.9
+
+Option C is correct. Normal overriding rules apply, so the public and protected declarations are correct.
+
+-----------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.2 > Question 4
+Your answer is correct.
+Given:
+
+
+1. interface Animal {
+2.   void eat();
+3. }
+4.
+5. // insert code here
+6.
+7. public class HouseCat extends Feline {
+8.   public void eat() { }
+9. }
+
+
+And five declarations:
+
+
+ OK abstract class Feline implements Animal { }
+ Errado abstract class Feline implements Animal { void eat(); }
+ Errado abstract class Feline implements Animal { public void eat(); }
+ OK abstract class Feline implements Animal { public void eat() { } }
+ OK abstract class Feline implements Animal { abstract public void eat(); }
+
+
+How many, inserted independently at line 5, will compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+F 	
+	5
+
+Reference
+	Close
+JLS 3.0, 8
+
+Option D is correct. The 1st, 4th, and 5th declarations are legal. Declarations 2 and 3 are illegal because the 'no body' methods must also be abstract.
+
+-------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.3 > Question 5
+Your answer is correct.
+Given:
+
+
+1. class CopyArray {
+2.   public static void main(String [] args) {
+3.     int [] x = {1, 2 ,3};
+4.     // insert code here
+5.   }
+6. }
+
+
+Which two, inserted independently at line 4, will compile? (Choose two.)
+
+
+okA 	
+	int [] y1 = x;
+okB 	
+	int [] y2; y2 = x;
+C 	
+	int [] y3 = x.copy();
+D 	
+	int [] y4; for(int z : x) { y4[z] = x[z]; }
+	
+Reference
+	Close
+JLS 3.0,
+
+Option C is incorrect because arrays do not have a copy method. Option D is incorrect because y4 was NOT initialized.
+
+---------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.3 > Question 6
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given the five declarations:
+
+
+OK  int a_really_really_really_long_variable_name = 5;
+OK  int _hi =6;
+OK  int big = Integer.getInteger("7");
+OK  int $dollars = 8;
+  int %percent = 9;
+
+
+How many will compile?
+
+
+A 	
+	1
+B 	
+	2
+C 	
+	3
+D 	
+	4
+E 	
+	5
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct because the only illegal declaration is the one that starts with the %. The declaration of 'big' is legal because of autoboxing.
+
+-------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.4 > Question 7
+Your answer is correct.
+Given the four declarations:
+
+
+void doStuff(int[] intArgs...)
+void doStuff(int... intArgs)
+void doStuff(varargs.int intArgs)
+void doStuff(int <?> intArgs)
+
+
+How many will accept a variable number of arguments?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+JLS 3.0,
+
+Option B is correct because the only correct syntax is (int... intArgs).
+------------------------------------------------
+
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.4 > Question 8
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Banana {
+ 2.   int x = 1;
+ 3.   public static void main(String [] args) {
+ 4.     int x = 2;
+ 5.     Banana b = new Banana();
+ 6.     b.go();    
+ 7.   }
+ 8.   { x += x; }
+ 9.   void go() { 
+10.     ++x;
+11.     System.out.println(x);
+12.   }
+13. }
+
+
+What is the result?
+
+
+A 	
+	1
+B 	
+	2
+C 	
+	3
+D 	
+	5
+E 	
+	Compilation fails.
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. The variable x on line 2 is not the same x as on line 4. The initialization block runs after the new Banana object is created.
+------------------------------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.5 > Question 9
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+1. class SuperFoo {
+2.   SuperFoo doStuff(int x) {
+3.     return new SuperFoo();
+4.   }
+5. }
+6.
+7. class Foo extends SuperFoo {
+8.   // insert code here
+9. }
+
+
+And four declarations:
+
+
+X  Foo doStuff(int x) { return new Foo(); }
+  Foo doStuff(int x) { return new SuperFoo(); }
+X  SuperFoo doStuff(int x) { return new Foo(); }
+X  SuperFoo doStuff(int y) { return new SuperFoo(); }
+
+
+How many, inserted independently at line 8, will compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. Foo doStuff() cannot return a SuperFoo and co-variant returns are legal.
+---------------------------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.5 > Question 10
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class FWD {
+ 2.   int doMud(int x) { return 1; }
+ 3. }
+ 4. class Subaru extends FWD {
+ 5.   int doMud(int... y) { return 2; }
+ 6.   int doMud(int z) { return 3; }
+ 7. } 
+ 8. class Race {
+ 9.   public static void main(String [] args) {
+10.     int s = new Subaru().doMud(7);
+11.     System.out.println(s);
+12.   }
+13. }
+
+
+What is the result?
+
+
+A 	
+	1
+B 	
+	2
+C 	
+	3
+D 	
+	7
+E 	
+	Compilation fails.
+F 	
+	The output is NOT predictable.
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. If the JVM has a choice, it will select a method without varargs before selecting a method with varargs.
+-----------------------------------------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.6 > Question 11
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Top {
+ 2.   static int x = 1;
+ 3.   public Top() { x *= 3; }
+ 4. }
+ 5. class Middle extends Top {
+ 6.   public Middle()  { x += 1; }
+ 7.   public static void main(String [] args) {
+ 8.     Middle m = new Middle();
+ 9.     System.out.println(x);
+10.   }
+11. }
+
+
+What is the result?
+
+
+A 	
+	1
+B 	
+	2
+C 	
+	3
+D 	
+	4
+E 	
+	6
+F 	
+	Compilation fails.
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. The Top constructor completes before the Middle constructor.
+----------------------------------------------------------------------------------------------
+
+Location:   ... > Section 1: Declarations, Initialization and Scoping > Objective 1.6 > Question 12
+Your answer is correct.
+Given:
+
+
+ 1. class Beverage { 
+ 2.   Beverage() { System.out.print("beverage "); }
+ 3. }
+ 4. class Beer extends Beverage { 
+ 5.   public static void main(String [] args) {
+ 6.     Beer b = new Beer(14);
+ 7.   }
+ 8.   public int Beer(int x) {
+ 9.     this();
+10.     System.out.print("beer1 ");
+11.   }
+12.   public Beer() { System.out.print("beer2 "); }
+13. }
+
+
+What is the result?
+
+
+A 	
+	beer1 beverage
+B 	
+	beer2 beverage
+C 	
+	beverage beer1
+D 	
+	beverage beer2 beer1
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option E is correct. The declaration on line 8 looks like a constructor, but it is a method because it has a return type. Compilation fails because this(); on line 9, is allowed only in a constructor.
+
+--------------------------------------------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.1 > Question 13
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1.  enum Days {MONDAY, TUESDAY, WEDNESDAY}
+ 2.
+ 3.  class Test {
+ 4.    public static void main(String [] args) {
+ 5.      int x = 0;
+ 6.      Days d = Days.TUESDAY;
+ 7.      switch(d) {
+ 8.        case MONDAY: x++;
+ 9.        case TUESDAY: x = x + 10;
+10.        case WEDNESDAY: x = x + 100;
+11.        case THURSDAY: x = x + 1000;
+12.      }
+13.      System.out.println("x = " + x);
+14.    }
+15.  }
+
+
+What is the result?
+
+
+A 	
+	x = 10
+B 	
+	x = 110
+C 	
+	x = 1110
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. Compilation fails because THURSDAY was never enumerated. It is valid to use a correctly defined and referenced enum in a switch.
+
+-----------------------------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.1 > Question 14
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1.  class Test2 {
+ 2.    public static void main(String [] args) {
+ 3.      boolean x = true;
+ 4.      boolean y = false;
+ 5.      short z = 42;
+ 6. 
+ 7.      if((x == true) && (y = true))  z++;
+ 8.      if((y == true) || (++z == 44)) z++;
+ 9.
+10.      System.out.println("z = " + z);
+11.    }
+12.  }
+
+
+What is the result?
+
+
+A 	
+	z = 42
+B 	
+	z = 43
+C 	
+	z = 44
+D 	
+	z = 45
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. Line 7 sets (it is not a test!) y to true so z is incremented. Line 8 does NOT pre-increment z in the if test because of the short circuit.
+
+---------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.2 > Question 15
+Your answer is correct.
+Given:
+
+
+1. class WhileTests { 
+2.   public static void main(String [] args) {
+3.     int x = 5;
+4.     while (++x < 3) {
+5.       --x;
+6.     }
+7.     System.out.println("x = " + x);
+8.   }
+9. }
+
+
+What is the result?
+
+
+A 	
+	x = 2
+B 	
+	x = 5
+C 	
+	x = 6
+D 	
+	Compilation fails.
+E 	
+	A stack overflow occurs.
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. The pre-increment runs before the loop is exited.
+
+----------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.2 > Question 16
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+- list is a reference to a valid collection
+- getCollection() returns a reference to a valid collection
+
+Which two are valid? (Choose two.)
+
+
+A 	
+	for(Object o ; list)
+B 	
+	for(Object o : list.iterator())
+C 	
+	for(Object o : getCollection())
+D 	
+	for(Iterator i ; list.iterator() ; i.hasNext() )
+E 	
+	for(Iterator i = list.iterator(); i.hasNext(); )
+
+Reference
+	Close
+JLS 3.0,
+
+Options C and E demonstrate the correct syntax to iterate through a collection.
+
+-------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.3 > Question 17
+Your answer is correct.
+Given:
+
+
+1. class TestAssert {
+2.   public static void main(String [] args) {    
+3.     assert(false): "more info ";
+4.     System.out.println("after assert ");
+5.   }
+6. }
+
+
+Which is true?
+
+
+A 	
+	The command-line invocation java TestAssert will produce the output more info .
+B 	
+	The command-line invocation java TestAssert will produce the output after assert .
+C 	
+	The command-line invocation java TestAssert will produce the output more info after assert .
+D 	
+	The command-line invocation java TestAssert will produce the output after assert more info.
+
+Reference
+	Close
+JLS 3.0, and Javadocs for assertions
+
+Option B is correct because assertions were not enabled when the class was invoked.
+
+-------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.3 > Question 18
+Your answer is correct.
+Given:
+
+
+ 1. class MoreAsserts {
+ 2.   static int x = 5;
+ 3.   public static void main(String [] args) {
+ 4.     assert(doStuff(42));
+ 5.     if(x < 40) ;
+ 6.     else assert(false);    
+ 7.   }
+ 8.   public static boolean doStuff(int arg) { 
+ 9.     assert(arg < x++); 
+10.     return false; 
+11.   }
+12. }
+
+
+Which is true?
+
+
+A 	
+	None of the assert statements are appropriate.
+B 	
+	The assert statement on line 4 is appropriate.
+C 	
+	The assert statement on line 6 is appropriate.
+D 	
+	The assert statement on line 9 is appropriate.
+E 	
+	All three of the assert statements are appropriate.
+
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct because the assert on line 4 can cause a state change, and the assert on line 9 checks the argument of a public method.
+
+------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.4 > Question 19
+Your answer is correct.
+Given:
+
+
+ 1. class Number {
+ 2.   public static void main(String [] args) {
+ 3.     try {
+ 4.       System.out.print(Integer.parseInt("forty "));
+ 5.     } catch (RuntimeException r) {
+ 6.       System.out.print("runtime ");
+ 7.     } catch (NumberFormatException e) {
+ 8.       System.out.print("number ");
+ 9.     }
+10.   }
+11. }
+
+
+What is the result?
+
+
+A 	
+	forty
+B 	
+	number
+C 	
+	runtime
+D 	
+	forty number
+E 	
+	Compilation fails.
+
+Reference
+	Close
+JLS 3.0,
+
+Option E is correct. Compilation fails because the broader exception
+RuntimeException is listed first.
+
+-------------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.4 > Question 20
+Your answer is correct.
+Given:
+
+
+ 1. class Parser extends Utils {
+ 2.   public static void main(String [] args) {  
+ 3.     try { System.out.print(new Parser().getInt("42")); 
+ 4.     }  catch (Exception e) {
+ 5.       System.out.println("Exc"); }
+ 6.   }
+ 7.   int getInt(String arg) throws Exception {
+ 8.     return Integer.parseInt(arg);
+ 9.   }
+10. }
+11. class Utils { 
+12.   int getInt() { return 42; }
+13. }
+
+
+What is the result?
+
+
+A 	
+	42
+B 	
+	Exc
+C 	
+	42Exc
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+
+Reference
+	Close
+JLS 3.0,
+
+Option A is correct. No exception is thrown. The getInt method on line 7 is NOT overriding the getInt method on line 12.
+
+--------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.5 > Question 21
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Flow {
+ 2.   public static void main(String [] args) {
+ 3.     try {
+ 4.       System.out.print("before ");
+ 5.       throw new FlowException();
+ 6.       System.out.print("after ");
+ 7.     } catch (FlowException fe) {
+ 8.       System.out.print("catch ");
+ 9.     }
+10.     System.out.println("done ");
+11.   }
+12. }
+13. class FlowException extends Exception { }
+
+
+What is the result?
+
+
+A 	
+	before
+B 	
+	before catch
+C 	
+	before catch done
+D 	
+	before after catch
+E 	
+	before after catch done
+F 	
+	Compilation fails.
+
+Reference
+	Close
+JLS 3.0,
+
+Option F is correct because line 6 is NOT reachable.
+
+---------------------------------------------------------------
+
+
+Location:   ... > Section 2: Flow Control > Objective 2.5 > Question 22
+Your answer is correct.
+Given:
+
+
+ 1. class Propeller2 {
+ 2.   public static void main(String [] args) --- add code here?
+ 3.     { new Propeller2().topGo(); }
+ 4.
+ 5.   void topGo() --- add code here? 
+ 6.     { middleGo(); }
+ 7. 
+ 8.   void middleGo()----  add code here?
+ 9.     { go();  System.out.println("late middle "); }
+10.
+11.   void go()  ---- // add code here?
+12.     { throw new Exception(); }
+13. }
+
+
+For the code to compile, on which lines does the declaration throws Exception need to be added?
+
+
+A 	
+	Only line 11
+B 	
+	Lines 8 and 11
+C 	
+	Lines 5, 8, and 11
+D 	
+	Lines 2, 5, 8, and 11
+E 	
+	No combination of these additions will allow the code to compile.
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. All of the methods must throw the exception, and it's ok for main to do so.
+
+-----------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.6 > Question 23
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Adder {
+ 2.   static Short s1,s2;
+ 3.   public static void main(String [] args) {
+ 4.     int x;
+ 5.     s1 = 4;
+ 6.     x = s1 + s2;
+ 7.     System.out.print(x);
+ 8.   }
+ 9. }
+
+
+What is the result?
+
+
+A 	
+	4
+B 	
+	Compilation fails.
+C 	
+	A java.lang.ClassCastException is thrown.
+D 	
+	A java.lang.NullPointerException is thrown.
+E 	
+	A java.lang.IllegalStateException is thrown.
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. s2 is a reference to a wrapper that is never initialized. If
+s2 had been initialized, the autoboxing would be correct.
+
+----------------------------------------------------------------------
+
+Location:   ... > Section 2: Flow Control > Objective 2.6 > Question 24
+Your answer is correct.
+Given:
+
+
+1. class Dog { }
+2. class BorderCollie extends Dog { }
+3. class Kennel {
+4.   public static void main(String [] args) {
+5.     BorderCollie b = new BorderCollie();
+6.     Dog d = (Dog)b;
+7.   }
+8. }
+
+
+What is the result?
+
+
+A 	
+	Compilation fails.
+B 	
+	The code runs with no output.
+C 	
+	A java.lang.ClassCastException is thrown.
+D 	
+	A java.lang.IllegalStateException is thrown.
+E 	
+	A java.lang.ExceptionInInitializationError is thrown.
+
+Reference
+	Close
+JLS 3.0,
+
+Option B is correct. The cast on line 6 is valid because the subtype can do everything the
+supertype can do.
+
+---------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.1 > Question 25
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+21.  class Beta {
+22.    public static void main(String [] args) {
+23.
+24.      Integer x = new Integer(6) * 7;
+25.      if (x != 42) {
+26.        System.out.print("42 ");
+27.      } else if (x < new Integer(44-1)) {
+28.        System.out.println("less");
+29.      } else {
+30.        System.out.print("done");
+31.  } } }
+
+
+What is the result?
+
+
+A 	
+	less
+B 	
+	42
+C 	
+	done
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+ Reference
+	Close
+JLS 3.0,
+
+Option A is correct. All of the boxing syntax is valid.
+
+-----------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.1 > Question 26
+Your answer is correct.
+Which two are synchronized? (Choose two.)
+
+
+A 	
+	java.util.TreeSet
+B 	
+	java.util.Hashtable
+C 	
+	java.util.LinkedList
+D 	
+	java.lang.StringBuffer
+E 	
+	java.lang.StringBuilder
+
+Reference
+	Close
+API
+
+Options B and D are correct. The new StringBuilder class has the same API as the StringBuffer class except StringBuilder is NOT synchronized.
+
+------------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.2 > Question 27
+Your answer is correct.
+Given:
+
+- f is a reference to a valid java.io.File instance
+- fr is a reference to a valid java.io.FileReader instance
+- br is a reference to a valid java.io.BufferedReader instance
+
+Which two are valid? (Choose two.)
+
+
+A 	
+	File f2 = new File(f);
+B 	
+	FileReader fr2 = new FileReader(f);
+C 	
+	FileReader fr2 = new FileReader(fr);
+D 	
+	FileReader fr2 = new FileReader(br);
+E 	
+	BufferedReader br2 = new BufferedReader(f);
+F 	
+	BufferedReader br2 = new BufferedReader(fr);
+
+Reference
+	Close
+API
+
+Options B and F are correct. All of the other constructors are NOT defined in the API.
+-----------------------------------------------
+
+
+Location:   ... > Section 3: API Contents > Objective 3.2 > Question 28
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+31.   String s = "write a line to a file";
+32.   w.print(s + "\n");
+
+
+Which is true?
+
+
+A 	
+	w can be of either type PrintWriter or BufferedWriter.
+B 	
+	w can be of NEITHER type PrintWriter nor BufferedWriter.
+C 	
+	w can be of type PrintWriter, but NOT of type BufferedWriter.
+D 	
+	w can be of type BufferedWriter, but NOT of type PrintWriter.
+
+Reference
+	Close
+API
+
+Option C is correct. Only the PrintWriter has a print method.
+
+-----------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.3 > Question 29
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+10. class Car implements Serializable {
+11.   Wheels w;
+12. }
+13.
+14. class Wheels { }
+
+
+If you attempt to serialize an instance of Car, what is the result?
+
+
+A 	
+	Compilation fails.
+B 	
+	One object is serialized.
+C 	
+	Two objects are serialized.
+D 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+API
+
+Option B is correct. It is ok to serialize an object if its un-serializable instance variable has not been instantiated.
+
+----------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.3 > Question 30
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+11. class Ford extends Car implements Serializable { 
+12.   Ford() { System.out.print("new Ford "); }
+13. }
+14.
+15. class Car {
+16.   Car() { System.out.print("new Car "); }
+17. }
+
+
+If you attempt to deserialize a properly serialized instance of Ford, what is the result?
+
+
+A 	
+	new Car
+B 	
+	new Ford
+C 	
+	new Car new Ford
+D 	
+	new Ford new Car
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+Reference
+	Close
+API
+
+Option A is correct. A superclass does not have to be serializable, but its constructor will run when a serializable subclass instance is deserialized.
+
+----------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.4 > Question 31
+Your answer is correct.
+Given:
+
+
+12.   NumberFormat n = new NumberFormat();
+13.   n.setMaximumFractionDigits(2);
+14.   System.out.println((String) n.format(765.4321));
+
+
+What is the result?
+
+
+A 	
+	765.43
+B 	
+	65.4321
+C 	
+	765.4321
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+API
+
+Option D is correct. Compilation fails because NumberFormat is abstract. You must use the getInstance method to get a NumberFormat instance.
+-------------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.5 > Question 32
+Your answer is correct.
+Given:
+
+
+ 1. import java.io.PrintWriter;
+ 2.
+ 3. class DoFormat {
+ 4.   public static void main(String [] args) {
+ 5.     int x = 42;
+ 6.     int y = 12345;
+ 7.     float z = 7;
+ 8.     System.out.format("-%4d- ", x);
+ 9.     System.out.format("-%4d- ", y); 
+10.     System.out.format("-%4.1f- ", z);
+11.   }
+12. }
+
+
+What is the result?
+
+
+A 	
+	Compilation fails.
+B 	
+	-42- -1234- -7.0-
+C 	
+	- 42- -1234- - 7.0-
+D 	
+	- 42- -12345- - 7.0-
+E 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+API
+
+Option D is correct. Width specifies a minimum, NOT a maximum.
+
+--------------------------------------------------------------------
+
+Location:   ... > Section 3: API Contents > Objective 3.5 > Question 33
+Your answer is correct.
+Given:
+
+
+1. import java.util.*;
+2. class ScanStuff {
+3.   public static void main(String [] args) {   
+4.     String s = "x,yy,123";
+5.     Scanner sc = new Scanner(s);
+6.     while (sc.hasNext())
+7.       System.out.print(sc.next() + " ");
+8.   }
+9. }
+
+
+What is the result?
+
+
+A 	
+	x yy
+B 	
+	x,yy
+C 	
+	x yy 123
+D 	
+	x,yy,123
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+API,
+
+Option D is correct.
+Option C is incorrect because the default separator is a blank NOT a comma.
+
+-----------------------------------------------------------------
+
+
+Location:   ... > Section 4: Concurrency > Objective 4.1 > Question 34
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class MyThread implements Runnable {
+ 2.   public void run() { 
+ 3.     System.out.print("go "); 
+ 4.   }
+ 5. 
+ 6.   public static void main(String [] args) {
+ 7.     // insert code here
+ 8.     t.start();
+ 9.   }
+10. }
+
+
+And these four:
+
+
+X    Thread t = new MyThread();  
+X    MyThread t = new MyThread();
+V    Thread t = new Thread(new Thread()); 
+V    Thread t = new Thread(new MyThread()); 
+
+
+How many, inserted independently at line 5, will compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+API
+
+Option C is correct. Only the last two fragments actually create a thread, and a thread is
+needed for line 8 to compile.
+
+----------------------------------------------------
+
+Location:   ... > Section 4: Concurrency > Objective 4.1 > Question 35
+Your answer is correct.
+Given: t is a reference to a valid Thread object And the following valid run() method for t:
+
+
+ 9.  public void run() {
+10.    System.out.print("go ");
+11.  }
+
+
+And:
+
+
+18.  t.start();
+19.  t.start();
+20.  t.run();
+
+
+Which can be a result?
+
+
+A 	
+	go
+B 	
+	go go
+C 	
+	go go go
+D 	
+	go followed by an exception
+E 	
+	go go followed by an exception
+F 	
+	An exception is thrown with no other output.
+
+Reference
+	Close
+API
+
+Option D is correct. The start method can only be called once for a given thread.
+
+---------------------------------------------------
+
+Location:   ... > Section 4: Concurrency > Objective 4.2 > Question 36
+Your answer is correct.
+Given:
+
+
+ 1. class ThreadExcept implements Runnable {
+ 2.   public void run() { throw new RuntimeException("exception "); }
+ 3. 
+ 4.   public static void main(String [] args) {
+ 5.     new Thread(new ThreadExcept()).start();
+ 6.     try {
+ 7.       int x = Integer.parseInt(args[0]);
+ 8.       Thread.sleep(x);
+ 9.       System.out.print("main ");
+10.     } catch (Exception e) { }
+11.   }
+12. }
+
+
+And the command line: java ThreadExcept 1000
+
+Which can result?
+
+
+A 	
+	main
+B 	
+	Compilation fails.
+C 	
+	The code runs with no output.
+D 	
+	main java.lang.RuntimeException: exception
+
+Reference
+	Close
+JLS 3.0, 17
+
+Option D is correct because the exception will definitely be thrown, and main will complete. Only the order is NOT predictable.
+
+-----------------------------------------------------
+
+
+Location:   ... > Section 4: Concurrency > Objective 4.2 > Question 37
+Your answer is correct.
+Given:
+
+
+ 5. class Order2 implements Runnable {
+ 6.   public void run() { 
+ 7.     for(int x = 0; x < 4; x++) {
+ 8.       try { Thread.sleep(100); } catch (Exception e) { }
+ 9.       System.out.print("r");
+10.   } }
+11.   public static void main(String [] args) {
+12.     Thread t = new Thread(new Order2());
+13.     t.start();
+14.     for(int x = 0; x < 4; x++) {
+15.       // insert code here
+16.       System.out.print("m");    
+17. } } }
+
+
+Which, inserted at line 15, is most likely to produce the output rmrmrmrm?
+
+
+A 	
+	Thread.sleep(1);
+B 	
+	Thread.sleep(100);
+C 	
+	Thread.sleep(1000);
+D 	
+	try { Thread.sleep(1); } catch (Exception e) { }
+E 	
+	try { Thread.sleep(100); } catch (Exception e) { }
+F 	
+	try { Thread.sleep(1000); } catch (Exception e) { }
+
+Reference
+	Close
+JLS 3.0, 17
+
+Option E is correct. First, sleep must be in a try/catch, and then the most likely way to get the two threads to take turns evenly is to have them sleep for the same amount of time.
+
+-----------------------------------------------------------
+
+
+Location:   ... > Section 4: Concurrency > Objective 4.3 > Question 38
+Your answer is correct.
+Given:
+
+
+2. class Account {
+3.   private int balance;
+4.   public void setBalance(int b) { balance = b; }
+5.
+6.   public int getBalance() { return balance; }
+7.
+8.   public void clearBalance() { balance = 0; }
+9. }
+
+
+Which changes will make the Account class thread safe?
+
+
+A 	
+	Add the synchronized modifier to line 2. X
+B 	
+	Add the synchronized modifier to line 3. X
+C 	
+	Add the synchronized modifier to lines 3, 4, and 6. Z
+D 	
+	Add the synchronized modifier to lines 4, 6, and 8. V
+E 	
+	Add the synchronized modifier to lines 3, 4, 6, and 8.
+F 	
+	Add the synchronized modifier to lines 2, 3, 4, 6, and 8.
+
+Reference
+	Close
+JLS 3.0, 17
+
+Option D is correct. First, you can only synchronize the methods. Secondly, you should synchronize all methods that access a mutable field.
+
+------------------------------------------------------------
+
+Location:   ... > Section 4: Concurrency > Objective 4.3 > Question 39
+Your answer is correct.
+Given:
+
+
+ 5. class NoGo implements Runnable {
+ 6.   private static int i;
+ 7.   public synchronized void run() { 
+ 8.     if (i%10 != 0) { i++; }
+ 9.     for(int x=0; x<10; x++, i++) 
+10.       { if (x == 4) Thread.yield(); }
+11.   }
+12.   public static void main(String [] args) {
+13.     NoGo n = new NoGo();
+14.     for(int x=0; x<101; x++) { 
+15.       new Thread(n).start(); 
+16.       System.out.print(i + " ");
+17. } } }
+
+
+Which is true?
+
+
+A 	
+	The output can never contain the value 10.
+B 	
+	The output can never contain the value 30.
+C 	
+	The output can never contain the value 297.
+D 	
+	The output can never contain the value 820.
+E 	
+	Making the run method un-synchronized will not change the possible output.
+
+Reference
+	Close
+JLS 3.0, 17
+
+Option E is correct. To make sure that line 16 is never executed when an invocation of the run method is partially complete, it (line 16) should be placed inside the run method.
+
+----------------------------------------------------------------
+
+
+Location:   ... > Section 4: Concurrency > Objective 4.4 > Question 40
+Your answer is correct.
+Given the methods from java.lang.Object and java.lang.Thread
+
+Which two must be invoked from within a synchronized context? (Choose two.)
+
+
+A 	
+	run()
+B 	
+	join()
+C 	
+	wait()
+D 	
+	sleep()
+E 	
+	start()
+F 	
+	yield()
+G 	
+	notify()
+
+
+Reference
+	Close
+API
+
+Options C and G are correct. These are the only methods from java.lang.Object.
+----------------------------------------------------------------------
+
+
+Location:   ... > Section 5: OO Concepts > Objective 5.1 > Question 41
+Your answer is correct.
+Given:
+
+
+ 1. class TestFoo {
+ 2.   int x;
+ 3.   String y;
+ 4.   int getX() { return x; }
+ 5.   String getY() { return y; }
+ 6.   void setX(int x) {
+ 7.     int z = 7;
+ 8.     this.x = x;
+ 9.   }
+10. }
+
+
+How many modifiers must you add to encapsulate this class?
+
+
+A 	
+	2
+B 	
+	3
+C 	
+	4
+D 	
+	5
+
+Reference
+	Close
+Option A is correct. Only the instance variables (x and y on lines 2 and 3) must be marked private.
+---------------------------------------------------------------------------
+
+
+Location:   ... > Section 5: OO Concepts > Objective 5.1 > Question 42
+Your answer is correct.
+Given:
+
+
+21. class Wheels { 
+22.   private Bike bike;
+23.   void setBike(Bike b) { bike = b; }
+24. }
+25.
+26. class Bike {
+27.   private Wheels [] wheels = new Wheels[5];
+28.   void setWheels(Wheels [] w) {
+29.      if( w.length == 2)
+30.        wheels = w;
+31.   }
+32. }
+
+
+Which is true?
+
+
+A 	
+	Compilation fails.
+B 	
+	These classes are NOT coupled.
+C 	
+	These classes are loosely coupled.
+D 	
+	These classes are tightly coupled.
+E 	
+	These classes are abstractly coupled.
+
+Reference
+	Close
+Sun's Java course OO226,
+
+Option D is correct because both classes have references to instances of each other.
+
+-----------------------------------------
+
+Location:   ... > Section 5: OO Concepts > Objective 5.2 > Question 43
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Dog { }
+ 2. class Harrier extends Dog { }
+ 3.
+ 4. class DogTest {
+ 5.   public static void main(String [] args) {
+ 6.     Dog d1 = new Dog();
+ 7.     Harrier h1 = new Harrier();
+ 8.     Dog d2 = h1;
+ 9.     Harrier h2 = (Harrier) d2;
+10.     Harrier h3 = (Harrier) d1;
+11.   }
+12. }
+
+
+Which is true?
+
+
+A 	
+	Compilation fails.
+B 	
+	An exception is thrown at runtime.
+C 	
+	Two Dog objects are created.
+D 	
+	Two Harrier objects are created.
+E 	
+	Three Harrier objects are created.
+
+Reference
+	Close
+JLS 3.0,
+
+Option B is correct. A ClassCastException is thrown at line 10. d1 refers to an object of type Dog, it cannot be cast to the subtype Harrier.
+
+---------------------------------------
+
+Location:   ... > Section 5: OO Concepts > Objective 5.2 > Question 44
+Your answer is correct.
+Given:
+
+
+ 1. class Guy { String greet() { return "hi "; } }
+ 2. class Cowboy extends Guy { String greet() { return "howdy "; } }
+ 3. class Wrangler extends Cowboy { String greet() { return "ouch! "; } }
+ 4.
+ 5. class Greetings2 {
+ 6.   public static void main(String [] args) {
+ 7.     Guy g = new Wrangler();
+ 8.     Guy g2 = new Cowboy();
+ 9.     Wrangler w2 = new Wrangler();
+10.     System.out.print(g.greet()+g2.greet()+w2.greet());
+11.   }
+12. }
+
+
+What is the result?
+
+
+A 	
+	hi hi ouch!
+B 	
+	hi howdy ouch!
+C 	
+	ouch! howdy ouch!
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. The JVM looks to the type of the object, NOT the type of the reference variable.
+
+-----------------------------------------
+
+
+Location:   ... > Section 5: OO Concepts > Objective 5.3 > Question 45
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+1. class Book {
+2.   private final void read() { System.out.print("book "); }
+3. }
+4. class Page extends Book {
+5.   public static void main(String [] args) {
+6.     // insert code here
+7.   }
+8.   private final void read() { System.out.print("page "); }
+9. }
+
+
+And these three code fragments (x, y, z):
+
+x. // just a comment
+y. new Page().read();
+z. new Book().read();
+
+How many, inserted independently at line 6, allow the code to compile and run without exception?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. It is legal to re-implement a private method in a sub-class, but Page does not know about Book's read method.
+
+--------------------------------------------------
+
+
+Location:   ... > Section 5: OO Concepts > Objective 5.3 > Question 46
+Your answer is correct.
+Given:
+
+
+ 1. class Bird {
+ 2.   void talk() { System.out.print("chirp "); }
+ 3. }
+ 4. class Parrot2 extends Bird {
+ 5.   protected void talk() { System.out.print("hello "); }
+ 6.   public static void main(String [] args) {
+ 7.     Bird [] birds = {new Bird(), new Parrot2()};
+ 8.     for( Bird b : birds)
+ 9.       b.talk();
+10.   }
+11. }
+
+
+What is the result?
+
+
+A 	
+	chirp chirp
+B 	
+	chirp hello
+C 	
+	hello hello
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option B is correct. The protected access level is less restrictive than the default access level.
+
+------------------------------------------
+
+Location:   ... > Section 5: OO Concepts > Objective 5.4 > Question 47
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 2. class Cat {
+ 3.   Cat(int c) { System.out.print("cat" + c + " "); }
+ 4. }
+ 5. class SubCat extends Cat {
+ 6.   SubCat(int c) { super(5); System.out.print("cable "); }
+ 7.   SubCat() { }
+ 8.   public static void main(String [] args) {
+ 9.     SubCat s = new SubCat();
+10.   }
+11. }
+
+
+What is the result?
+
+
+A 	
+	cat5
+B 	
+	cable
+C 	
+	cable cat5
+D 	
+	cat5 cable
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+Reference
+	Close
+JLS 3.0,
+
+Option E is correct. Cat needs a no-argument constructor to compile.
+
+-------------------------------
+
+Location:   ... > Section 5: OO Concepts > Objective 5.4 > Question 48
+Your answer is correct.
+Given:
+
+
+1. class Over {
+2.   int doIt(long x) { return 3; }
+3. }
+4.
+5. class Under extends Over {
+6.   // insert code here
+7. }
+
+
+And the four methods:
+
+
+  short doIt(int y) { return 4; } V
+  int doIt(long x, long y) { return 4; } V
+  private int doIt(short y) { return 4; } V
+  protected int doIt(long x) { return 4; } V
+
+
+How many, inserted independently at line 6, will compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+JLS 3.0,
+
+Option E is correct. These are all valid overloads, except the last, which is an override.
+---------------------------------------
+
+
+Location:   ... > Section 5: OO Concepts > Objective 5.5 > Question 49
+Your answer is correct.
+Given:
+
+
+1. class X extends Y {
+2.   private Z z;
+3. }
+
+
+Which properly describes this code?
+
+
+A 	
+	Class Y is-a type of X and has-a Z. X
+B 	
+	Class Z has-a X and is-a type of Y.  X
+C 	
+	Class X is-a type of Y and has-a Z. V
+D 	
+	Class X has-a Y and is-a type of Z. X
+E 	
+	Class Y has-a X and is-a type of Z. X
+
+
+Reference
+	Close
+Sun's Java course OO226
+
+Option C is correct, as it properly uses the correct vernacular.
+
+-----------------------------------------------
+
+Location:   ... > Section 5: OO Concepts > Objective 5.5 > Question 50
+Your answer is correct.
+Which two are true? (Choose two.)
+
+
+A 	
+	Is-a relationships must be cohesive. X
+B 	
+	Is-a relationships must use inheritance. V
+C 	
+	A class can have an is-a relationship to only one other type. X
+D 	
+	A class can have a has-a relationship to only one other type.  X
+E 	
+	A class that is tightly encapsulated can have a has-a relationship. V
+
+Reference
+	Close
+Sun's Java course OO226
+
+Options B and E are correct.
+Options A, C, and D specify non-existent OO rules.
+--------------------------------------------------------
+
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.1 > Question 51
+Your answer is correct.
+Given the types:
+
+a - java.util.Hashtable 4
+b - java.util.List 1 
+c - java.util.ArrayList 3
+d - java.util.SortedSet  2
+
+And the definitions:
+
+1 - Using this interface allows the user control over where in the 
+    collection each element is inserted.
+2 - Using this collection guarantees that the user can traverse it 
+    in an ascending, natural ordering of its elements.
+3 - This concrete type allows null elements, and indexed-based access.
+4 - This collection is synchronized.
+
+Which set of matches are both true?
+
+
+A 	
+	1 describes b, and 3 describes c.  V
+B 	
+	2 describes d, and 3 describes b.
+C 	
+	3 describes a, and 4 describes b.
+D 	
+	4 describes a, and 2 describes c.
+
+Reference
+	Close
+API
+
+Option A is correct. In addition, definition 2 describes d,
+SortedSet and definition 4 describes a, Hashtable.
+
+------------------------------------------------------
+
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.1 > Question 52
+Your answer is correct.
+Given:
+
+
+ 2. import java.util.*;
+ 3. class AddStuff {
+ 4.   public static void main(String [] args) {
+ 5.     TreeSet<String> t = new TreeSet<String>();
+ 6.     if(t.add("one "))
+ 7.       if(t.add("two "))
+ 8.         if(t.add("one "))
+ 9.           t.add("two ");
+10.     for(String s : t)
+11.       System.out.print(s);
+12.   }
+13. }
+
+
+What is the result?
+
+
+A 	
+	one
+B 	
+	one two
+C 	
+	one two one
+D 	
+	one two one two
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0
+
+Option B is correct. The third add fails because you cannot have duplicate
+entries in a Set.
+
+---------------------------------------
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.2 > Question 53
+Your answer is correct.
+A programmer has created a class whose instances can be used as keys in a Hashtable.
+
+Which two are true? (Choose two.)
+
+
+A 	
+	It has an equals method that returns an int.  X
+B 	
+	It has an equals method that returns a boolean. V
+C 	
+	It has an equals method that takes one argument. V
+D 	
+	It has an equals method that takes two arguments. X
+
+Reference
+	Close
+API
+
+Options B and C are correct. They specify the required signature for the equals method.
+
+----------------------------------------------
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.2 > Question 54
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 2. class Sock {
+ 3.   String size;
+ 4.   String color;  
+ 5.   public boolean equals(Object o) {
+ 6.     Sock s = (Sock) o;
+ 7.     return color.equals(s.color);
+ 8.   }
+ 9.   // insert code here
+10. }
+
+
+Which two fulfill the hashCode contract? (Choose two.)
+
+
+A 	
+	public int hashCode() { return 343; }
+B 	
+	public int hashCode() { return size.hashCode(); }
+C 	
+	public int hashCode() { return color.hashCode(); }
+D 	
+	public int hashCode() { return (int)(Math.random() * 1000); }
+E 	
+	public int hashCode() { return (size.hashCode() + color.hashCode()); }
+
+Reference
+	Close
+API
+
+Options A and C are correct. If two objects are considered "equal" through the
+equals method, the hashCode method for the two objects must be the
+same, always.
+
+------------------------------------------------
+
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.3 > Question 55
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. import java.util.*;
+ 2. public class Gen2 {
+ 3.   public static void go(Set<Animal> a) { }
+ 4.   public static void main(String [] args) {
+ 5.     // insert code here
+ 6.     go(t);
+ 7.   }
+ 8. }
+ 9. class Animal { }
+10. class Dog extends Animal { }
+
+
+And the four code fragments:
+
+
+s1.    TreeSet t = new TreeSet(); 
+s2.    TreeSet<Dog> t = new TreeSet<Dog>(); 
+s3.    TreeSet<Animal> t = new TreeSet<Dog>();
+s4.    TreeSet<Animal> t = new TreeSet<Animal>(); 
+
+
+Which, inserted independently at line 5, will compile?
+
+
+A 	
+	only s1
+B 	
+	only s4
+C 	
+	only s1 and s2
+D 	
+	only s1 and s4
+E 	
+	only s1, s2, and s4
+F 	
+	only s1, s3, and s4
+G 	
+	All of the code fragments will compile.
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. Codes s2 and s3 attempt to pass a TreeSet of Dogs into the go method that can only accept Sets of Animals.
+
+---------------------------------------
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.4 > Question 56
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 2. import java.util.*;
+ 3. class Beta extends Alpha {
+ 4.   public static void go(Set<Alpha> set) { }
+ 5.   public static void main(String [] args) {
+ 6.     Set<Alpha> setA = new TreeSet<Alpha>();
+ 7.     Set<Beta> setB = new TreeSet<Beta>();
+ 8.     Set<Object> setO = new TreeSet<Object>();
+ 9.     // insert code here
+10.   }
+11. }
+12. class Alpha { }
+
+
+And the three code fragments:
+
+
+s1.   go(setA);
+s2.   go(setB);
+s3.   go(setO);
+
+
+Which, inserted independently at line 9, will compile?
+
+
+A 	
+	only s1
+B 	
+	only s2
+C 	
+	only s3
+D 	
+	only s1 and s2
+E 	
+	only s1 and s3
+F 	
+	All of the code fragments will compile.
+
+Reference
+	Close
+JLS 3.0,
+
+Option A is correct. Codes s2 and s3 attempt to make an illegal invocation of the go method that takes only a Set of Alphas.
+
+-----------------------------------------
+
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.4 > Question 57
+Your answer is correct.
+Given:
+
+
+ 3. import java.util.*;
+ 4. class Car { }
+ 5. class Honda extends Car { }
+ 6. public class Test {
+ 7.   public static void main (String[] args) {
+ 8.     List<Car> cars = new ArrayList<Car>();
+ 9.     List<Honda> cars2 = new ArrayList<Honda>();
+10.     List<Object> cars3 = new ArrayList<Object>();
+11.     takeCars(cars);
+12.     takeCars(cars2);
+13.     takeCars(cars3);
+14.   }
+15.   //  insert code here
+16. }
+
+
+Which two, inserted independently at line 15, allow the file to compile?
+
+
+A 	
+	public static void takeCars(List<?> list) { } V
+B 	
+	public static void takeCars(List<Object> list) { } X
+C 	
+	public static void takeCars(List<? extends Car> list) { } X
+D 	
+	public static void takeCars(List<T extends Object> list) { } X
+E 	
+	public static void takeCars(List<? extends Object> list) { } V
+
+Reference
+	Close
+JLS 3.0,
+
+Options A and E are the correct syntax to handle all three types of Lists in the takeCars argument.
+-----------------------------------------
+
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.5 > Question 58
+Your answer is correct.
+Given:
+
+
+ 1. import java.util.*;
+ 2. class Stuff implements Comparable {
+ 3.   int x; 
+ 4.   Stuff(int x) { this.x = x; }
+ 5.   public int compareTo(Object o) { return 0; }
+ 6. }
+ 7. class AddStuff {
+ 8.   public static void main(String [] args) {
+ 9.     TreeSet<Stuff> ts = new TreeSet<Stuff>();
+10.     ts.add(new Stuff(1));
+11.     ts.add(new Stuff(2));
+12.     System.out.println(ts.size());
+13. } } 
+
+
+What is the result?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	Compilation fails.
+E 	
+	An exception is thrown at runtime.
+
+
+Reference
+	Close
+API
+
+Option B is correct. Since compareTo always returns 0, the second add fails because TreeSets cannot have duplicate entries.
+
+--------------------------------------
+
+Location:   ... > Section 6: Collections / Generics > Objective 6.5 > Question 59
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. import java.util.*;
+ 2. class DumpMap {
+ 3.   public static void main(String [] args) {
+ 4.     HashMap h = new HashMap();
+ 5.     h.put("a","aa"); h.put("b","bb"); h.put("c","cc");
+ 6.     Set ks = h.keySet();
+ 7.     Object [] ka1 = ks.toArray();
+ 8.     ks = new TreeSet(ks);
+ 9.     Object [] ka2 = ks.toArray();
+10.     System.out.println(Arrays.equals(ka1, ka2));
+11.   }
+12. }
+
+
+What is the result?
+
+
+A 	
+	true
+B 	
+	false
+C 	
+	The output is unpredictable.
+D 	
+	Compilation fails due to an error on line 8.
+
+
+Reference
+	Close
+API
+
+Option C is correct. ka2 is sorted, but there is no guarantee what order ka1's elements are in.
+
+------------------------------------------
+
+
+Location:   ... > Section 7: Fundamentals > Objective 7.1 > Question 60
+Your answer is correct.
+Given two files:
+
+
+1. package x;
+2. public class X {
+3.   // insert code here
+4. }
+
+1. package x;
+2. public class Find4 {
+3.   public static void main(String [] args) {
+4.     X myX = new X(); 
+5.     myX.doX();    
+6.   }
+7. }
+
+
+And the four code fragments:
+
+
+  public static void doX() { System.out.print("doX 1 "); } X 
+  static void doX() { System.out.print("doX 2 "); }  X
+  protected static void doX() { System.out.print("doX 3 "); } X
+  private static void doX() { System.out.print("doX 4 "); }
+
+
+How many, inserted independently at line 3 of class X, will allow both classes to compile?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+Reference
+	Close
+JLS 3.0,
+
+Option D is correct. Only the private doX method would be inaccessible to class Find4.
+
+------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.1 > Question 61
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+1. interface I { void go(); }
+2.
+3. abstract class A implements I { }
+4.
+5. class C extends A {
+6.   void go(){ }
+7. }
+
+
+What is the result?
+
+
+A 	
+	The code compiles.
+B 	
+	Compilation fails due to multiple errors.
+C 	
+	Compilation fails due to an error on line 1.
+D 	
+	Compilation fails due to an error on line 3.
+E 	
+	Compilation fails due to an error on line 5.
+F 	
+	Compilation fails due to an error on line 6.
+
+Reference
+	Close
+JLS 3.0,
+
+Option F is correct. Class C's go method is implementing interface I's go method, therefore it must be declared public.
+
+--------------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.2 > Question 62
+Your answer is correct.
+Given the command line:
+
+java -showversion ShowVersion ShowVERSION SHOWVERSION
+
+
+Which three are true? (Choose three.)
+
+
+A 	
+	This is a legal invocation.
+B 	
+	This is an illegal invocation.
+C 	
+	This invocation contains one option.
+D 	
+	This invocation contains two options.
+E 	
+	This invocation contains one argument.
+F 	
+	This invocation contains two arguments.
+
+
+Reference
+	Close
+API - java command
+
+Options A, C, and F accurately describe the java command syntax, which is java -options class arguments.
+
+-----------------------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.2 > Question 63
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. import java.util.*;
+ 2. class Pow {
+ 3.   static String [] wow = {"Bamm", "Biff"};
+ 4.   public static void main(String [] yikes) {
+ 
+ 5.     if(Arrays.equals(yikes,wow))
+ 6.       System.out.print("got a match?  ");
+ 7.     if(yikes == wow)
+ 8.       System.out.println("sure chief");
+ 9.   }
+10. }
+
+
+And the command line:
+
+java Pow Bamm Biff
+
+
+What is the result?
+
+
+A 	
+	got a match? V
+B 	
+	Compilation fails. X
+C 	
+	No output is produced. X
+D 	
+	got a match? sure chief X
+E 	
+	An exception is thrown at runtime.X
+
+Reference
+	Close
+JLS 3.0,
+
+Option A is correct. Two different array objects can never be ==, even if their contents are the same.
+
+-----------------------------
+
+
+Location:   ... > Section 7: Fundamentals > Objective 7.3 > Question 64
+Your answer is correct.
+Given:
+
+
+ 1. class Wrench {
+ 2.   public static void main(String [] args) {
+ 3.     Wrench w = new Wrench();    //1 
+		Wrench w2 = new Wrench(); //2
+		w = 1
+		w2 = 1
+		wr1 = 2
+		wr2 = 1
+        wr3 = 1
+		
+ 4.     w2 = go(w,w2);
+ 5.     System.out.print(w2 == w);
+ 6.   }
+ 7.   static Wrench go(Wrench wr1, Wrench wr2) {
+ 8.     Wrench wr3 = wr1;  
+		
+		wr1 = wr2;  
+		wr2 = wr3;
+ 9.     return wr3;
+10.   }
+11. }
+
+
+What is the result?
+
+
+A 	
+	true
+B 	
+	false
+C 	
+	Compilation fails.
+D 	
+	The output is unpredictable.
+E 	
+	An exception is thrown at runtime.
+
+
+Reference
+	Close
+JLS 3.0,
+
+Option A is correct. The output is true because the two reference variables refer to the same object.
+
+---------------------------------
+
+
+Location:   ... > Section 7: Fundamentals > Objective 7.3 > Question 65
+Your answer is correct.
+Given:
+
+
+ 1. class Passer {
+ 2.   static final int x = 5;
+ 3.   public static void main(String [] args) {
+ 4.     new Passer().go(x);
+ 5.     System.out.print(x);
+ 6.   }
+ 7.   void go(int x) {
+ 8.     System.out.print(++x);
+ 9.   }
+10. }
+
+
+What is the result?
+
+
+A 	
+	55
+B 	
+	56
+C 	
+	65
+D 	
+	66
+E 	
+	Compilation fails.
+F 	
+	An exception is thrown at runtime.
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct, the x in line 2 is different from the x in line 7.
+-------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.4 > Question 66
+Your answer is correct.
+Given:
+
+
+ 1. class Rubbish {
+ 2.   public static void main(String [] args) {
+ 3.     Rubbish r1 = new Rubbish();
+ 4.     Rubbish r2 = new Rubbish();
+ 5.     Rubbish r3 = new Rubbish();
+ 6.     Rubbish r4 = r2;
+ 7.     Rubbish r5 = r4;
+ 1   2   3
+        r1 = 2
+		r2 = null
+		r3 = 3
+		r4 = null
+		r5 = 2
+ 8.     r2 = null;
+ 9.     r4 = r2;
+10.     r1 = r5;    
+11.     // do stuff
+12.   }
+13. }
+
+
+At the point that line 12 is reached, how many objects are eligible for garbage collection?
+
+
+A 	
+	0
+B 	
+	1
+C 	
+	2
+D 	
+	3
+E 	
+	4
+
+ Reference
+	Close
+API
+
+Option B is correct, the original r2 object is always referred to, only the r1 object is inaccessible, and therefore garbage collectable.
+
+
+--------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.4 > Question 67
+Your answer is incorrect. The correct answer(s) are highlighted.
+Which is true?
+
+
+A 	
+	Invoking System.gc() causes the JVM to perform a garbage collection process. V
+B 	
+	Invoking System.freeMemory() causes the JVM to perform a garbage collection process. X
+C 	
+	An object that has a valid reference cannot be garbage collected. V
+D 	
+	Objects created within inner classes can become eligible for garbage collection. V
+
+Reference
+	Close
+API
+
+Option D is correct. The garbage collector cannot be forced to run, and Option C is wrong because an object can be collected even if it has a valid reference, if no live thread has access to the object.
+
+------------------------------------
+
+
+Location:   ... > Section 7: Fundamentals > Objective 7.5 > Question 68
+Your answer is correct.
+Given the package structure:
+
+
+com
+  |-- x
+  |   |-- Alpha.class
+  |   |
+  |   |-- y
+  |       |-- Beta.class
+  |
+  |-- Gamma.class
+
+
+And the class:
+
+class Test { Alpha a; Beta b; Gamma c; }
+
+
+Which three must be added to class Test for it to compile? (Choose three.)
+
+
+A 	
+	package y;
+B 	
+	package com; V
+C 	
+	package com.x; 
+D 	
+	import com.x.*; V
+E 	
+	import com.Alpha;
+F 	
+	import com.x.y.*; V
+
+Reference
+	Close
+JLS 3.0,
+
+Options B, D and F work together to give access to all the necessary classes. The only way to get to Gamma is through B, so D must be used to get to Alpha.
+
+-----------------------------------
+
+
+Location:   ... > Section 7: Fundamentals > Objective 7.5 > Question 69
+Your answer is incorrect. The correct answer(s) are highlighted.
+A programmer wants to work from a directory that contains:
+
+- A subdirectory named jarDir that contains a JAR file called MyJar.jar. 
+- A file named Test.java that uses MyJar.jar.
+
+jarDir/MyJar
+
+Test.java
+
+Which two will allow the programmer to compile the program? (Choose two.)
+
+
+A 	
+	Invoke javac -classpath jarDir/MyJar.jar Test.java
+B 	
+	Invoke javac -CLASSPATH jarDir/MyJar.jar Test.java
+C 	
+	Add jarDir to the CLASSPATH and invoke javac Test.java
+D 	
+	Add jarDir/*.jar to the CLASSPATH and invoke javac Test.java
+E 	
+	Add jarDir/MyJar.jar to the CLASSPATH and invoke javac Test.java
+
+Reference
+	Close
+API
+
+Options A and E are correct. These two approaches correctly match the javac command with the classpath information it needs.
+
+---------------------------------------
+
+Location:   ... > Section 7: Fundamentals > Objective 7.6 > Question 70
+Your answer is incorrect. The correct answer(s) are highlighted.
+Given:
+
+
+ 1. class Foo {
+ 2.   public static void main(String [] args) {
+ 3.     int x = 0;
+ 4.     int y = 4;
+ 5.     for(int z=0; z < 3; z++, x++) {
+ 6.       if(x > 1 & ++y < 10)
+ 7.         y++;
+ 8.     }
+ 9.     System.out.println(y);
+10.   }
+11. }
+   X>1 Y<10
+   0   4
+0  0   5
+1  1   6
+2  2   8
+
+
+
+What is the result?
+
+
+A 	
+	6
+B 	
+	7
+C 	
+	8
+D 	
+	10
+E 	
+	12
+
+Reference
+	Close
+JLS 3.0,
+
+Option C is correct. Since line 6 does not use a short circuit, as the for loop is executed, the value of y goes from 5 to 6, then to 8.
+
+
+

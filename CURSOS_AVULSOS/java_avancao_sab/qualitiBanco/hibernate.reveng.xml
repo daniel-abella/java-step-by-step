@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="CHAR" hibernate-type="string" length="11"
+			not-null="true">
+		</sql-type>
+		<sql-type jdbc-type="CHAR" hibernate-type="string" length="11"
+			not-null="true">
+		</sql-type>
+		<sql-type jdbc-type="INTEGER" hibernate-type="int"
+			not-null="true">
+		</sql-type>
+	</type-mapping>
+	<table-filter match-catalog="qualitiBanco" match-name="tb_cliente" />
+	<table-filter match-catalog="qualitiBanco" match-name="tb_conta" />
+	<table-filter match-catalog="qualitiBanco" match-name="tb_endereco" />
+	<table-filter match-catalog="qualitiBanco" match-name="tb_gerente" />
+	<table-filter match-catalog="qualitiBanco"
+		match-name="tb_gerentes_cliente" />
+	<table catalog="qualitiBanco" name="tb_conta">
+		<column name="id"></column>
+		<column name="tb_cliente_cpf"></column>
+		<column name="numero"></column>
+		<column name="saldo"></column>
+		<column name="tipo"></column>
+	</table>
+	<table catalog="qualitiBanco" name="tb_cliente">
+		<column name="cpf"></column>
+		<column name="nome"></column>
+	</table>
+	<table catalog="qualitiBanco" name="tb_gerente">
+		<column name="id"></column>
+		<column name="nome"></column>
+		<column name="fone"></column>
+		<column name="celular"></column>
+		<column name="email"></column>
+	</table>
+	<table catalog="qualitiBanco" name="tb_gerentes_cliente">
+		<column name="tb_gerente_id"></column>
+		<column name="tb_cliente_cpf"></column>
+	</table>
+	<table catalog="qualitiBanco" name="tb_endereco">
+		<column name="tb_cliente_cpf"></column>
+		<column name="cep"></column>
+		<column name="numero"></column>
+		<column name="complemento"></column>
+	</table>
+</hibernate-reverse-engineering>

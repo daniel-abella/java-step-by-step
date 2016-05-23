@@ -1,0 +1,22 @@
+package caracteres;
+
+import java.io.File;
+import java.io.FileWriter;
+
+public class BufferedWriterExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		//DESTINO DOS DADOS
+		File file = new File("bufferedwriter.txt");
+		file.createNewFile();
+
+		//ESCRITOR DOS DADOS
+		FileWriter fileWriter = new FileWriter(file);
+
+	}
+
+}

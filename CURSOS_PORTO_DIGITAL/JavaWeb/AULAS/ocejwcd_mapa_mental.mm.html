@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>OCEJWCD</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+<p>OCEJWCD
+<ul><li>Chapter 4: Servlet Contexts
+<ul><li>The Interfaces
+<ul><li>ServletContext
+<ul><li>Context (Application-Scoped) Attributes
+<ul><li>Attributes have a single String as an identifier, and take any Object as a value
+
+</li>
+<li>Are accessed via the following methods
+<ul><li>Object getAttribute(String name)
+
+</li>
+<li>Enumeration getAttributeNames()
+
+</li>
+<li>void removeAttribute(String name)
+
+</li>
+<li>void setAttribute(Stjring name, Object value)
+<ul><li>binding
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Obtaining Context Information
+<ul><li>Methods
+<ul><li>String getServletContextName()
+
+</li>
+<li>String getRealPath(String path)
+
+</li>
+<li>Set getResourcePaths(String path)
+
+</li>
+<li>ServletContext getServletContext(String appUrl)
+<ul><li>Acces ServletContext of other applications
+
+</li>
+<li>Must begin "/"
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Accessing Static Resources
+<ul><li>Methods
+<ul><li>java.net.URL getResource(String path)
+
+</li>
+<li>java.io.InputStream getResourceAsStream(String path)
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Obtaining MIME type for the resource
+<ul><li>String getMimeType(String path)
+
+</li>
+
+</ul>
+</li>
+<li>Obtaining RequestDispatchers
+<ul><li>Methods
+<ul><li>RequestDispatcher getRequestDispatcher(String path)
+
+</li>
+<li>RequestDispatcher getNamedDispatcher(String name)
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Context Initialisation Parameters
+<ul><li>Methods
+<ul><li>String getInitParameter(String name)
+
+</li>
+<li>Enumeration getInitParameterNames()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>ServletConfig
+<ul><li>Servlet Names and Contexts
+<ul><li>Methods
+<ul><li>String getServletName()
+
+</li>
+<li>ServletContext getServletContext()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Servlet Initialisation Parameters
+<ul><li>Methods
+<ul><li>String getInitParameter(String name)
+
+</li>
+<li>Enumeration getInitParameterNames()
+
+</li>
+<li>All parameters contained in web.xml, inside &lt;init-param&gt; tag under &lt;servlet&gt; tag
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>GenericServlet Support for Contexts
+<ul><li>Initialisation
+<ul><li>Methods
+<ul><li>init(ServletConfig)
+
+</li>
+<li>init()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Convenience Methods
+<ul><li>Methods
+<ul><li>ServletConfig getServletConfig()
+
+</li>
+<li>ServletContext getServletContext()
+
+</li>
+<li>String getInitParameter(String name)
+
+</li>
+<li>Enumeration getInitParameterNames()
+
+</li>
+<li>String getServletName()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Context Listeners
+<ul><li>Life Cycle
+<ul><li>Initialisation
+
+</li>
+<li>Lifetime
+
+</li>
+<li>Destruction
+
+</li>
+
+</ul>
+</li>
+<li>ServletContextListener
+<ul><li>Methods
+<ul><li>void contextInitialized(ServletContextEvent event)
+
+</li>
+<li>void contextDestroyed(ServletContextEvent event)
+
+</li>
+
+</ul>
+</li>
+<li>ServletContextEvent
+<ul><li>Methods
+<ul><li>ServletContext getServletContext()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>ServletContextAttributeListener
+<ul><li>Methods
+<ul><li>void attributeAdded(ServletContextAttributeEvent event)
+
+</li>
+<li>void attributeRemoved(ServletContextAttributeEvent event)
+
+</li>
+<li>void attributeReplaced(ServletContextAttributeEvent event)
+
+</li>
+
+</ul>
+</li>
+<li>ServletContextAttributeEvent
+<ul><li>Methods
+<ul><li>ServletContext getServletContext()
+
+</li>
+<li>String getName()
+
+</li>
+<li>Object getValue()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Chapter 5: Requests and Responses
+<ul><li>Request Listeners
+<ul><li>ServletRequestListener
+<ul><li>Methods
+<ul><li>void requestInitialized(ServletRequestEvent event)
+
+</li>
+<li>void requestIDetroyed(ServletRequestEvent event)
+
+</li>
+
+</ul>
+</li>
+<li>ServletRequestEvent
+<ul><li>ServletContext getServletContext()
+
+</li>
+<li>ServletRequest getServletRequest()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>ServletRequestAttributeListener
+<ul><li>Methods
+<ul><li>void attributeAdded(ServletRequestAttributeEvent event)
+
+</li>
+<li>void attributeRemoved(ServletRequestAttributeEvent event)
+
+</li>
+<li>void attributeReplaced(ServletRequestAttributeEvent event)
+
+</li>
+
+</ul>
+</li>
+<li>ServletRequestAttributeEvent
+<ul><li>ServletContext getServletContext()
+
+</li>
+<li>ServletRequest getServletRequest()
+
+</li>
+<li>String getName()
+
+</li>
+<li>Object getValue()
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>Chapter 6: RequestDispatcher &amp; Wrappers
+<ul><li>The RequestDispatcher Mechanism
+<ul><li>The Request Dispatcher Interface
+
+</li>
+<li>Using RequestDispatchers
+
+</li>
+
+</ul>
+</li>
+<li>Wrapping Requests and Responses
+<ul><li>Request Wrappers
+
+</li>
+<li>Response Wrappers
+
+</li>
+
+</ul>
+</li>
+<li>Wrappers and RequestDispatchers
+
+</li>
+
+</ul>
+</li>
+
+</ul></body>
+</html>

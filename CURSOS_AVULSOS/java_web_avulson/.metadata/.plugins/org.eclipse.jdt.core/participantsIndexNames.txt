@@ -1,0 +1,23 @@
+INDEX VERSION 1.126
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4135720641.index
+\web1\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1831489500.index
+\exerciciosUpload\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3646800058.index
+\el1\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2679141140.index
+\exercicios02\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1872249683.index
+\exerciciosUpload\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1606404296.index
+\exercicios01\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3647264842.index
+\wtp1\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1473431385.index
+\el2\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\368558116.index
+\el0\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\836297349.index
+\exercicios03\src
+C:\Users\gallindo\Google Drive\desenvolvimento\workspaces\java_web_avulson\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3017129350.index
+\jaca\src

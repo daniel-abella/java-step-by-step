@@ -1,0 +1,16 @@
+package caracteres;
+
+import java.io.Console;
+
+public class ConsoleExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Console console = System.console();
+		console.readPassword("[%s]", "Password:"));
+
+	}
+
+}

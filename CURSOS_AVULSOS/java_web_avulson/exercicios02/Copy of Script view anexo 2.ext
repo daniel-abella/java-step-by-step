@@ -1,0 +1,12 @@
+	SELECT am.serd_numero as Des, 24 as Ass,  0 as V1, 0 as V2, 0 as V3, 0 as V4, 0 as V5, 0 as V6, count(am.doc_numero) as V7, 0 as V8, 0 as v9,0 as v10, 0 as v11
+	FROM atuacao_ministerial am, documento d,
+		(SELECT MAX(RTL_MES_ANO) AS RTL_MES_ANO FROM RELATORIO_TAXONOMIA_LOG_2013) L,
+		(SELECT ass.COD_ASSUNTO FROM assuntos ass START WITH ass.COD_ASSUNTO = 9986 CONNECT BY ass.CODIGO_PAI = PRIOR ass.COD_ASSUNTO) a,
+		documento_assunto_taxonomia dat,
+		(SELECT CL.COD_CLASSE FROM CLASSES CL START WITH CL.COD_CLASSE = 2 CONNECT BY CL.CODIGO_PAI = PRIOR CL.COD_CLASSE AND CL.COD_CLASSE NOT IN (1070,1067,1068,1071)) C
+	WHERE
+		(am.cod_movimento  IN (920137,920143,920149) and sd.serd_numero = am.serd_numero and d.doc_numero = am.doc_numero and TO_CHAR(am.ATUMI_DATA_REFERENCIA, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') ) or (mov.movimentos_codigo  IN (920137,920143,920149) and sd.serd_numero = mov.serd_numero_responsavel and d.doc_numero = mov.doc_numero and TO_CHAR(mov.mov_data, 'MM/YYYY') = TO_CHAR(L.RTL_MES_ANO, 'MM/YYYY') )
+		and d.cod_classe = C.cod_classe
+		and dat.doc_numero = d.doc_numero
+		and dat.cod_assunto = a.cod_assunto
+	group by am.serd_numero

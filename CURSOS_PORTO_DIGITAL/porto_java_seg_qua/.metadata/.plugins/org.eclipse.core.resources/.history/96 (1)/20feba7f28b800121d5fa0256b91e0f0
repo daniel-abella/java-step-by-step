@@ -1,0 +1,44 @@
+package normal;
+
+public class Externa {
+
+	private String privado;
+
+	public static void main(String[] args) {
+
+		Externa externa = new Externa();
+		Externa.Interna interna = externa.new Interna();
+
+		Externa.Interna interna2 = new Externa().new Interna();
+
+
+		Externa.Interna.SubInterna subinterna =
+				new Externa().
+				new Interna().
+				new SubInterna();
+	}
+
+	public void instancia(){
+		Interna interna = new Interna();
+	}
+
+
+	private class Interna{
+
+		String atributo = "";
+
+		Interna(){
+			privado = "aaaaaaaaaaaaaaa";
+			Externa.this.privado = "aaaaaaaaaaaaaaaa";
+
+
+		}
+
+		class SubInterna{
+
+			SubInterna(){
+				Externa.Interna.this.atributo = "aaaaaa";
+			}
+		}
+	}
+}

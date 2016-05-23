@@ -1,0 +1,24 @@
+package arquivos;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ManipuladorArquivos {
+
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+
+		File arquivo = new File("arquivos-teste.txt");
+
+		//CRIAR UM ARQUIVO
+
+		boolean arquivoCriado = arquivo.createNewFile();
+
+		//VERIFICAR SE É ARQUIVO OU DIRETÓRIO
+
+	}
+
+}

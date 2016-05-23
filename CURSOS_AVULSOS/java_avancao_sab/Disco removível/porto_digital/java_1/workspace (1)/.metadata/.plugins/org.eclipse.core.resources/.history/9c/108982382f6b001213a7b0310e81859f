@@ -1,0 +1,21 @@
+======================================================================
+INDENTIFICADORES
+======================================================================
+1 - Primeiro caracter 
+    _ letra $
+2 - Segundo em diante
+    _ letra $ numero 
+3 - infinito
+4 - não pode palavras reservadas
+
+======================================================================
+PADRÃO DE NOMEAÇÃO
+======================================================================
+1 - Classe
+    CamelCase
+2 - Métodos
+    camelCase
+3 - Variáveis
+    camelCase
+4 - Constantes
+    MAIÚSCULAS COM _ ENTRE PALAVRAS       

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;externa&apos; from expression &apos;new Externa()&apos;&#x0D;&#x0A;- Original project: &apos;classesInternas&apos;&#x0D;&#x0A;- Variable name: &apos;externa&apos;&#x0D;&#x0A;- Destination method: &apos;normal.Externa.main()&apos;&#x0D;&#x0A;- Variable expression: &apos;new Externa()&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;externa&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;normal{Externa.java" name="externa" replace="true" selection="146 13" stamp="1367251320728" version="1.0"/>
+</session>

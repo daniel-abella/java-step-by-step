@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367675211866_6" label="exercicios" name="exercicios">
+<item elementID="=exercicios02" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=exercicios01" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/datanucleus-samples-jpa-tutorial" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1366467376626_0" label="Window Working Set" name="Aggregate for window 1366467376625"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367025966836_1" label="Window Working Set" name="Aggregate for window 1367025966836"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367026878326_2" label="Window Working Set" name="Aggregate for window 1367026878326"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367073527116_3" label="Window Working Set" name="Aggregate for window 1367073527116"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367188511374_4" label="Window Working Set" name="Aggregate for window 1367188511374"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367675130265_5" label="Window Working Set" name="Aggregate for window 1367675130264"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367682306046_7" label="Window Working Set" name="Aggregate for window 1367682306046"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1367682462172_8" label="Window Working Set" name="Aggregate for window 1367682462172"/>
+<mruList name="exercicios"/>
+</workingSetManager>

@@ -1,0 +1,12 @@
+
+
+public class Snippet {
+	12. private N min, max;
+	13. public N getMin() { return min; }
+	14. public N getMax() { return max; }
+	15. public void add(N added) {
+	16. if (min == null || added.doubleValue() < min.doubleValue()) 17. min = added;
+	18. if (max == null || added.doubleValue() > max.doubleValue()) 19. max = added;
+	20. }
+	21. }
+}

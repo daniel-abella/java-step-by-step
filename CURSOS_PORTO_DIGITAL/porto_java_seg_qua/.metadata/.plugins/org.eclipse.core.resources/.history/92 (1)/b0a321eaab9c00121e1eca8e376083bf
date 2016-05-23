@@ -1,0 +1,6 @@
+package serializacao.naoserializaveis.composicao;
+
+public class Raca {
+
+	private String nome;
+}

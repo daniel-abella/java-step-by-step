@@ -1,0 +1,16 @@
+package br.com.qualiti.swing.exemplos;
+
+import javax.swing.JOptionPane;
+
+public class ExJOptionPaneShowInput {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String resposta = JOptionPane.showInputDialog(frame,    		    "Entre com um valor");
+
+
+	}
+
+}

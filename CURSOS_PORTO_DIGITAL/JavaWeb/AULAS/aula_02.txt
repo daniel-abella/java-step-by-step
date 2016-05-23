@@ -1,0 +1,63 @@
+What is a Servlet?
+
+What is web application?
+
+Discuss these points:
+
+	HTTP
+	HTTP methods
+	Difference between Get and Post method
+	Anatomy of Get Request
+	Anatomy of Post Request
+	Container
+	Server
+	Difference between web server and application server
+	Content Type
+	XML
+	Deployment
+
+Discuss these interfaces:
+
+	Servlet
+	ServletRequest
+	ServletResponse
+	RequestDispatcher
+	ServletConfig
+	ServletContext
+	ServletRequestListener
+	ServletRequestAttributeListener
+	ServletContextListener
+	ServletContextAttributeListener
+	HttpServletRequest
+	HttpServletResponse
+	HttpSession
+	HttpSessionListener
+	HttpSessionAttributeListener
+	HttpSessionBindingListener
+	HttpSessionActivationListener
+
+And these classes:
+
+	GenericServlet
+	ServletRequestEvent
+	ServletContextEvent
+	ServletRequestAttributeEvent
+	ServletContextAttributeEvent
+	ServletException
+	UnavailableException
+	HttpServlet
+	Cookie
+	HttpSessionEvent
+	HttpSessionBindingEvent
+	
+Servlet Life Cycle	
+
+RequestDispatcher.forward X RequestDispatcher.include X	HttpServletResponse.sendRedirect
+
+Describe
+
+	request scope
+	session scope
+	application scope
+
+Difference between ServletConfig and ServletContext	

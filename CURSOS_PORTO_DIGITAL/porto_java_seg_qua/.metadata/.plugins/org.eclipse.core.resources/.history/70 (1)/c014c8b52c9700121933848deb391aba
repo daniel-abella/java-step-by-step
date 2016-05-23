@@ -1,0 +1,21 @@
+package arquivos;
+
+public class FileExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		//CRIAR UM ARQUIVO
+		//CRIAR UM DIRETÓRIO
+		//TESTAR SE É ARQUIVO OU DIRETÓRIO
+		//RENOMEAR
+		//DELETAR
+		//SABER O TAMANHO
+		//SABER O PATH
+		//LISTAR OS ARQUIVOS DE UM DIRETÓRIO
+
+	}
+
+}

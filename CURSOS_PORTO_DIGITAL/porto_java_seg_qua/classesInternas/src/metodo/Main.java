@@ -1,0 +1,17 @@
+package metodo;
+
+public class Main {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		FazAlgo fazAlgo =
+				new ExternaRetornaInterna().fazAlgo();
+
+		fazAlgo.imprime();
+
+	}
+
+}

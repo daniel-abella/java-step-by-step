@@ -1,0 +1,32 @@
+
+public class TesteIgualdade {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Byte b1 = 1;
+		Byte b2 = 1;
+
+		System.out.println(b1 == b2);
+
+		Integer i1 = 127;
+		Integer i2 = 127;
+
+		System.out.println(i1 == i2);
+
+		Integer i3 = 128;
+		Integer i4 = 128;
+
+		System.out.println(i3 == i4);
+
+		Integer i5 = new Integer(127);
+		Integer i6 = 127;
+
+		System.out.println(i5 == i6);
+
+
+	}
+
+}

@@ -1,0 +1,16 @@
+
+public class TesteIgualdade {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Byte b1 = 1;
+		Byte b2 = 1;
+
+		System.out.println(b1 == b2);
+
+	}
+
+}

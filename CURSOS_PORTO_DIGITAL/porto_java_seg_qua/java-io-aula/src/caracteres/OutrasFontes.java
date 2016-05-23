@@ -1,0 +1,40 @@
+package caracteres;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class OutrasFontes {
+
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+
+		URL url = new URL("http://www.google.com");
+
+		InputStream openStream = url.openStream();
+		InputStreamReader reader = new InputStreamReader(openStream);
+		BufferedReader bufferedReader = new BufferedReader(reader);
+
+		StringBuilder conteudo = new StringBuilder();
+		String lido = bufferedReader.readLine();
+		conteudo.append(lido);
+		conteudo.append("\n");
+
+		while(bufferedReader.ready()){
+
+			conteudo.append(lido);
+			conteudo.append("\n");
+			lido = bufferedReader.readLine();
+		}
+
+		System.out.println(conteudo);
+		bufferedReader.close();
+	}
+
+}

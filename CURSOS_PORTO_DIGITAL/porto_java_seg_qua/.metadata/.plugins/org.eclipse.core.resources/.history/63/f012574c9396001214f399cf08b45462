@@ -1,0 +1,22 @@
+package caracteres;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+public class SocketExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Socket a_socket = new Socket(www.ibm.com, 80);
+		InputStreamReader isr = new InputStreamReader(
+		a_socket.getInputStream());
+		BufferedReader in = new BufferedReader (isr);
+		PrinterWriter out = new PrinterWriter(
+		a_socket.getOutputStream());
+
+	}
+
+}

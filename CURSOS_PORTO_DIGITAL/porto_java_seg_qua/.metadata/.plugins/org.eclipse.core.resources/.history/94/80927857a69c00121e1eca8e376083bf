@@ -1,0 +1,5 @@
+package serializacao.comum;
+
+public class Cachorro {
+
+}

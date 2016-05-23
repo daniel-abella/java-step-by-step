@@ -1,0 +1,8 @@
+class Boxing3{
+
+  public static void main(String args[]){
+	  FileWriter writer = new FileWriter("/fun.log");
+	  writer.write("Hello!");
+	  writer.close();
+ }
+}

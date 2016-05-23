@@ -1,0 +1,15 @@
+import java.awt.CardLayout;
+
+
+public class ClasseGenerica<T> {
+
+	public T getValor(){
+
+		return null;
+	}
+
+	public static void main(String[] args) {
+
+		ClasseGenerica<String> cs = new ClasseGenerica<String>();
+	}
+}

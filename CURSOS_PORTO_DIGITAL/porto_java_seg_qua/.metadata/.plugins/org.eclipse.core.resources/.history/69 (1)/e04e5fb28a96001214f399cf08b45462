@@ -1,0 +1,23 @@
+package caracteres;
+
+public class FileReaderExemplo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Reader reader = new FileReader("c:\\data\\input-text.txt");
+
+		int data = reader.read();
+		while(data != -1) {
+		  //do something with data...
+		  doSomethingWithData(data);
+
+		  data = reader.read();
+		}
+		reader.close();
+
+	}
+
+}

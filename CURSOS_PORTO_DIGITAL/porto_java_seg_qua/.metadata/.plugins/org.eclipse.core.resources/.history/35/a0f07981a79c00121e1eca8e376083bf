@@ -1,0 +1,24 @@
+package serializacao.comum;
+
+import java.io.FileOutputStream;
+
+public class Serializador {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
+		Cachorro cachorro = new Cachorro("Rex",
+				70, 7, "vira lata");
+
+		/*
+		 * SERIALIZAR
+		 */
+
+		FileOutputStream fileOutputStream =
+				new FileOutputStream("comum.ser");
+
+	}
+
+}

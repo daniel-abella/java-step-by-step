@@ -1,0 +1,43 @@
+package serializacao.estaticos;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class DeserializaObjetos {
+
+	/**
+	 * @param args
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static void main(String[] args)
+			throws IOException, ClassNotFoundException {
+
+		/*
+		 * DESERIALIZAR
+		 */
+		String path =
+				Cachorro.class.getSimpleName()+".estatico.ser";
+		Cachorro cachorro2 = (Cachorro) deserializar(path);
+
+		System.out.println("Cachorro 02 - "+cachorro2.raca);
+	}
+
+	private static Object deserializar(String path)
+			throws IOException, ClassNotFoundException {
+
+		FileInputStream fileInputStream =
+				new FileInputStream(path);
+
+		ObjectInputStream objectInputStream =
+				new ObjectInputStream(fileInputStream);
+
+		Object objeto = objectInputStream.readObject();
+
+		return objeto;
+	}
+
+}

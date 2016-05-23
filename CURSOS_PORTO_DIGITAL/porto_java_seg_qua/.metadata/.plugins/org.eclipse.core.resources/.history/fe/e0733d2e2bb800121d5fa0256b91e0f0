@@ -1,0 +1,29 @@
+package metodo;
+
+public class ExternaRetornaInterna {
+
+	private String um = "1";
+
+	public FazAlgo fazAlgo(){
+
+		final String queAlgo = "seiLa";
+
+		class AjudaFazerAlgo implements FazAlgo{
+
+			public AjudaFazerAlgo() {
+				System.out.println(um);
+				System.out.println(queAlgo);
+			}
+
+			@Override
+			public void imprime() {
+				System.out.println(um);
+
+			}
+		}
+
+		AjudaFazerAlgo a = new AjudaFazerAlgo();
+
+		return a;
+	}
+}

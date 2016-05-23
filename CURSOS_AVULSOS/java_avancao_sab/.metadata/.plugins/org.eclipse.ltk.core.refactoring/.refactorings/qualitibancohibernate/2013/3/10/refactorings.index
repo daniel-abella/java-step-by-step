@@ -1,0 +1,9 @@
+1362847765494	Delete element
+1362847952910	Extract local variable 'hql'
+1362851946943	Extract method 'getDefaultTableModel'
+1362853728934	Extract local variable 'dados'
+1362853745882	Extract local variable 'colunas'
+1362854070642	Extract method 'gerarTableModel'
+1362856307473	Extract method 'getDefaultTableModel'
+1362856352535	Extract local variable 'matrixDadosTabela'
+1362856388826	Extract method 'gerarTableModel'
